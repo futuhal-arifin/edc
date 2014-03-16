@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>edoocatia-desktop</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>EDOOCATIA_ASSETS</name>
+			<type>2</type>
+			<locationURI>EDOOCATIA_ASSETS</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>EDOOCATIA_ASSETS</name>
+			<value>file:/E:/Edoocatia/edoocatia-android/assets</value>
+		</variable>
+	</variableList>
+</projectDescription>

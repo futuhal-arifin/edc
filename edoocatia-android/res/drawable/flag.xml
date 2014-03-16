@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flaganim"
+    android:oneshot="true" >
+
+    <item
+        android:drawable="@drawable/splash_screen"
+        android:duration="600"/>
+
+</animation-list>
