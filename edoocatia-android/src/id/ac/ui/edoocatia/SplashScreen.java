@@ -30,6 +30,9 @@ public class SplashScreen extends Activity {
 			}
 		});
 
+
+		//cuma iseng
+
 		final SplashScreen sPlashScreen = this;
 
 		// The thread to wait for splash screen events
