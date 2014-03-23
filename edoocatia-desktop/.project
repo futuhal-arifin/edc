@@ -24,7 +24,7 @@
 	<variableList>
 		<variable>
 			<name>EDOOCATIA_ASSETS</name>
-			<value>file:/C:/Users/peregrine7/Documents/edc/edoocatia-android/assets</value>
+			<value>file:/C:/edc/edoocatia-android/assets</value>
 		</variable>
 	</variableList>
 </projectDescription>
