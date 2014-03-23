@@ -81,7 +81,7 @@ public class Modul1Screen implements Screen {
 
         // tell the camera to update its matrices.
         camera.update();
-
+/*
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
         game.batch.setProjectionMatrix(camera.combined);
@@ -95,7 +95,7 @@ public class Modul1Screen implements Screen {
             game.batch.draw(EdoocatiaImage, rainEdoocatia.x, rainEdoocatia.y);
         }
         game.batch.end();
-
+*/
         // process user input
         if (Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
