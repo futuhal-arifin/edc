@@ -12,7 +12,7 @@ public class SplashScreen extends AbstractScreen {
 	
 	public SplashScreen(Edoocatia app) {
 		super(app);
-		background = new Texture(Gdx.files.internal("data/images/splashscreen1.png"));
+		background = new Texture(Gdx.files.internal("data/images/splashscreen.png"));
 		// TODO Auto-generated constructor stub
 	}
 	public void render(float delta) {
