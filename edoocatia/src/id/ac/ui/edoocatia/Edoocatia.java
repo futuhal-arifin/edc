@@ -9,6 +9,7 @@ import com.badlogic.gdx.Game;
 public class Edoocatia extends Game {
 	
 	private EdoocatiaModel edoocatia;
+	private ScreenManager screenMgr;
 /*
 	public static final int GAME_STATE_PLAY 	= 0;
 	public static final int GAME_STATE_PAUSE 	= 1;
@@ -28,8 +29,9 @@ public class Edoocatia extends Game {
 	@Override
 	public void create() {
 		edoocatia = new EdoocatiaModel();
-		ScreenManager.getInstance().initialize(this);
-		ScreenManager.getInstance().show(ScreenEnum.SPLASH);
+		screenMgr = ScreenManager.getInstance();
+		screenMgr.initialize(this);
+		screenMgr.show(ScreenEnum.SPLASH);
 		//setScreen(new MainMenuScreen(this));
 		/*
 		batch = new SpriteBatch();
@@ -37,6 +39,10 @@ public class Edoocatia extends Game {
 
 		this.setScreen(new MainMenuScreen(this));
 		*/
+	}
+	
+	public ScreenManager getScreenManager() {
+		return this.screenMgr;
 	}
 
 	@Override
