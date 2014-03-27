@@ -1,8 +1,8 @@
 package id.ac.ui.edoocatia;
 
-import android.content.Intent;
+//import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+//import android.view.View;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 

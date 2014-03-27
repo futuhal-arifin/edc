@@ -16,6 +16,7 @@ public class SplashScreen extends AbstractScreen {
 		background = new Texture(Gdx.files.internal("data/images/splashscreen.png"));
 		// TODO Auto-generated constructor stub
 	}
+	
 	public void render(float delta) {
 		// TODO Auto-generated method stub
         cam.update();
