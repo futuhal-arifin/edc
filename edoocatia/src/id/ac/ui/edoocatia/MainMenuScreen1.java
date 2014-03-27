@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen1 implements Screen {
 
 	// MultipleScreen
 	private static final int VIRTUAL_WIDTH = 800;
@@ -31,7 +31,7 @@ public class MainMenuScreen implements Screen {
 
 	OrthographicCamera camera;
 
-	public MainMenuScreen(final Edoocatia main) {
+	public MainMenuScreen1(final Edoocatia main) {
 		game = main;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
