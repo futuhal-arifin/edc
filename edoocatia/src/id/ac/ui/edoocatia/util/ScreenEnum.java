@@ -8,6 +8,13 @@ import com.badlogic.gdx.Screen;
 
 
 public enum ScreenEnum {
+    
+    MAIN_MENU {
+        @Override
+        protected Screen getScreenInstance(Edoocatia app) {
+             return new MainMenuScreen(app);
+        }
+    },
 
     SPLASH {
         @Override
