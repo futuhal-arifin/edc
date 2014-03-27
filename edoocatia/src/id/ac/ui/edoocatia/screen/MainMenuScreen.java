@@ -19,7 +19,9 @@ public class MainMenuScreen extends AbstractScreen {
 		super(app);
 		this.app = app;
 		Texture.setEnforcePotImages(false);
-		background = new Texture(Gdx.files.internal("data/images/menu/bck_menu.png"));
+		//background = new Texture(Gdx.files.internal("data/images/menu/bck_menu.png"));
+		background = new Texture(Gdx.files.internal("data/images/menu/bck_menu.jpg"));
+		
 		controller = new MainMenuController(this);
 	}
 	

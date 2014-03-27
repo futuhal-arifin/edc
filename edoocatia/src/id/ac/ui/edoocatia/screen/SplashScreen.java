@@ -20,6 +20,7 @@ public class SplashScreen extends AbstractScreen {
 	
 	public SplashScreen(Edoocatia app) {
 		super(app);
+		this.app = app;
 		Texture.setEnforcePotImages(false);
 		background = new Texture(Gdx.files.internal("data/images/splashscreen.png"));
 		startTime = TimeUtils.millis();
