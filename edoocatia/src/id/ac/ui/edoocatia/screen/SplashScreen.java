@@ -3,18 +3,28 @@ package id.ac.ui.edoocatia.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import id.ac.ui.edoocatia.Edoocatia;
+import id.ac.ui.edoocatia.controller.SplashController;
 import id.ac.ui.edoocatia.util.AbstractScreen;
+
 
 public class SplashScreen extends AbstractScreen {
 	private Texture background;
+	private SplashController controller;
+	private Edoocatia app;
+	private long startTime;
+	private final long SPLASH_TIME = 3000;
+	
 	
 	public SplashScreen(Edoocatia app) {
 		super(app);
 		Texture.setEnforcePotImages(false);
 		background = new Texture(Gdx.files.internal("data/images/splashscreen.png"));
-		// TODO Auto-generated constructor stub
+		startTime = TimeUtils.millis();
+		controller = new SplashController(this);
+		
 	}
 	
 	public void render(float delta) {
@@ -45,5 +55,18 @@ public class SplashScreen extends AbstractScreen {
 		batcher.draw(background, 0, 0);
 		
 		batcher.end();
+		controller.processInput();
+	}
+	
+	public Edoocatia getApp() {
+		return app;
+	}
+	
+	public long getStartTime() {
+		return this.startTime;
+	}
+	
+	public long getSplashTime() {
+		return this.SPLASH_TIME;
 	}
 }
