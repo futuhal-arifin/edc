@@ -1,6 +1,7 @@
 package id.ac.ui.edoocatia.util;
 
 import id.ac.ui.edoocatia.Edoocatia;
+import id.ac.ui.edoocatia.screen.MainMenuScreen;
 import id.ac.ui.edoocatia.screen.SplashScreen;
 
 import com.badlogic.gdx.Screen;
