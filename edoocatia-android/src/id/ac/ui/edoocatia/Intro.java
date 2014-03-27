@@ -7,7 +7,7 @@
 //import android.os.Handler;
 //import android.widget.ImageView;
 //
-//public class Intro extends Activity {
+//public class IntroScreen extends Activity {
 //
 //	// Splash screen timer
 //	private static int SPLASH_TIME_OUT = 3000;
@@ -30,7 +30,7 @@
 //			}
 //		});
 //
-//		final Intro sPlashScreen = this;
+//		final IntroScreen sPlashScreen = this;
 //
 //		// The thread to wait for splash screen events
 //		mSplashThread = new Thread() {

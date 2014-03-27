@@ -30,7 +30,7 @@ public class MainActivity extends AndroidApplication {
 	}
 	//
 	// public void ButtonPlay_OnClick(View v) {
-	// Intent i = new Intent(MainActivity.this, Intro.class);
+	// Intent i = new Intent(MainActivity.this, IntroScreen.class);
 	// startActivity(i);
 	// finish();
 	// }
