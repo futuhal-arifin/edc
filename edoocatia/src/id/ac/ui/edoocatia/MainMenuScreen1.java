@@ -31,7 +31,7 @@ public class MainMenuScreen1 implements Screen {
 
 	OrthographicCamera camera;
 
-	public MainMenuScreen(final Edoocatia main) {
+	public MainMenuScreen1(final Edoocatia main) {
 		game = main;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
