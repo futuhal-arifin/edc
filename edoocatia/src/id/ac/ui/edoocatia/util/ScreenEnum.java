@@ -1,6 +1,7 @@
 package id.ac.ui.edoocatia.util;
 
 import id.ac.ui.edoocatia.Edoocatia;
+import id.ac.ui.edoocatia.screen.IntroScreen;
 import id.ac.ui.edoocatia.screen.MainMenuScreen;
 import id.ac.ui.edoocatia.screen.SplashScreen;
 
@@ -22,7 +23,15 @@ public enum ScreenEnum {
         protected Screen getScreenInstance(Edoocatia app) {
             return new SplashScreen(app);
         }
+    },
+    
+    INTRO {
+        @Override
+        protected Screen getScreenInstance(Edoocatia app) {
+            return new IntroScreen(app);
+        }
     };
+    
 /*
     MAIN_MENU {
         @Override
