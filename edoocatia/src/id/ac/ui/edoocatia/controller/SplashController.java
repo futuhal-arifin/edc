@@ -18,9 +18,12 @@ public class SplashController {
 	
 	public void processInput() {
 		if(Gdx.input.justTouched()) {
-			app.getScreenManager().dispose(ScreenEnum.SPLASH);
+			ScreenManager manager = app.screenMgr;
+			manager.dispose(ScreenEnum.SPLASH);
 			app.getScreenManager().show(ScreenEnum.MAIN_MENU);
 		}
+		
+		
 		
 		if(TimeUtils.millis() > screen.getStartTime() + screen.getSplashTime()) {
 			app.getScreenManager().dispose(ScreenEnum.SPLASH);

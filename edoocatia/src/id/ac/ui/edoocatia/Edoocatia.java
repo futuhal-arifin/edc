@@ -9,7 +9,7 @@ import com.badlogic.gdx.Game;
 public class Edoocatia extends Game {
 	
 	private EdoocatiaModel edoocatia;
-	private ScreenManager screenMgr;
+	public ScreenManager screenMgr;
 /*
 	public static final int GAME_STATE_PLAY 	= 0;
 	public static final int GAME_STATE_PAUSE 	= 1;
