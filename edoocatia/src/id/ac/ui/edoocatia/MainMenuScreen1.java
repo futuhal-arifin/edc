@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen1 implements Screen {
 
 	// MultipleScreen
 	private static final int VIRTUAL_WIDTH = 800;
