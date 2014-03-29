@@ -3,9 +3,11 @@ package id.ac.ui.edoocatia.util;
 import id.ac.ui.edoocatia.Edoocatia;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -47,7 +49,7 @@ private Edoocatia edoocatiaApp;
 		screenType = type;
 	}
 	
-	public Edoocatia getAplikasi(){
+	public Edoocatia getApp(){
 		return this.edoocatiaApp;
 	}
 	
@@ -65,6 +67,24 @@ private Edoocatia edoocatiaApp;
 	
 	public Rectangle getViewport(){
 		return viewport;
+	}
+	
+	//rectangle boundsnya digambar kalo mau debug==true
+	protected void drawDebug(Rectangle[] bounds, boolean[] status){
+		debugRenderer.setProjectionMatrix(cam.combined);
+		debugRenderer.begin(ShapeType.Line);
+			for(int idx = 0; idx < bounds.length; idx++) {
+				if(status[idx]){
+					debugRenderer.setColor(new Color(1, 1, 0, 1));
+				}
+				else{
+					debugRenderer.setColor(new Color(1, 0, 0, 1));
+				}
+				debugRenderer.rect(bounds[idx].x, bounds[idx].y,
+						bounds[idx].width, bounds[idx].height);
+			}
+			
+		debugRenderer.end();
 	}
 
 	@Override

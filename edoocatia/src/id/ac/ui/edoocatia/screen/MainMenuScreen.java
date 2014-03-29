@@ -1,42 +1,112 @@
 package id.ac.ui.edoocatia.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.MainMenuController;
-import id.ac.ui.edoocatia.controller.SplashController;
 import id.ac.ui.edoocatia.util.AbstractScreen;
 
 public class MainMenuScreen extends AbstractScreen {
 	
-	private Texture background;
 	private MainMenuController controller;
-	private Edoocatia app;
+	// bg texture
+	private Texture background;
+	private Texture titleTexture;
+	private Texture charTexture; 
+	// buttons
+	/*
+	 * [0] - play
+	 * [1] - forum
+	 * [2] - jelajah web
+	 * [3] - sang juara
+	 */
+	private Texture buttonTexture[] = new Texture[4];
+	private Texture buttonActiveTexture[] = new Texture[4];
+	private Rectangle buttonBounds[] = new Rectangle[4];
+	private boolean buttonIsActive[] = new boolean[4];
+	// konstanta biar kita gausah ngafalin indeksnya
+	private final int PLAY = 0;
+	private final int FORUM = 1;
+	private final int JELAJAH_WEB = 2;
+	private final int SANG_JUARA = 3;
+	
+	// music
+	private Music mainMenuMusicBg;
+	private Sound clickSfx;
+	
+	private boolean debug = false;
 
 	public MainMenuScreen(Edoocatia app) {
 		super(app);
-		this.app = app;
-		Texture.setEnforcePotImages(false);
-		//background = new Texture(Gdx.files.internal("data/images/menu/bck_menu.png"));
-		background = new Texture(Gdx.files.internal("data/images/menu/bck_menu.jpg"));
 		
+		//Texture.setEnforcePotImages(false);
+		
+		/* inisialisasi segalanya */
+		
+		// gambar2
+		background = new Texture(Gdx.files.internal("data/images/menu/bck_menu.png"));
+		titleTexture = new Texture(Gdx.files.internal("data/images/menu/title.png"));
+		charTexture = new Texture(Gdx.files.internal("data/images/menu/char.png"));
+		
+		buttonTexture[PLAY] = new Texture(Gdx.files.internal("data/images/icon/menu/play_button.png"));
+		buttonTexture[FORUM] = new Texture(Gdx.files.internal("data/images/icon/menu/forum_button.png"));
+		buttonTexture[JELAJAH_WEB] = new Texture(Gdx.files.internal("data/images/icon/menu/jelajah_web_button.png"));
+		buttonTexture[SANG_JUARA] = new Texture(Gdx.files.internal("data/images/icon/menu/sang_juara_button.png"));
+		
+		buttonActiveTexture[PLAY] = new Texture(Gdx.files.internal("data/images/icon/menu/play_button_active.png"));
+		buttonActiveTexture[FORUM] = new Texture(Gdx.files.internal("data/images/icon/menu/forum_button_active.png"));
+		buttonActiveTexture[JELAJAH_WEB] = new Texture(Gdx.files.internal("data/images/icon/menu/jelajah_web_button_active.png"));
+		buttonActiveTexture[SANG_JUARA] = new Texture(Gdx.files.internal("data/images/icon/menu/sang_juara_button_active.png"));
+		
+		// batas2 button
+		buttonBounds[PLAY] = new Rectangle(width*14/20,	height/20 + (this.buttonTexture[JELAJAH_WEB].getHeight()*1.75f), 
+				buttonTexture[PLAY].getWidth(),
+				buttonTexture[PLAY].getHeight());
+		buttonBounds[FORUM] = new Rectangle((width*14/20)-(this.buttonTexture[FORUM].getWidth()*(0.875f)), height/20 + (this.buttonTexture[JELAJAH_WEB].getHeight()*0.875f), 
+				buttonTexture[FORUM].getWidth(),
+				buttonTexture[FORUM].getHeight());
+		buttonBounds[SANG_JUARA] = new Rectangle((width*14/20)+(this.buttonTexture[FORUM].getWidth()*(0.875f)),	height/20 + (this.buttonTexture[JELAJAH_WEB].getHeight()*0.875f), 
+				buttonTexture[SANG_JUARA].getWidth(),
+				buttonTexture[SANG_JUARA].getHeight());
+		buttonBounds[JELAJAH_WEB] = new Rectangle(width*14/20, height/20, 
+				buttonTexture[JELAJAH_WEB].getWidth(),
+				buttonTexture[JELAJAH_WEB].getHeight());
+		
+		// status button defaultnya inactive
+		for(int idx = 0; idx < this.buttonIsActive.length; idx++) {
+			buttonIsActive[idx] = false;
+		}
+		// kalau dibuka langsung play bg music
+		mainMenuMusicBg = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/music/menu.ogg"));
+		if (this.mainMenuMusicBg != null) {
+			//Gdx.app.getPreferences("preferences").getFloat("music_pos");
+			mainMenuMusicBg.setLooping(true);
+			mainMenuMusicBg.play();
+		} 
+		// sfx buat klik
+		clickSfx = Gdx.audio.newSound(Gdx.files.internal("data/sounds/sfx/click.wav"));
+		
+		// daftarin controller
 		controller = new MainMenuController(this);
 	}
 	
+	/**
+	 * dipanggil terus-menerus selama screen ini hidup
+	 */
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-        cam.update();
+		// copas.begin (tiap render() di tiap screen mesti ada)
+		cam.update();
 
         // set viewport
         Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
                           (int) viewport.width, (int) viewport.height);
  
-        /*
-		 * kalo ngga salah ini supaya background virtualnya
-		 * warna hitam, tapi ngga tau juga sih ._.
-		 */
+      
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -45,19 +115,112 @@ public class MainMenuScreen extends AbstractScreen {
 		 * diawali batcher.begin(), diakhiri batcher.end()
 		 */
         batcher.setProjectionMatrix(cam.combined);
+        
+        // copas.end
+        
+        /* AREA MENGGAMBAR */
 		batcher.begin();
 		
-		/* 0
-		 * gambar background di sini
-		 */
+		// gambar background
 		batcher.draw(background, 0, 0);
+		batcher.draw(titleTexture, (width - titleTexture.getWidth())/2 , height/(2f));
+		batcher.draw(charTexture, 0, 0);
+		// gambar button2
+		for(int idx = 0; idx < this.buttonIsActive.length; idx++) {
+			if (buttonIsActive[idx]) {
+				batcher.draw(buttonActiveTexture[idx], this.buttonBounds[idx].getX(),
+						this.buttonBounds[idx].getY());
+				
+			}
+			else {
+				batcher.draw(buttonTexture[idx], this.buttonBounds[idx].getX(),
+						this.buttonBounds[idx].getY());
+			}
+		}
 		
 		batcher.end();
+		
+		// kl mau munculin bounds, ubah variabel debug jd true
+		if(debug){
+			drawDebug(buttonBounds, buttonIsActive);
+		}
 		
 		controller.processInput();
 	}
 	
-	public Edoocatia getApp() {
-		return app;
+	// getter button bounds
+	
+	public Rectangle getPlayButtonBounds(){
+		return buttonBounds[PLAY];
+	}
+	
+	public Rectangle getForumButtonBounds(){
+		return buttonBounds[FORUM];
+	}
+	
+	public Rectangle getJelajahWebButtonBounds(){
+		return buttonBounds[JELAJAH_WEB];
+	}
+	
+	public Rectangle getSangJuaraButtonBounds(){
+		return buttonBounds[SANG_JUARA];
+	}
+	
+	// getter button status
+	
+	public boolean playButtonIsActive() {
+		return this.buttonIsActive[PLAY];
+	}
+	
+	public boolean forumButtonIsActive() {
+		return this.buttonIsActive[FORUM];
+	}
+	
+	public boolean jelajahWebButtonIsActive() {
+		return this.buttonIsActive[JELAJAH_WEB];
+	}
+	
+	public boolean sangJuaraButtonIsActive() {
+		return this.buttonIsActive[SANG_JUARA];
+	}
+	
+	// setter button status
+	
+	public void setPlayButtonStatus (boolean status){
+		buttonIsActive[PLAY] = status;
+	}
+	
+	public void setForumButtonStatus (boolean status){
+		buttonIsActive[FORUM] = status;
+	}
+	
+	public void setJelajahWebButtonStatus (boolean status){
+		buttonIsActive[JELAJAH_WEB] = status;
+	}
+	
+	public void setSangJuaraButtonStatus (boolean status){
+		buttonIsActive[SANG_JUARA] = status;
+	}
+	
+	// music
+	
+	public void playSoundFx() {
+		//if(Gdx.app.getPreferences("preferences").getBoolean("soundOn"))
+			this.clickSfx.play();
+	}
+	
+	public void stopMusic() {
+		//Gdx.app.getPreferences("preferences").putFloat("music_pos", this.mainMenuMusicBg.getPosition());
+		if(this.mainMenuMusicBg != null) {
+			if (this.mainMenuMusicBg.isPlaying()) {
+				if (this.mainMenuMusicBg.isLooping()) {
+					this.mainMenuMusicBg.setLooping(false);
+				}
+				this.mainMenuMusicBg.stop();
+				this.mainMenuMusicBg.dispose();
+				this.mainMenuMusicBg = null;
+			}
+			this.mainMenuMusicBg = null;
+		}
 	}
 }
