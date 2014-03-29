@@ -1,6 +1,7 @@
 package id.ac.ui.edoocatia.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -32,6 +33,9 @@ public class IntroScreen extends AbstractScreen {
 	final int background4Time = 6000;
 	final int background5Time = 7500;
 	*/
+	
+	private Music introMusicBg;
+	
 	private IntroController introController;
 
 	public IntroScreen(Edoocatia app) {
@@ -53,6 +57,14 @@ public class IntroScreen extends AbstractScreen {
 		*/
 		rendCount = 0;
 		startTime = TimeUtils.millis();
+		
+		// kalau dibuka langsung play bg music
+		introMusicBg = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/music/menu.ogg"));
+		if (this.introMusicBg != null) {
+			//Gdx.app.getPreferences("preferences").getFloat("music_pos");
+			introMusicBg.setLooping(true);
+			introMusicBg.play();
+		} 
 		
 		// !! wajib daftarin controller
 		introController = new IntroController(this);
@@ -154,5 +166,20 @@ public class IntroScreen extends AbstractScreen {
 			return true;
 		else
 			return false;
+	}
+	
+	public void stopMusic() {
+		//Gdx.app.getPreferences("preferences").putFloat("music_pos", this.mainMenuMusicBg.getPosition());
+		if(this.introMusicBg != null) {
+			if (this.introMusicBg.isPlaying()) {
+				if (this.introMusicBg.isLooping()) {
+					this.introMusicBg.setLooping(false);
+				}
+				this.introMusicBg.stop();
+				this.introMusicBg.dispose();
+				this.introMusicBg = null;
+			}
+			this.introMusicBg = null;
+		}
 	}
 }

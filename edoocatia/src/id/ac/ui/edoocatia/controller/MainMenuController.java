@@ -74,7 +74,7 @@ public class MainMenuController {
 			if(screen.playButtonIsActive()){
 				screen.setPlayButtonStatus(false);
 				if(OverlapTester.pointInRectangle( playButtonBounds, pos.x, pos.y)){
-					//screen.stopMusic();
+					screen.stopMusic();
 					app.getScreenManager().dispose(ScreenEnum.MAIN_MENU);
 					app.getScreenManager().show(ScreenEnum.INTRO);
 				}

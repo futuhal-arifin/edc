@@ -28,9 +28,10 @@ public class IntroController {
 
 	public void processInput() {
 		// TODO Auto-generated method stub
-		long currentTime;
-		if((currentTime = TimeUtils.millis()) > (screen.getStartTime() + screen.getBgTime())) {
+		long currentTime  = TimeUtils.millis();
+		if(Gdx.input.justTouched() || currentTime > (screen.getStartTime() + screen.getBgTime())) {
 			if(screen.isIntroEnded()) {
+				screen.stopMusic();
 				app.getScreenManager().dispose(ScreenEnum.INTRO);
 				app.getScreenManager().show(ScreenEnum.MAIN_MENU);
 			}
@@ -39,6 +40,8 @@ public class IntroController {
 				screen.incrementCounter();
 			}
 		}
+		
+		
 		
 		
 	}
