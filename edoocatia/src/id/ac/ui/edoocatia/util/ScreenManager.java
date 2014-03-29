@@ -2,7 +2,6 @@ package id.ac.ui.edoocatia.util;
 
 import id.ac.ui.edoocatia.Edoocatia;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.IntMap;
 

@@ -44,7 +44,7 @@ public class MainMenuScreen extends AbstractScreen {
 	public MainMenuScreen(Edoocatia app) {
 		super(app);
 		
-		//Texture.setEnforcePotImages(false);
+		Texture.setEnforcePotImages(false);
 		
 		/* inisialisasi segalanya */
 		
@@ -91,7 +91,7 @@ public class MainMenuScreen extends AbstractScreen {
 		// sfx buat klik
 		clickSfx = Gdx.audio.newSound(Gdx.files.internal("data/sounds/sfx/click.wav"));
 		
-		// daftarin controller
+		// !! wajib daftarin controller
 		controller = new MainMenuController(this);
 	}
 	

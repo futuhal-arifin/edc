@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.screen.IntroScreen;
+import id.ac.ui.edoocatia.util.ScreenEnum;
 
 public class IntroController {
 
@@ -20,7 +21,7 @@ public class IntroController {
 	public IntroController(IntroScreen screen) {
 		Gdx.input.setCatchBackKey(false);
 		this.screen = screen;
-		app = screen.getAplikasi();
+		app = screen.getApp();
 		cam = screen.getCam();
 		viewport = screen.getViewport();
 	}
@@ -29,8 +30,14 @@ public class IntroController {
 		// TODO Auto-generated method stub
 		long currentTime;
 		if((currentTime = TimeUtils.millis()) > (screen.getStartTime() + screen.getBgTime())) {
-			screen.setStartTime(currentTime);
-			screen.incrementCounter();
+			if(screen.isIntroEnded()) {
+				app.getScreenManager().dispose(ScreenEnum.INTRO);
+				app.getScreenManager().show(ScreenEnum.MAIN_MENU);
+			}
+			else {
+				screen.setStartTime(currentTime);
+				screen.incrementCounter();
+			}
 		}
 		
 		

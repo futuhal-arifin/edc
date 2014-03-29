@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.screen.MainMenuScreen;
 import id.ac.ui.edoocatia.util.OverlapTester;
+import id.ac.ui.edoocatia.util.ScreenEnum;
 
 public class MainMenuController {
 	
@@ -74,7 +75,8 @@ public class MainMenuController {
 				screen.setPlayButtonStatus(false);
 				if(OverlapTester.pointInRectangle( playButtonBounds, pos.x, pos.y)){
 					//screen.stopMusic();
-					
+					app.getScreenManager().dispose(ScreenEnum.MAIN_MENU);
+					app.getScreenManager().show(ScreenEnum.INTRO);
 				}
 			}
 			else if(screen.forumButtonIsActive()){

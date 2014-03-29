@@ -1,7 +1,5 @@
 package id.ac.ui.edoocatia.screen;
 
-import sun.swing.BakedArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +10,10 @@ import id.ac.ui.edoocatia.controller.IntroController;
 import id.ac.ui.edoocatia.util.AbstractScreen;
 
 public class IntroScreen extends AbstractScreen {
+	
+	private final int SCENE_NUMBER = 16;
+	private Texture[] sceneIntro = new Texture[SCENE_NUMBER];
+	/*
 	private Texture background;
 	private Texture background2;
 	private Texture background3;
@@ -19,20 +21,28 @@ public class IntroScreen extends AbstractScreen {
 	private Texture background5;
 	private Texture background6;
 	private Texture background7;
-
+	*/
 	private long startTime;
-	private long endTime;
+	//private long endTime;
 	private int rendCount;
-	final int background1Time = 1500;
+	final int SCENE_TIME = 1500;
+	/*
 	final int background2Time = 3000;
 	final int background3Time = 4500;
 	final int background4Time = 6000;
 	final int background5Time = 7500;
+	*/
 	private IntroController introController;
 
 	public IntroScreen(Edoocatia app) {
 		super(app);
 		Texture.setEnforcePotImages(false);
+		
+		for (int idx = 0; idx < this.sceneIntro.length; idx++) {
+			sceneIntro[idx] = new Texture(Gdx.files.internal("data/images/intro/"+(idx+1)+".jpg"));
+		}
+		
+		/*
 		background = new Texture(Gdx.files.internal("data/images/intro/1.jpg"));
 		background2 = new Texture(Gdx.files.internal("data/images/intro/2.jpg"));
 		background3 = new Texture(Gdx.files.internal("data/images/intro/3.jpg"));
@@ -40,10 +50,12 @@ public class IntroScreen extends AbstractScreen {
 		background5 = new Texture(Gdx.files.internal("data/images/intro/5.jpg"));
 		background6 = new Texture(Gdx.files.internal("data/images/intro/6.jpg"));
 		background7 = new Texture(Gdx.files.internal("data/images/intro/7.jpg"));
-
-		rendCount = 1;
+		*/
+		rendCount = 0;
 		startTime = TimeUtils.millis();
-		// TODO Auto-generated constructor stub
+		
+		// !! wajib daftarin controller
+		introController = new IntroController(this);
 	}
 
 	public void render(float delta) {
@@ -71,7 +83,10 @@ public class IntroScreen extends AbstractScreen {
 		/*
 		 * gambar background di sini
 		 */
-
+		
+		batcher.draw(sceneIntro[rendCount], 0, 0);
+		
+		/*
 		switch (rendCount) {
 		case 1:
 			batcher.draw(background, 0, 0);
@@ -112,7 +127,7 @@ public class IntroScreen extends AbstractScreen {
 		default:
 			break;
 		}
-
+		*/
 		batcher.end();
 
 		introController.processInput();
@@ -131,6 +146,13 @@ public class IntroScreen extends AbstractScreen {
 	}
 
 	public long getBgTime() {
-		return this.background1Time;
+		return this.SCENE_TIME;
+	}
+	
+	public boolean isIntroEnded() {
+		if (rendCount == SCENE_NUMBER - 1)
+			return true;
+		else
+			return false;
 	}
 }
