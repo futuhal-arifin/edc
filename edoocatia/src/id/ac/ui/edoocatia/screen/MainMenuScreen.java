@@ -49,7 +49,7 @@ public class MainMenuScreen extends AbstractScreen {
 		/* inisialisasi segalanya */
 		
 		// gambar2
-		background = new Texture(Gdx.files.internal("data/images/menu/bck_menu.png"));
+		background = new Texture(Gdx.files.internal("data/images/menu/bck_menu.jpg"));
 		titleTexture = new Texture(Gdx.files.internal("data/images/menu/title.png"));
 		charTexture = new Texture(Gdx.files.internal("data/images/menu/char.png"));
 		
