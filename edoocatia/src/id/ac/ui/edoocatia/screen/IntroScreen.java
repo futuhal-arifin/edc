@@ -43,7 +43,7 @@ public class IntroScreen extends AbstractScreen {
 		startTime = TimeUtils.millis();
 		
 		// kalau dibuka langsung play bg music
-		introMusicBg = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/music/menu.ogg"));
+		introMusicBg = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/music/intro.ogg"));
 		if (this.introMusicBg != null) {
 			//Gdx.app.getPreferences("preferences").getFloat("music_pos");
 			introMusicBg.setLooping(true);
