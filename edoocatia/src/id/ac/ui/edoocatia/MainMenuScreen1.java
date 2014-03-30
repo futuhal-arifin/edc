@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class MainMenuScreen1 implements Screen {
 
@@ -22,11 +23,11 @@ public class MainMenuScreen1 implements Screen {
 
 	private Camera cameras;
 	private Rectangle viewport;
-
+	Stage stage;
 	public Texture splashScreen;
 	public TextureRegion splashScreenRegion;
 	public SpriteBatch splashScreenSprite;
-
+	SpriteBatch batch;
 	final Edoocatia game;
 
 	OrthographicCamera camera;
@@ -42,6 +43,8 @@ public class MainMenuScreen1 implements Screen {
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		stage.act(delta);
+		stage.draw();
 
 		camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT); // Aspect
 
@@ -49,19 +52,22 @@ public class MainMenuScreen1 implements Screen {
 				Gdx.files.internal("data/images/splashscreen.png"));
 		splashScreenRegion = new TextureRegion(splashScreen, 0, 0, 800, 480);
 		splashScreenSprite = new SpriteBatch();
-/*
-		camera.update();
-		game.batch.setProjectionMatrix(camera.combined);
+		/*
+		 * camera.update(); game.batch.setProjectionMatrix(camera.combined);
+		 * 
+		 * game.batch.begin(); game.font.draw(game.batch, "Welcome to Drop!!! ",
+		 * 100, 150); game.font.draw(game.batch, "Tap anywhere to begin!", 100,
+		 * 100); game.batch.end();
+		 */
 
-		game.batch.begin();
-		game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150);
-		game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
-		game.batch.end();
-*/
+		batch.begin();
+
 		if (Gdx.input.isTouched()) {
 			game.setScreen(new Modul1Screen(game));
 			dispose();
 		}
+		
+		batch.end();
 
 		// Multiple Screen
 		// ----Aspect Ratio maintenance
