@@ -30,8 +30,8 @@ public class Modul1Scene1Screen extends DialogScreen {
 		this.setKarakterRightPosition(0, 40);
 		this.setLineLength(750);
 		this.setTextPosition(300, this.dialogBackground.getHeight() - 50);
-		this.setFont("data/font/sf-cartoonist-hand-44-black-bold.fnt", 
-				"data/font/sf-cartoonist-hand-44-black-bold.png");
+		this.setFont("data/font/kg-corner-of-the-sky-44-black.fnt", 
+				"data/font/kg-corner-of-the-sky-44-black.png");
 		
 		this.controller = new Modul1Scene1Controller(this);
 	}
