@@ -3,13 +3,19 @@ package id.ac.ui.edoocatia.util;
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.screen.IntroScreen;
 import id.ac.ui.edoocatia.screen.MainMenuScreen;
+import id.ac.ui.edoocatia.screen.Modul1Scene1Screen;
 import id.ac.ui.edoocatia.screen.SplashScreen;
 
 import com.badlogic.gdx.Screen;
 
-
-
 public enum ScreenEnum {
+	
+	MODUL1_SCENE1 {
+        @Override
+        protected Screen getScreenInstance(Edoocatia app) {
+             return new Modul1Scene1Screen(app);
+        }
+    },
     
     MAIN_MENU {
         @Override

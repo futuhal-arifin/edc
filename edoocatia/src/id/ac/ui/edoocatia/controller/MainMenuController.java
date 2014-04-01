@@ -82,7 +82,9 @@ public class MainMenuController {
 			else if(screen.forumButtonIsActive()){
 				screen.setForumButtonStatus(false);
 				if(OverlapTester.pointInRectangle( forumButtonBounds, pos.x, pos.y)){
-					
+					screen.stopMusic();
+					app.screenMgr.dispose(ScreenEnum.MAIN_MENU);
+					app.screenMgr.show(ScreenEnum.MODUL1_SCENE1);
 				}
 			}
 			else if(screen.jelajahWebButtonIsActive()){
