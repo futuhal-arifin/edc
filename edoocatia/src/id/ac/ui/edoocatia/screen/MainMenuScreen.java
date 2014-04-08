@@ -29,10 +29,10 @@ public class MainMenuScreen extends AbstractScreen {
 	private Rectangle buttonBounds[] = new Rectangle[4];
 	private boolean buttonIsActive[] = new boolean[4];
 	// konstanta biar kita gausah ngafalin indeksnya
-	private final int PLAY = 0;
-	private final int FORUM = 1;
-	private final int JELAJAH_WEB = 2;
-	private final int SANG_JUARA = 3;
+	public final int PLAY = 0;
+	public final int FORUM = 1;
+	public final int JELAJAH_WEB = 2;
+	public final int SANG_JUARA = 3;
 
 	// music
 	private Music mainMenuMusicBg;
@@ -176,63 +176,23 @@ public class MainMenuScreen extends AbstractScreen {
 	}
 
 	// getter button bounds
-
-	public Rectangle getPlayButtonBounds() {
-		return buttonBounds[PLAY];
+	public Rectangle[] getButtonBounds() {
+		return buttonBounds;
 	}
-
-	public Rectangle getForumButtonBounds() {
-		return buttonBounds[FORUM];
-	}
-
-	public Rectangle getJelajahWebButtonBounds() {
-		return buttonBounds[JELAJAH_WEB];
-	}
-
-	public Rectangle getSangJuaraButtonBounds() {
-		return buttonBounds[SANG_JUARA];
-	}
-
+	
 	// getter button status
-
-	public boolean playButtonIsActive() {
-		return this.buttonIsActive[PLAY];
+	public boolean buttonIsActive(int index) {
+		return this.buttonIsActive[index];
 	}
-
-	public boolean forumButtonIsActive() {
-		return this.buttonIsActive[FORUM];
-	}
-
-	public boolean jelajahWebButtonIsActive() {
-		return this.buttonIsActive[JELAJAH_WEB];
-	}
-
-	public boolean sangJuaraButtonIsActive() {
-		return this.buttonIsActive[SANG_JUARA];
-	}
-
+	
 	// setter button status
-
-	public void setPlayButtonStatus(boolean status) {
-		buttonIsActive[PLAY] = status;
+	public void setButtonStatus(boolean status, int index) {
+		buttonIsActive[index] = status;
 	}
-
-	public void setForumButtonStatus(boolean status) {
-		buttonIsActive[FORUM] = status;
-	}
-
-	public void setJelajahWebButtonStatus(boolean status) {
-		buttonIsActive[JELAJAH_WEB] = status;
-	}
-
-	public void setSangJuaraButtonStatus(boolean status) {
-		buttonIsActive[SANG_JUARA] = status;
-	}
-
 	// music
 
 	public void playSoundFx() {
-		// if(Gdx.app.getPreferences("preferences").getBoolean("soundOn"))
+	 if(Gdx.app.getPreferences("preferences").getBoolean("soundOn"))
 		this.clickSfx.play();
 	}
 

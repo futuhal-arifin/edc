@@ -16,9 +16,8 @@ public class SplashController {
 	}
 	
 	public void processInput() {
-		if(Gdx.input.justTouched() || TimeUtils.millis() > screen.getStartTime() + screen.getSplashTime()) {
-			app.getScreenManager().dispose(ScreenEnum.SPLASH);
-			app.getScreenManager().show(ScreenEnum.MAIN_MENU);
+		if(Gdx.input.isTouched() || TimeUtils.millis() > screen.getStartTime() + screen.getSplashTime()) {
+			app.changeScreen(ScreenEnum.SPLASH, ScreenEnum.MAIN_MENU);
 		}
             //myGame.setScreen(new GameScreen());
 	}

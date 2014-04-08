@@ -1,10 +1,8 @@
 package id.ac.ui.edoocatia.controller;
 
-import java.sql.Time;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Rectangle;
+//import com.badlogic.gdx.graphics.OrthographicCamera;
+//import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import id.ac.ui.edoocatia.Edoocatia;
@@ -32,13 +30,17 @@ public class IntroController {
 		if(currentTime > (screen.getStartTime() + screen.getBgTime())) {
 			if(screen.isIntroEnded()) {
 				screen.stopMusic();
-				app.getScreenManager().dispose(ScreenEnum.INTRO);
-				app.getScreenManager().show(ScreenEnum.MAIN_MENU);
+				app.changeScreen(ScreenEnum.INTRO, ScreenEnum.MAIN_MENU);
 			}
 			else {
 				screen.setStartTime(currentTime);
 				screen.incrementCounter();
 			}
-		}		
+		}
+		
+		
+		
+		
 	}
+
 }

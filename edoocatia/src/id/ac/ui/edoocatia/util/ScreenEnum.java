@@ -1,6 +1,7 @@
 package id.ac.ui.edoocatia.util;
 
 import id.ac.ui.edoocatia.Edoocatia;
+import id.ac.ui.edoocatia.screen.ChooseCharacterScreen;
 import id.ac.ui.edoocatia.screen.IntroScreen;
 import id.ac.ui.edoocatia.screen.MainMenuScreen;
 import id.ac.ui.edoocatia.screen.Modul1Scene1Screen;
@@ -36,30 +37,15 @@ public enum ScreenEnum {
         protected Screen getScreenInstance(Edoocatia app) {
             return new IntroScreen(app);
         }
-    };
+    }, 
     
-/*
-    MAIN_MENU {
+    CHOOSECHAR{
         @Override
-        protected com.badlogic.gdx.Screen getScreenInstance() {
-             return new MainMenuScreen();
-        }
-    },
-
-    GAME {
-        @Override
-        protected com.badlogic.gdx.Screen getScreenInstance() {
-             return new GameScreen();
-        }
-    },
-
-    CREDITS {
-        @Override
-        protected com.badlogic.gdx.Screen getScreenInstance() {
-             return new CreditsScreen();
+        protected Screen getScreenInstance(Edoocatia app) {
+            return new ChooseCharacterScreen(app);
         }
     };
-*/
+	
     protected abstract Screen getScreenInstance(Edoocatia app);
 
 }

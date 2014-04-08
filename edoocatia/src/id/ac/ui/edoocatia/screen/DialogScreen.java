@@ -42,12 +42,15 @@ public class DialogScreen extends AbstractScreen {
 	private float lineLength = 800;
 	private BitmapFont font;
 	private float scrollIndex;
+	private static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
 	
 	/** dokumen txt berisi dialog */
 	private FileHandle dialogNaration;
 
-	
 	private ArrayList<CharacterDialog> dialogPerKarakter;
+	
+	// turn = giliran karakter 'bicara', terdiri dari >= 1 line
+	// line = 1 baris dialog, bagian dari turn
 	
 	private int currentTurn;
 	
@@ -132,82 +135,43 @@ public class DialogScreen extends AbstractScreen {
 	}
 
 	public void render(float delta) {
-		//System.out.println("line ended " + this.isDialogLineEnded);
-		//System.out.println("turn " + this.currentTurn);
-		/*
-		cam.update();
-
-		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
-				(int) viewport.width, (int) viewport.height);
-		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		*/
 		batcher.setProjectionMatrix(cam.combined);
 		batcher.begin();
 			
-			//batcher.draw(background, 0, 0);
-
 			batcher.draw(this.dialogBackground, 
 					this.dialogBackgroundXPosition, 
 					this.dialogBackgroundYPosition);
-			//System.out.println("currentTurn " + this.currentTurn);
-			//System.out.println("dialog " + this.dialogPerKarakter.size());
-			//if (currentTurn < this.dialogPerKarakter.size()) {
-				currentDialog = this.dialogPerKarakter.get(currentTurn);
-				currentKarakterTexture = currentDialog.getKarakter().getKarakterDialogTexture();
-				if(currentDialog.isPositionOnTheLeft()) {
-					batcher.draw(currentKarakterTexture, 
-							this.karakterXLeftPosition, 
-							this.karakterYLeftPosition);
-				} else {
-					batcher.draw(currentKarakterTexture, 
-							width - currentKarakterTexture.getWidth(), 
-							this.karakterYRightPosition);
-				}
-				
-				
-				String currentShownText = currentDialog.getCurrentDialogLine();
-				font.drawWrapped(batcher, currentShownText.substring(0, (int)scrollIndex), 
-						this.textXPosition, this.textYPosition, this.lineLength);
-				//System.out.println("length " + currentShownText.length());
-				if(scrollIndex < currentShownText.length()){
-					scrollIndex += 0.5;
-					//System.out.println("scroll " + this.scrollIndex);
-				} 
-				else {	
-					if(startTime < 0) {
-						this.endDialogLine();
-						System.out.println("turn " + currentTurn);
-						System.out.println("size " + this.dialogPerKarakter.size());
-						if (currentTurn == this.dialogPerKarakter.size() - 1) {
-							System.out.println("masuk end");
-							this.setDialogEnded(true);
-							
-						} 
-					}
-					
-				}
-			//} 
-			/*else {
-				this.setDialogEnded(true);
-				currentDialog = this.dialogPerKarakter.get(this.dialogPerKarakter.size() - 1);
-				currentKarakterTexture = currentDialog.getKarakter().getKarakterDialogTexture();
-				if(currentDialog.isPositionOnTheLeft()) {
-					batcher.draw(currentKarakterTexture, 
-							this.karakterXLeftPosition, 
-							this.karakterYLeftPosition);
-				} else {
-					batcher.draw(currentKarakterTexture, 
-							width - currentKarakterTexture.getWidth(), 
-							this.karakterYRightPosition);
-				}
-				
-				String currentShownText = currentDialog.getCurrentDialogLine();
-				font.drawWrapped(batcher, currentShownText, 
-						this.textXPosition, 
-						this.textYPosition, this.lineLength);
+			currentDialog = this.dialogPerKarakter.get(currentTurn);
+			currentKarakterTexture = currentDialog.getKarakter().getKarakterDialogTexture();
+			if(currentDialog.isPositionOnTheLeft()) {
+				batcher.draw(currentKarakterTexture, 
+						this.karakterXLeftPosition, 
+						this.karakterYLeftPosition);
+			} else {
+				batcher.draw(currentKarakterTexture, 
+						width - currentKarakterTexture.getWidth(), 
+						this.karakterYRightPosition);
 			}
-			*/
+				
+				
+			String currentShownText = currentDialog.getCurrentDialogLine();
+			font.drawWrapped(batcher, currentShownText.substring(0, (int)scrollIndex), 
+					this.textXPosition, this.textYPosition, this.lineLength);
+			//System.out.println("length " + currentShownText.length());
+			if(scrollIndex < currentShownText.length()){
+				scrollIndex += 0.5;
+			} 
+			else {	
+				if(startTime < 0) {
+					this.endDialogLine();
+					if (currentTurn == this.dialogPerKarakter.size() - 1) {
+						this.setDialogEnded(true);
+						
+					} 
+				}
+				
+			}
+			
 		batcher.end();
 		
 		controller.processInput();
@@ -247,13 +211,9 @@ public class DialogScreen extends AbstractScreen {
 		boolean position = true;
 		ArrayList<String> tempDialogText = new ArrayList<String>();
 		while(st.hasMoreTokens()) {
-			//System.out.println("masuk while");
 			in = st.nextToken().trim();
-			//System.out.println(in);
 			if(in.substring(0, 1).equals(":")) {
-				//System.out.println("masuk if 1");
 				if (!karakter.equals("") && !tempDialogText.isEmpty()) {
-					//System.out.println("masuk if 2");
 					this.dialogPerKarakter.add(new CharacterDialog(position, new Karakter(karakter), (ArrayList<String>) tempDialogText.clone()));
 					tempDialogText.clear();
 				}
@@ -265,30 +225,26 @@ public class DialogScreen extends AbstractScreen {
 					position = false;
 				}
 			} else {
-				//System.out.println("masuk else 1");
 				tempDialogText.add(in);
 			}
-			//if(st.hasMoreTokens())
 		}
 		if (!karakter.equals("") && !tempDialogText.isEmpty()) {
-			//System.out.println("masuk if 2");
 			this.dialogPerKarakter.add(new CharacterDialog(position, new Karakter(karakter), (ArrayList<String>) tempDialogText.clone()));
 			tempDialogText.clear();
 		}
-		
-		//System.out.println(this.dialogPerKarakter.size());
-		//System.out.println(this.dialogPerKarakter.get(0).getDialogLineNumber());
 	}
 
 	public void setDialogTurnEnded(boolean isDialogTurnEnded) {
 		this.isDialogTurnEnded = isDialogTurnEnded;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setFont(String fontPath, String imageFontPath) {
 		this.font = new BitmapFont(
 				Gdx.files.internal(fontPath),
 				Gdx.files.internal(imageFontPath),
 				false);
+				
 	}
 
 	public void setKarakterLeftPosition(float x, float y) {

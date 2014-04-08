@@ -60,5 +60,8 @@ public class Edoocatia extends Game {
 		return edoocatia;
 	}
 
-
+	public void changeScreen(ScreenEnum current, ScreenEnum next) {
+		screenMgr.dispose(current);
+		screenMgr.show(next);
+	}
 }
