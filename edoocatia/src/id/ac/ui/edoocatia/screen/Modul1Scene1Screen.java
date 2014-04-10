@@ -21,7 +21,7 @@ public class Modul1Scene1Screen extends DialogScreen {
 	public Modul1Scene1Screen(Edoocatia app) {
 		super(app);
 		
-		background = new Texture(Gdx.files.internal("data/images/modul-1/scene 1+2/lab_pesawat.jpg"));
+		background = new Texture(Gdx.files.internal("data/images/modul-1/background/lab_pesawat.jpg"));
 		
 		this.setDialogNaration("data/dialog/modul1/scene1.txt");
 		this.setDialogBackground("data/images/general/dialog.png");
