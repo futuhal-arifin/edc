@@ -1,6 +1,6 @@
 :professor
 1
-Tugasmu adalah mengejar pencuri benda penting dan membawa benda penting itu kembali ke planet ini. 
+Tugasmu adalah mengejar pencuri EdoocaTree untuk membawa EdoocaTree kembali ke planet ini. 
 Sebelum kamu memulai perjalanan, kamu harus membuat pesawat untuk perjalananmu. 
 Karena semua pesawat disini rusak dan sedang aku perbaiki, maka.. 
 .. kamu tidak bisa memakai pesawat yang ada di laboratorium ini. 
