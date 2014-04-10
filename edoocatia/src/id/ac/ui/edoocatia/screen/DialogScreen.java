@@ -62,7 +62,7 @@ public class DialogScreen extends AbstractScreen {
 	private long startTime;
 	
 	/** jeda antar baris dialog */
-	private final long DIALOG_TIME_BREAK = 1500;
+	private final long DIALOG_TIME_BREAK = 3000;
 	
 	private CharacterDialog currentDialog;
 	

@@ -24,7 +24,11 @@ public class DialogController {
 	public void processInput() {
 		// kalau klik waktu baris dialog lagi jalan, teks baris dialognyanya langsung dimunculin semua
 		if(Gdx.input.justTouched()) {
-			screen.endDialogLine();
+			if(screen.isDialogLineEnded()) {
+				this.showNextDialogLine();
+			} else {
+				screen.endDialogLine();
+			}
 		}
 		
 		// kalau teks baris dialog sudah tampil tampil semua, ada jeda waktu sebelum baris selanjutnya muncul
@@ -32,12 +36,16 @@ public class DialogController {
 			long currentTime  = TimeUtils.millis();
 			long startTime = screen.getStartTime();
 			if(screen.getStartTime() > 0 && !screen.isDialogEnded() && currentTime > (startTime + screen.getDialogTimeBreak())) {
-				if(screen.isDialogTurnEnded()) { // ganti giliran karakter yg ngomong
-					screen.nextDialogTurn();
-				} else {
-					screen.nextDialogLine(); // lanjut baris selanjutnya (karakternya tetap)
-				}
+				this.showNextDialogLine();
 			}
+		}
+	}
+	
+	private void showNextDialogLine() {
+		if(screen.isDialogTurnEnded()) { // ganti giliran karakter yg ngomong
+			screen.nextDialogTurn();
+		} else {
+			screen.nextDialogLine(); // lanjut baris selanjutnya (karakternya tetap)
 		}
 	}
 	
