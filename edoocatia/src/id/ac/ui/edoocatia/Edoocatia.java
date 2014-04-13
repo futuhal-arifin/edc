@@ -29,6 +29,7 @@ public class Edoocatia extends Game {
 */
 	@Override
 	public void create() {
+		Texture.setEnforcePotImages(false);
 		edoocatia = new EdoocatiaModel();
 		screenMgr = ScreenManager.getInstance();
 		screenMgr.initialize(this);
