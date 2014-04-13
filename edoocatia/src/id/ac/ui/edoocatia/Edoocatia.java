@@ -10,6 +10,7 @@ public class Edoocatia extends Game {
 	
 	private EdoocatiaModel edoocatia;
 	public ScreenManager screenMgr;
+	
 /*
 	public static final int GAME_STATE_PLAY 	= 0;
 	public static final int GAME_STATE_PAUSE 	= 1;
@@ -28,6 +29,7 @@ public class Edoocatia extends Game {
 */
 	@Override
 	public void create() {
+		Texture.setEnforcePotImages(false);
 		edoocatia = new EdoocatiaModel();
 		screenMgr = ScreenManager.getInstance();
 		screenMgr.initialize(this);
@@ -39,6 +41,10 @@ public class Edoocatia extends Game {
 
 		this.setScreen(new MainMenuScreen(this));
 		*/
+	}
+	
+	public EdoocatiaModel getEdocatiaModel() {
+		return this.edoocatia;
 	}
 	
 	public ScreenManager getScreenManager() {
