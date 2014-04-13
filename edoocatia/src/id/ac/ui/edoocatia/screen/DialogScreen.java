@@ -121,7 +121,7 @@ public class DialogScreen extends AbstractScreen {
 	public void nextDialogLine() {
 		System.out.println("pre next");
 		if(!this.isDialogEnded()) {
-			System.out.println("next line");
+			//System.out.println("next line");
 			this.currentDialog.incrementCurrentDialogLineNumber();
 			this.setDialogLineVariables();
 		}
@@ -130,7 +130,7 @@ public class DialogScreen extends AbstractScreen {
 	public void nextDialogTurn() {
 		//System.out.println("pre next dialog turn "+currentDialog.isEndTurn() +" "+(currentTurn >= this.dialogPerKarakter.size() - 1));
 		if(!this.isDialogEnded()) {
-			System.out.println("next dialog turn");
+			//System.out.println("next dialog turn");
 			this.currentTurn++;
 			this.setDialogLineVariables();
 		}
@@ -147,9 +147,11 @@ public class DialogScreen extends AbstractScreen {
 		batcher.setProjectionMatrix(cam.combined);
 		batcher.begin();
 			if(this.showDialog) {
-				batcher.draw(this.dialogBackground, 
-						this.dialogBackgroundXPosition, 
-						this.dialogBackgroundYPosition);
+				if(this.dialogBackground != null) {
+					batcher.draw(this.dialogBackground, 
+							this.dialogBackgroundXPosition, 
+							this.dialogBackgroundYPosition);
+				}
 				//if(!this.isDialogEnded())
 				currentDialog = this.dialogPerKarakter.get(currentTurn);
 				currentKarakterTexture = currentDialog.getKarakter().getKarakterDialogTexture();
@@ -174,11 +176,11 @@ public class DialogScreen extends AbstractScreen {
 				else {	
 					//System.out.println(currentShownText);
 					if(startTime < 0) {
-						System.out.println("end line "+this.dialogPerKarakter.size());
+						//System.out.println("end line "+this.dialogPerKarakter.size());
 						this.endDialogLine();
 						if (this.isDialogEnded()) {
 							this.setDialogEnded(true);
-							System.out.println("end turn ");
+							//System.out.println("end turn ");
 						} 
 					}
 				}

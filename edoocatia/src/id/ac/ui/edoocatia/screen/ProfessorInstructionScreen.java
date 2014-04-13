@@ -21,11 +21,11 @@ public class ProfessorInstructionScreen extends DialogScreen {
 		
 		this.showInstruction = true;
 		this.setDialogBackground("data/images/general/dialog.png");
-		this.setDialogBackgroundPosition((this.getWidth()- this.dialogBackground.getWidth())/2, 40);
-		this.setKarakterLeftPosition(0, 40);
-		this.setKarakterRightPosition(width, 40);
+		this.setDialogBackgroundPosition(100+(this.getWidth()- this.dialogBackground.getWidth())/2, 0);
+		this.setKarakterLeftPosition(0, 0);
+		this.setKarakterRightPosition(width, 0);
 		this.setLineLength(750);
-		this.setTextPosition(300, this.dialogBackground.getHeight() - 50);
+		this.setTextPosition(300, this.dialogBackground.getHeight() - 100);
 		this.setFont("data/font/kg-corner-of-the-sky-44-black.fnt", 
 				"data/font/kg-corner-of-the-sky-44-black.png");
 		
@@ -51,8 +51,8 @@ public class ProfessorInstructionScreen extends DialogScreen {
 
 	public void setInstructionObject(String path) {
 		this.instructionObject = new Texture(Gdx.files.internal(path));
-		this.instructionObjectXPosition = (width-this.instructionObject.getWidth())/2;
-		this.instructionObjectYPosition = this.dialogBackgroundYPosition + this.getDialogBackground().getHeight() + (height-this.instructionObject.getHeight())/2;
+		this.instructionObjectXPosition = (VIRTUAL_WIDTH-this.instructionObject.getWidth())/2;
+		this.instructionObjectYPosition = 100 + (VIRTUAL_HEIGHT-this.instructionObject.getHeight())/2;;
 	}
 
 	public void setBackground(String path) {

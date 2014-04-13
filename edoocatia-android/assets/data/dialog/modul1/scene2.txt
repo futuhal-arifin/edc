@@ -1,6 +1,6 @@
 :professor
 1
-Ini adalah gambar pesawat luar angkasa yang harus kamu buat.
+Ini adalah desain pesawat luar angkasa yang harus kamu buat.
 Badan pesawat sudah tersedia.
 Kamu tinggal melengkapinya dengan sepasang sayap dan spion.
-Selamat bekerja! :)
+Selamat bekerja!

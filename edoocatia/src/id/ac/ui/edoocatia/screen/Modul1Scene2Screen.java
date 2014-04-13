@@ -46,11 +46,11 @@ public class Modul1Scene2Screen extends DialogScreen {
 		
 		this.setDialogNaration("data/dialog/modul1/scene2.txt");
 		this.setDialogBackground("data/images/general/dialog.png");
-		this.setDialogBackgroundPosition((this.getWidth()- this.dialogBackground.getWidth())/2, 40);
-		this.setKarakterLeftPosition(0, 40);
-		this.setKarakterRightPosition(width, 40);
+		this.setDialogBackgroundPosition((this.getWidth()- this.dialogBackground.getWidth())/2, 0);
+		this.setKarakterLeftPosition(0, 0);
+		this.setKarakterRightPosition(VIRTUAL_WIDTH, 0);
 		this.setLineLength(750);
-		this.setTextPosition(300, this.dialogBackground.getHeight() - 50);
+		this.setTextPosition(300, this.dialogBackground.getHeight() - 100);
 		this.setFont("data/font/kg-corner-of-the-sky-44-black.fnt", 
 				"data/font/kg-corner-of-the-sky-44-black.png");
 		
@@ -77,8 +77,8 @@ public class Modul1Scene2Screen extends DialogScreen {
 			};
 		
 
-		float sayapLeftBound = (width-this.pesawatParts[this.SAYAP].getWidth())/2;
-		float sayapRightBound = (width+this.pesawatParts[this.SAYAP].getWidth())/2;
+		float sayapLeftBound = (VIRTUAL_WIDTH-this.pesawatParts[this.SAYAP].getWidth())/2;
+		float sayapRightBound = (VIRTUAL_WIDTH+this.pesawatParts[this.SAYAP].getWidth())/2;
 		int sayapHeight = this.pesawatParts[this.SAYAP].getHeight();
 		int sayapRect1Width = 70;
 		int sayapRect2Width = 85;
@@ -135,25 +135,26 @@ public class Modul1Scene2Screen extends DialogScreen {
 			}
 			*/
 		//} else {
-			if(this.partIsSelected[this.SAYAP]) {
-				batcher.draw(this.pesawatPartsSelected[this.SAYAP], 
-						(width-this.pesawatParts[this.SAYAP].getWidth())/2, 
+			batcher.draw(this.pesawatBody, 
+				(VIRTUAL_WIDTH-this.pesawatBody.getWidth())/2, 
+				100);
+			if(this.isShowDialog() || this.partIsSelected(this.SAYAP)) {
+				batcher.draw(this.pesawatParts[this.SAYAP], 
+						(VIRTUAL_WIDTH-this.pesawatParts[this.SAYAP].getWidth())/2, 
 						100);
 			} else {
-				batcher.draw(this.pesawatParts[this.SAYAP], 
-						(width-this.pesawatParts[this.SAYAP].getWidth())/2, 
+				batcher.draw(this.pesawatPartsSelected[this.SAYAP], 
+						(VIRTUAL_WIDTH-this.pesawatParts[this.SAYAP].getWidth())/2, 
 						100);
 			}
-			batcher.draw(this.pesawatBody, 
-					(width-this.pesawatBody.getWidth())/2, 
-					100);
-			if(this.partIsSelected[this.SPION]) {
-				batcher.draw(this.pesawatPartsSelected[this.SPION], 
-						(width-this.pesawatParts[this.SPION].getWidth())/2, 
+			
+			if(this.isShowDialog() || this.partIsSelected(this.SPION)) {
+				batcher.draw(this.pesawatParts[this.SPION], 
+						(VIRTUAL_WIDTH-this.pesawatParts[this.SPION].getWidth())/2, 
 						300);
 			} else {
-				batcher.draw(this.pesawatParts[this.SPION], 
-						(width-this.pesawatParts[this.SPION].getWidth())/2, 
+				batcher.draw(this.pesawatPartsSelected[this.SPION], 
+						(VIRTUAL_WIDTH-this.pesawatParts[this.SPION].getWidth())/2, 
 						300);
 			}
 			
@@ -170,7 +171,7 @@ public class Modul1Scene2Screen extends DialogScreen {
 		super.render(delta);
 		controller.processInput();
 	}
-	
+	/*
 	public void showInfoSubScene() {
 		background = new Texture(Gdx.files.internal("data/images/modul-1/background/tada.jpg"));
 		this.pesawatPartsSelected[this.SAYAP] = null;
@@ -185,7 +186,7 @@ public class Modul1Scene2Screen extends DialogScreen {
 			this.pesawatParts[this.SPION] = null;
 		}
 	}
-	
+	*/
 	// getter button bounds
 	public Rectangle[] getSpionBounds() {
 		return spionBounds;
