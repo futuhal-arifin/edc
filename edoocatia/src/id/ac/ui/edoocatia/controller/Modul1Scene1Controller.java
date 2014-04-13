@@ -21,7 +21,7 @@ public class Modul1Scene1Controller {
 			long currentTime  = TimeUtils.millis();
 			long startTime = screen.getStartTime();
 			if(screen.getStartTime() > 0 && currentTime > (startTime + screen.getDialogTimeBreak())) {
-				app.changeScreen(ScreenEnum.MODUL1_SCENE1, ScreenEnum.MAIN_MENU);
+				app.changeScreen(ScreenEnum.MODUL1_SCENE1, ScreenEnum.MODUL1_SCENE2);
 			}
 		}
 	}
