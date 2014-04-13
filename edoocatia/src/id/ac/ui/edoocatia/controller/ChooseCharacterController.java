@@ -70,28 +70,28 @@ if(Gdx.input.justTouched()){
 			if(screen.characterIsChosen(screen.ALTA)){
 				screen.setCharacterIsChosen(false, screen.ALTA);
 				if(OverlapTester.pointInRectangle( characterBounds[screen.ALTA], pos.x, pos.y)){
-					prefs.putString("player", "alta");
+					app.getEdocatiaModel().setPlayer("alta");
 					app.changeScreen(ScreenEnum.CHOOSECHAR, ScreenEnum.MODUL1_SCENE1);
 				}
 			}
 			else if(screen.characterIsChosen(screen.MOMO)){
 				screen.setCharacterIsChosen(false, screen.MOMO);
 				if(OverlapTester.pointInRectangle( characterBounds[screen.MOMO], pos.x, pos.y)){
-					prefs.putString("player", "momo");
+					app.getEdocatiaModel().setPlayer("momo");
 					app.changeScreen(ScreenEnum.CHOOSECHAR, ScreenEnum.MODUL1_SCENE1);
 				}
 			}
 			else if(screen.characterIsChosen(screen.AZMO)){
 				screen.setCharacterIsChosen(false, screen.AZMO);
 				if(OverlapTester.pointInRectangle( characterBounds[screen.AZMO], pos.x, pos.y)){
-					prefs.putString("player", "azmo");
+					app.getEdocatiaModel().setPlayer("azmo");
 					app.changeScreen(ScreenEnum.CHOOSECHAR, ScreenEnum.MODUL1_SCENE1);
 				}
 			}
 			else if(screen.characterIsChosen(screen.TSARINA)){
 				screen.setCharacterIsChosen(false, screen.TSARINA);
 				if(OverlapTester.pointInRectangle( characterBounds[screen.TSARINA], pos.x, pos.y)){
-					prefs.putString("player", "tsarina");
+					app.getEdocatiaModel().setPlayer("tsarina");
 					app.changeScreen(ScreenEnum.CHOOSECHAR, ScreenEnum.MODUL1_SCENE1);
 				}
 			}

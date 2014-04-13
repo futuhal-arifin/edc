@@ -93,26 +93,31 @@ public class EdoocatiaModel {
 	public void setModul1Scene3Done(boolean modul1Scene3Done) {
 		this.modul1Scene3Done = modul1Scene3Done;
 		prefs.putBoolean("modul1Scene3Done", modul1Scene3Done);
+		prefs.flush();
 	}
 
 	public void setModul1Scene4Done(boolean modul1Scene4Done) {
 		this.modul1Scene4Done = modul1Scene4Done;
 		prefs.putBoolean("modul1Scene4Done", modul1Scene4Done);
+		prefs.flush();
 	}
 
 	public void setModul1Scene5Done(boolean modul1Scene5Done) {
 		this.modul1Scene5Done = modul1Scene5Done;
 		prefs.putBoolean("modul1Scene5Done", modul1Scene5Done);
+		prefs.flush();
 	}
 
 	public void setMusicOn(boolean musicOn) {
 		this.musicOn = musicOn;
 		prefs.putBoolean("musicOn", this.musicOn);
+		prefs.flush();
 	}
 
 	public void setPlayer(Karakter player) {
 		this.player = player;
 		prefs.putString("player", player.getName());
+		prefs.flush();
 	}
 
 	public void setPlayer(String player) {
@@ -122,10 +127,12 @@ public class EdoocatiaModel {
 	public void setScore(int score) {
 		this.score = score;
 		prefs.putString("score", score + "");
+		prefs.flush();
 	}
 
 	public void setSoundOn(boolean soundOn) {
 		this.soundOn = soundOn;
 		prefs.putBoolean("soundOn", this.soundOn);
+		prefs.flush();
 	}
 }
