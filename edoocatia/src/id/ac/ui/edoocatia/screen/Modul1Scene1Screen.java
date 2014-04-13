@@ -27,7 +27,7 @@ public class Modul1Scene1Screen extends DialogScreen {
 		this.setDialogBackground("data/images/general/dialog.png");
 		this.setDialogBackgroundPosition((this.getWidth()- this.dialogBackground.getWidth())/2, 40);
 		this.setKarakterLeftPosition(0, 40);
-		this.setKarakterRightPosition(0, 40);
+		this.setKarakterRightPosition(width, 40);
 		this.setLineLength(750);
 		this.setTextPosition(300, this.dialogBackground.getHeight() - 50);
 		this.setFont("data/font/kg-corner-of-the-sky-44-black.fnt", 

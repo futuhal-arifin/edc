@@ -39,7 +39,11 @@ public class CharacterDialog {
 	}
 	
 	public void incrementCurrentDialogLineNumber() {
-		this.currentDialogLineNumber++;
+		//System.out.println("incre");
+		if(this.currentDialogLineNumber < this.getDialogLineNumber() - 1) {
+			//System.out.println("incr");
+			this.currentDialogLineNumber++;
+		}	
 	}
 	
 	/**
@@ -47,7 +51,7 @@ public class CharacterDialog {
 	 * @return
 	 */
 	public boolean isEndTurn() {
-		if(this.currentDialogLineNumber == this.getDialogLineNumber() - 1) {
+		if(this.currentDialogLineNumber >= this.getDialogLineNumber() - 1) {
 			return true;
 		} else {
 			return false;

@@ -1,0 +1,4 @@
+:professor
+1
+Sayap terbuat dari bahan yang ringan dan kuat, dan mudah ditempa. 
+Pilih bahan yang sesuai di kotak perkakas.

@@ -27,8 +27,8 @@ public class DialogScreen extends AbstractScreen {
 	private DialogController controller;
 	
 	protected Texture dialogBackground;
-	private float dialogBackgroundXPosition;
-	private float dialogBackgroundYPosition;
+	protected float dialogBackgroundXPosition;
+	protected float dialogBackgroundYPosition;
 	
 	protected Texture currentKarakterTexture;
 	private float karakterXLeftPosition;
@@ -42,10 +42,11 @@ public class DialogScreen extends AbstractScreen {
 	private float lineLength = 800;
 	private BitmapFont font;
 	private float scrollIndex;
-	private static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
 	
 	/** dokumen txt berisi dialog */
 	private FileHandle dialogNaration;
+	
+	private boolean showDialog;
 
 	private ArrayList<CharacterDialog> dialogPerKarakter;
 	
@@ -68,11 +69,15 @@ public class DialogScreen extends AbstractScreen {
 	
 	public DialogScreen(Edoocatia app) {
 		super(app);
+		controller = new DialogController(this);
+	}
+	
+	private void setAllDialogVariables() {
 		dialogPerKarakter = new ArrayList<CharacterDialog>();
+		this.setShowDialog(true);
 		currentTurn = 0;
 		setDialogEnded(false);
 		this.setDialogLineVariables();
-		controller = new DialogController(this);
 	}
 
 	public void endDialogLine() {
@@ -82,7 +87,6 @@ public class DialogScreen extends AbstractScreen {
 		if (currentDialog.isEndTurn()) {
 			this.setDialogTurnEnded(true);
 		}
-		
 	}
 
 	public Texture getDialogBackground() {
@@ -102,7 +106,8 @@ public class DialogScreen extends AbstractScreen {
 	}
 	
 	public boolean isDialogEnded() {
-		return isAllDialogEnded;
+		//System.out.println("turn " + currentTurn +" : " +this.dialogPerKarakter.size());
+		return isAllDialogEnded || (currentDialog.isEndTurn() && (currentTurn >= this.dialogPerKarakter.size() - 1));
 	}
 	
 	public boolean isDialogLineEnded() {
@@ -114,14 +119,18 @@ public class DialogScreen extends AbstractScreen {
 	}
 	
 	public void nextDialogLine() {
+		System.out.println("pre next");
 		if(!this.isDialogEnded()) {
+			System.out.println("next line");
 			this.currentDialog.incrementCurrentDialogLineNumber();
 			this.setDialogLineVariables();
 		}
 	}
 
 	public void nextDialogTurn() {
+		//System.out.println("pre next dialog turn "+currentDialog.isEndTurn() +" "+(currentTurn >= this.dialogPerKarakter.size() - 1));
 		if(!this.isDialogEnded()) {
+			System.out.println("next dialog turn");
 			this.currentTurn++;
 			this.setDialogLineVariables();
 		}
@@ -137,39 +146,42 @@ public class DialogScreen extends AbstractScreen {
 	public void render(float delta) {
 		batcher.setProjectionMatrix(cam.combined);
 		batcher.begin();
-			
-			batcher.draw(this.dialogBackground, 
-					this.dialogBackgroundXPosition, 
-					this.dialogBackgroundYPosition);
-			currentDialog = this.dialogPerKarakter.get(currentTurn);
-			currentKarakterTexture = currentDialog.getKarakter().getKarakterDialogTexture();
-			if(currentDialog.isPositionOnTheLeft()) {
-				batcher.draw(currentKarakterTexture, 
-						this.karakterXLeftPosition, 
-						this.karakterYLeftPosition);
-			} else {
-				batcher.draw(currentKarakterTexture, 
-						width - currentKarakterTexture.getWidth(), 
-						this.karakterYRightPosition);
-			}
-				
-				
-			String currentShownText = currentDialog.getCurrentDialogLine();
-			font.drawWrapped(batcher, currentShownText.substring(0, (int)scrollIndex), 
-					this.textXPosition, this.textYPosition, this.lineLength);
-			//System.out.println("length " + currentShownText.length());
-			if(scrollIndex < currentShownText.length()){
-				scrollIndex += 0.5;
-			} 
-			else {	
-				if(startTime < 0) {
-					this.endDialogLine();
-					if (currentTurn == this.dialogPerKarakter.size() - 1) {
-						this.setDialogEnded(true);
-						
-					} 
+			if(this.showDialog) {
+				batcher.draw(this.dialogBackground, 
+						this.dialogBackgroundXPosition, 
+						this.dialogBackgroundYPosition);
+				//if(!this.isDialogEnded())
+				currentDialog = this.dialogPerKarakter.get(currentTurn);
+				currentKarakterTexture = currentDialog.getKarakter().getKarakterDialogTexture();
+				if(currentDialog.isPositionOnTheLeft()) {
+					batcher.draw(currentKarakterTexture, 
+							this.karakterXLeftPosition, 
+							this.karakterYLeftPosition);
+				} else {
+					batcher.draw(currentKarakterTexture, 
+							this.karakterXRightPosition - currentKarakterTexture.getWidth(), 
+							this.karakterYRightPosition);
 				}
 				
+				String currentShownText = currentDialog.getCurrentDialogLine();
+				font.drawWrapped(batcher, currentShownText.substring(0, (int)scrollIndex), 
+						this.textXPosition, this.textYPosition, this.lineLength);
+
+				if(scrollIndex < currentShownText.length()){
+					scrollIndex += 0.5;
+					//System.out.println(currentShownText);
+				} 
+				else {	
+					//System.out.println(currentShownText);
+					if(startTime < 0) {
+						System.out.println("end line "+this.dialogPerKarakter.size());
+						this.endDialogLine();
+						if (this.isDialogEnded()) {
+							this.setDialogEnded(true);
+							System.out.println("end turn ");
+						} 
+					}
+				}
 			}
 			
 		batcher.end();
@@ -182,6 +194,7 @@ public class DialogScreen extends AbstractScreen {
 	}
 	
 	public void resetStartTime() {
+		System.out.println("time reset");
 		this.startTime = -1;
 	}
 	
@@ -203,6 +216,7 @@ public class DialogScreen extends AbstractScreen {
 	}
 
 	public void setDialogNaration(String path) {
+		this.setAllDialogVariables();
 		this.dialogNaration = Gdx.files.internal(path);
 		String data = dialogNaration.readString();
 		StringTokenizer st = new StringTokenizer(data, System.getProperty("line.separator"));
@@ -238,7 +252,6 @@ public class DialogScreen extends AbstractScreen {
 		this.isDialogTurnEnded = isDialogTurnEnded;
 	}
 
-	@SuppressWarnings("deprecation")
 	public void setFont(String fontPath, String imageFontPath) {
 		this.font = new BitmapFont(
 				Gdx.files.internal(fontPath),
@@ -264,5 +277,13 @@ public class DialogScreen extends AbstractScreen {
 	public void setTextPosition(float x, float y) {
 		this.textXPosition = x;
 		this.textYPosition = y;
+	}
+
+	public boolean isShowDialog() {
+		return showDialog;
+	}
+
+	public void setShowDialog(boolean showDialog) {
+		this.showDialog = showDialog;
 	}
 }
