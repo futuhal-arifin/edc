@@ -25,7 +25,7 @@ public class ProfessorInstructionScreen extends DialogScreen {
 		this.setKarakterLeftPosition(0, 0);
 		this.setKarakterRightPosition(width, 0);
 		this.setLineLength(750);
-		this.setTextPosition(300, this.dialogBackground.getHeight() - 100);
+		this.setTextPosition(400, this.dialogBackground.getHeight() - 100);
 		this.setFont("data/font/kg-corner-of-the-sky-44-black.fnt", 
 				"data/font/kg-corner-of-the-sky-44-black.png");
 		
