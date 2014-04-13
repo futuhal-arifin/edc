@@ -149,8 +149,8 @@ public class MainMenuScreen extends AbstractScreen {
 		batcher.draw(background, 0, 0);
 		// batcher.draw(titleTexture, Gdx.graphics.getWidth()/2 -
 		// titleTexture.getWidth()/2, Gdx.graphics.getHeight()/2 );
-		batcher.draw(titleTexture, Gdx.graphics.getWidth() / 6,
-				Gdx.graphics.getHeight() / 2);
+		batcher.draw(titleTexture, (VIRTUAL_WIDTH-titleTexture.getWidth())/2,
+				VIRTUAL_HEIGHT - titleTexture.getHeight() - 100);
 		batcher.draw(charTexture, 0, 0);
 		// gambar button2
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
