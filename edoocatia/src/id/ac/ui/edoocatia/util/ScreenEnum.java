@@ -13,69 +13,63 @@ import id.ac.ui.edoocatia.screen.SplashScreen;
 import com.badlogic.gdx.Screen;
 
 public enum ScreenEnum {
-	
-	MODUL1_SCENE1 {
-        @Override
-        protected Screen getScreenInstance(Edoocatia app) {
-             return new Modul1Scene1Screen(app);
-        }
-    },
-    
-<<<<<<< HEAD
-   
-    
-  
-=======
-    MODUL1_SCENE2 {
-        @Override
-        protected Screen getScreenInstance(Edoocatia app) {
-             return new Modul1Scene2Screen(app);
-        }
-    },
-    
-    MODUL1_SCENE3 {
-        @Override
-        protected Screen getScreenInstance(Edoocatia app) {
-             return new Modul1Scene3Screen(app);
-        }
-    },
-    
-    MODUL1_SCENE5 {
-        @Override
-        protected Screen getScreenInstance(Edoocatia app) {
-             return new Modul1Scene5Screen(app);
-        }
-    },
-    
->>>>>>> 68151241b4f077df31ad91f3ab99a4b6a003ebf3
-    MAIN_MENU {
-        @Override
-        protected Screen getScreenInstance(Edoocatia app) {
-             return new MainMenuScreen(app);
-        }
-    },
 
-    SPLASH {
-        @Override
-        protected Screen getScreenInstance(Edoocatia app) {
-            return new SplashScreen(app);
-        }
-    },
-    
-    INTRO {
-        @Override
-        protected Screen getScreenInstance(Edoocatia app) {
-            return new IntroScreen(app);
-        }
-    }, 
-    
-    CHOOSECHAR{
-        @Override
-        protected Screen getScreenInstance(Edoocatia app) {
-            return new ChooseCharacterScreen(app);
-        }
-    };
-    
-    protected abstract Screen getScreenInstance(Edoocatia app);
+	MODUL1_SCENE1 {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new Modul1Scene1Screen(app);
+		}
+	},
+
+	MODUL1_SCENE2 {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new Modul1Scene2Screen(app);
+		}
+	},
+
+	MODUL1_SCENE3 {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new Modul1Scene3Screen(app);
+		}
+	},
+
+	MODUL1_SCENE5 {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new Modul1Scene5Screen(app);
+		}
+	},
+
+	MAIN_MENU {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new MainMenuScreen(app);
+		}
+	},
+
+	SPLASH {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new SplashScreen(app);
+		}
+	},
+
+	INTRO {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new IntroScreen(app);
+		}
+	},
+
+	CHOOSECHAR {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new ChooseCharacterScreen(app);
+		}
+	};
+
+	protected abstract Screen getScreenInstance(Edoocatia app);
 
 }
