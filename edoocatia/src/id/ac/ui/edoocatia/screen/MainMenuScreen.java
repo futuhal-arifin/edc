@@ -83,7 +83,6 @@ public class MainMenuScreen extends AbstractScreen {
 		buttonBounds[PLAY] = new Rectangle(width * 14 / 20, height / 20
 				+ (this.buttonTexture[JELAJAH_WEB].getHeight() * 1.75f),
 				buttonTexture[PLAY].getWidth(), buttonTexture[PLAY].getHeight());
-		
 		buttonBounds[FORUM] = new Rectangle((width * 14 / 20)
 				- (this.buttonTexture[FORUM].getWidth() * (0.875f)), height
 				/ 20 + (this.buttonTexture[JELAJAH_WEB].getHeight() * 0.875f),
@@ -102,7 +101,6 @@ public class MainMenuScreen extends AbstractScreen {
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
 			buttonIsActive[idx] = false;
 		}
-		
 		// kalau dibuka langsung play bg music
 		mainMenuMusicBg = Gdx.audio.newMusic(Gdx.files
 				.internal("data/sounds/music/menu.ogg"));
@@ -151,8 +149,10 @@ public class MainMenuScreen extends AbstractScreen {
 		batcher.draw(background, 0, 0);
 		// batcher.draw(titleTexture, Gdx.graphics.getWidth()/2 -
 		// titleTexture.getWidth()/2, Gdx.graphics.getHeight()/2 );
-		batcher.draw(titleTexture, Gdx.graphics.getWidth() / 6,
-				Gdx.graphics.getHeight() / 2);
+		//System.out.println(VIRTUAL_HEIGHT - titleTexture.getHeight() - 100);
+		//System.out.println(Gdx.graphics.getWidth() / 6);
+		batcher.draw(titleTexture, (VIRTUAL_WIDTH-titleTexture.getWidth())/2,
+				VIRTUAL_HEIGHT - titleTexture.getHeight() - 80);
 		batcher.draw(charTexture, 0, 0);
 		// gambar button2
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {

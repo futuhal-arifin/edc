@@ -5,6 +5,7 @@ import id.ac.ui.edoocatia.util.ScreenEnum;
 import id.ac.ui.edoocatia.util.ScreenManager;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Edoocatia extends Game {
 	

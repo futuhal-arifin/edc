@@ -50,4 +50,8 @@ public class Karakter {
 	public Texture getKarakterDialogTexture(String karakterName) {
 		return new Texture(Gdx.files.internal("data/images/characters/"+karakterName+".png"));
 	}
+	
+	public String getName() {
+		return this.karakterName;
+	}
 }

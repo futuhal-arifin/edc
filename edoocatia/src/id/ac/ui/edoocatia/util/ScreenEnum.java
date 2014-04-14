@@ -34,6 +34,13 @@ public enum ScreenEnum {
 			return new Modul1Scene3Screen(app);
 		}
 	},
+	
+	MODUL1_SCENE4 {
+        @Override
+        protected Screen getScreenInstance(Edoocatia app) {
+             return new Modul1Scene4Screen(app);
+        }
+    },
 
 	MODUL1_SCENE5 {
 		@Override
