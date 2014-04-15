@@ -1,0 +1,4 @@
+:professor
+1
+Selamat, pesawatmu sekarang sudah jadi. 
+Saatnya mengisi bahan bakar!
