@@ -28,7 +28,7 @@ public class EdoocatiaModel {
 	public EdoocatiaModel() {
 		prefs = Gdx.app.getPreferences("preferences");
 		this.initiateGlobalVariables();
-		this.debug();
+		//this.debug();
 	}
 	
 	public Karakter getPlayer() {
