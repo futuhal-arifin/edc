@@ -28,6 +28,7 @@ public class EdoocatiaModel {
 	public EdoocatiaModel() {
 		prefs = Gdx.app.getPreferences("preferences");
 		this.initiateGlobalVariables();
+		this.debug();
 	}
 	
 	public Karakter getPlayer() {
@@ -37,6 +38,12 @@ public class EdoocatiaModel {
 	public int getScore() {
 		return score;
 	}
+	
+	private void debug() {
+		this.setPlayer(new Karakter("alta"));
+		this.setModul1Scene3Done(true);
+		this.setModul1Scene5Done(false);
+	}
 
 	/** initialize setting, game progress & player info */
 	private void initiateGlobalVariables() {
@@ -45,13 +52,13 @@ public class EdoocatiaModel {
 		if(tempName !=null && !tempName.equals("")) {
 			this.player = new Karakter(tempName);
 		} else {
-			this.player = new Karakter("alta");
+			this.setPlayer(new Karakter("alta"));
 		}
 		
 		/* score */
 		String tempScore = Gdx.app.getPreferences("preferences").getString("score");
 		if(tempScore !=null && !tempScore.equals("")) {
-			this.setScore(Integer.parseInt(tempScore));
+			this.score = Integer.parseInt(tempScore);
 		} else {
 			this.setScore(0);
 		}
@@ -61,13 +68,26 @@ public class EdoocatiaModel {
 		this.musicOn = Gdx.app.getPreferences("preferences").getBoolean("musicOn");
 		
 		/* modul 1 scene 3 */
-		this.modul1Scene3Done = Gdx.app.getPreferences("preferences").getBoolean("modul1Scene3Done");
+		if(Gdx.app.getPreferences("preferences").contains("modul1Scene3Done")) {
+			this.modul1Scene3Done = Gdx.app.getPreferences("preferences").getBoolean("modul1Scene3Done");
+		} else {
+			this.setModul1Scene3Done(false);
+		}
+		
 		
 		/* modul 1 scene 4 */
-		this.modul1Scene4Done = Gdx.app.getPreferences("preferences").getBoolean("modul1Scene4Done");
+		if(Gdx.app.getPreferences("preferences").contains("modul1Scene4Done")) {
+			this.modul1Scene4Done = Gdx.app.getPreferences("preferences").getBoolean("modul1Scene4Done");
+		} else {
+			this.setModul1Scene4Done(false);
+		}
 		
 		/* modul 1 scene 5 */
-		this.modul1Scene5Done = Gdx.app.getPreferences("preferences").getBoolean("modul1Scene5Done");
+		if(Gdx.app.getPreferences("preferences").contains("modul1Scene5Done")) {
+			this.modul1Scene5Done = Gdx.app.getPreferences("preferences").getBoolean("modul1Scene5Done");
+		} else {
+			this.setModul1Scene5Done(false);
+		}
 	}
 	
 	public boolean isModul1Scene3Done() {

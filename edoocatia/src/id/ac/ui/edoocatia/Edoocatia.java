@@ -44,7 +44,7 @@ public class Edoocatia extends Game {
 		*/
 	}
 	
-	public EdoocatiaModel getEdocatiaModel() {
+	public EdoocatiaModel getEdocatiaData() {
 		return this.edoocatia;
 	}
 	
@@ -63,10 +63,6 @@ public class Edoocatia extends Game {
 		*/
 	}
 	
-	public EdoocatiaModel getEdoocatia(){
-		return edoocatia;
-	}
-
 	public void changeScreen(ScreenEnum current, ScreenEnum next) {
 		screenMgr.dispose(current);
 		screenMgr.show(next);

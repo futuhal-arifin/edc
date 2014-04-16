@@ -31,7 +31,7 @@ public class Karakter {
 		if(this.karakterName.equals("professor")) {
 			// masukin win lose texture
 		} else if (this.karakterName.equals("alta")) {
-			// masukin win lose texture
+			this.setKarakterWinTexture(new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+"_happy.png")));;
 		} else if (this.karakterName.equals("azmo")) {
 			// masukin win lose texture
 		} else if (this.karakterName.equals("momo")) {
@@ -50,8 +50,24 @@ public class Karakter {
 	public Texture getKarakterDialogTexture(String karakterName) {
 		return new Texture(Gdx.files.internal("data/images/characters/"+karakterName+".png"));
 	}
-	
+
 	public String getName() {
 		return this.karakterName;
+	}
+
+	public Texture getKarakterWinTexture() {
+		return karakterWinTexture;
+	}
+
+	public void setKarakterWinTexture(Texture karakterWinTexture) {
+		this.karakterWinTexture = karakterWinTexture;
+	}
+
+	public Texture getKarakterLoseTexture() {
+		return karakterLoseTexture;
+	}
+
+	public void setKarakterLoseTexture(Texture karakterLoseTexture) {
+		this.karakterLoseTexture = karakterLoseTexture;
 	}
 }
