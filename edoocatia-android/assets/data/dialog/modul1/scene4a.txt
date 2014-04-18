@@ -1,0 +1,7 @@
+:professor
+1
+Palu adalah suatu pesawat sederhana, 
+.. yang dapat memberikan gaya jika dipukulkan,
+.. sehingga dapat merubah bentuk besi ringan menjadi pipih.
+Selain itu, besi memiliki sifat dapat ditempa, 
+..sehingga dapat dibentuk dengan palu.

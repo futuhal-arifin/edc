@@ -1,0 +1,5 @@
+:professor
+1
+Besi ringan adalah bahan utama pembuatan pesawat.
+Benda ini sangat kuat dibandingkan kayu dan plastik, 
+.. namun mudah dibawa karena ringan.

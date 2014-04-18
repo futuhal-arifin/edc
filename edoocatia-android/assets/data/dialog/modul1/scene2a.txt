@@ -1,0 +1,5 @@
+:professor
+1
+Selamat! Sayap pesawat sudah terpasang.
+Kamu tinggal melengkapinya dengan sepasang spion.
+Selamat bekerja!

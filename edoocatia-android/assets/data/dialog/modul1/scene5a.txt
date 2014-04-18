@@ -1,0 +1,5 @@
+:professor
+1
+Cermin cembung bersifat mengumpulkan cahaya.
+Cermin ini akan membuat bayangan benda terlihat lebih kecil dari ukuran sebenarnya,
+.. sehingga benda besar di belakang pesawatmu akan terlihat secara utuh dalam cermin cembung..

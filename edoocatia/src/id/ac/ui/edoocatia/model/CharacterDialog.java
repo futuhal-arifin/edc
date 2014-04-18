@@ -39,9 +39,7 @@ public class CharacterDialog {
 	}
 	
 	public void incrementCurrentDialogLineNumber() {
-		//System.out.println("incre");
 		if(this.currentDialogLineNumber < this.getDialogLineNumber() - 1) {
-			//System.out.println("incr");
 			this.currentDialogLineNumber++;
 		}	
 	}

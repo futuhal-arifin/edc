@@ -106,7 +106,6 @@ public class DialogScreen extends AbstractScreen {
 	}
 	
 	public boolean isDialogEnded() {
-		//System.out.println("turn " + currentTurn +" : " +this.dialogPerKarakter.size());
 		return isAllDialogEnded || (currentDialog.isEndTurn() && (currentTurn >= this.dialogPerKarakter.size() - 1));
 	}
 	
@@ -119,18 +118,14 @@ public class DialogScreen extends AbstractScreen {
 	}
 	
 	public void nextDialogLine() {
-		System.out.println("pre next");
 		if(!this.isDialogEnded()) {
-			//System.out.println("next line");
 			this.currentDialog.incrementCurrentDialogLineNumber();
 			this.setDialogLineVariables();
 		}
 	}
 
 	public void nextDialogTurn() {
-		//System.out.println("pre next dialog turn "+currentDialog.isEndTurn() +" "+(currentTurn >= this.dialogPerKarakter.size() - 1));
 		if(!this.isDialogEnded()) {
-			//System.out.println("next dialog turn");
 			this.currentTurn++;
 			this.setDialogLineVariables();
 		}
@@ -171,16 +166,12 @@ public class DialogScreen extends AbstractScreen {
 
 				if(scrollIndex < currentShownText.length()){
 					scrollIndex += 0.5;
-					//System.out.println(currentShownText);
 				} 
 				else {	
-					//System.out.println(currentShownText);
 					if(startTime < 0) {
-						//System.out.println("end line "+this.dialogPerKarakter.size());
 						this.endDialogLine();
 						if (this.isDialogEnded()) {
 							this.setDialogEnded(true);
-							//System.out.println("end turn ");
 						} 
 					}
 				}
@@ -196,7 +187,6 @@ public class DialogScreen extends AbstractScreen {
 	}
 	
 	public void resetStartTime() {
-		System.out.println("time reset");
 		this.startTime = -1;
 	}
 	

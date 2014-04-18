@@ -31,13 +31,26 @@ public class Modul1Scene2Controller {
 	}
 
 	public void processInput() {
-		if(screen.isDialogEnded()) {
+		if(!screen.isShowProfessor()) {
 			long currentTime  = TimeUtils.millis();
-			long startTime = screen.getStartTime();
-			if(screen.getStartTime() > 0 && currentTime > (startTime + 1500)) {
-				screen.setShowDialog(false);
+			long startTime = screen.getStartDelay();
+			if(startTime > 0 && currentTime > (startTime + 1500)) {
+				screen.setShowProfessor(true);
 			}
+		} else {
+			if(screen.isDialogEnded()) {
+				long currentTime  = TimeUtils.millis();
+				long startTime = screen.getStartTime();
+				if(startTime > 0 && currentTime > (startTime + 1500)) {
+					if(screen.getStatus(screen.SPION_IS_DONE) && screen.getStatus(screen.SAYAP_IS_DONE)) {
+						app.changeScreen(ScreenEnum.MODUL1_SCENE2, ScreenEnum.MODUL1_SCENE6);
+					} else {
+						screen.setShowDialog(false);
+					}
+				}
+			} 
 		}
+		
 		/*
 		if(screen.getAPartHasSelected() && screen.isDialogEnded()) {
 			long currentTime  = TimeUtils.millis();
@@ -51,23 +64,29 @@ public class Modul1Scene2Controller {
 			Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 			cam.unproject(pos, viewport.x, viewport.y, viewport.width, viewport.height);
 			if(Gdx.input.justTouched()){
-				for(int i=0; i<spionBounds.length; i++){
-					if(OverlapTester.pointInRectangle( spionBounds[i], pos.x, pos.y)){
-						screen.setPartStatus(true, screen.SPION);
+				if (!screen.getStatus(screen.SPION_IS_DONE)) {
+					for(int i=0; i<spionBounds.length; i++){
+						if(OverlapTester.pointInRectangle( spionBounds[i], pos.x, pos.y)){
+							screen.setPartStatus(true, screen.SPION);
+						}
 					}
 				}
-				for(int i=0; i<sayapBounds.length; i++){
-					if(OverlapTester.pointInRectangle( sayapBounds[i], pos.x, pos.y)){
-						screen.setPartStatus(true, screen.SAYAP);
+				
+				if (!screen.getStatus(screen.SAYAP_IS_DONE)) {
+					for(int i=0; i<sayapBounds.length; i++){
+						if(OverlapTester.pointInRectangle( sayapBounds[i], pos.x, pos.y)){
+							screen.setPartStatus(true, screen.SAYAP);
+						}
 					}
 				}
+				
 			}
 			
 			if(Gdx.input.isTouched()){
 				//kosongin dulu deh~
 			}
 			else{
-				if(screen.partIsSelected(screen.SPION)){
+				if(!screen.getStatus(screen.SPION_IS_DONE) && screen.partIsSelected(screen.SPION)){
 					screen.setPartStatus(false, screen.SPION);
 					for(int i=0; i<spionBounds.length; i++){
 						if(OverlapTester.pointInRectangle( spionBounds[i], pos.x, pos.y)){
@@ -83,7 +102,7 @@ public class Modul1Scene2Controller {
 					}
 				}
 				
-				if(screen.partIsSelected(screen.SAYAP)){
+				if(!screen.getStatus(screen.SAYAP_IS_DONE) && screen.partIsSelected(screen.SAYAP)){
 					screen.setPartStatus(false, screen.SAYAP);
 					for(int i=0; i<sayapBounds.length; i++){
 						if(OverlapTester.pointInRectangle( sayapBounds[i], pos.x, pos.y)){
