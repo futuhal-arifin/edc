@@ -104,6 +104,23 @@ private Edoocatia edoocatiaApp;
 			
 		debugRenderer.end();
 	}
+	
+	protected void drawDebug(Rectangle bounds, boolean status){
+		debugRenderer.setProjectionMatrix(cam.combined);
+		debugRenderer.begin(ShapeType.Line);
+			if(status){
+					debugRenderer.setColor(new Color(1, 1, 0, 1));
+				}
+				else{
+					debugRenderer.setColor(new Color(1, 0, 0, 1));
+				}
+				
+				debugRenderer.rect(bounds.x, bounds.y,
+						bounds.width, bounds.height);
+			
+			
+		debugRenderer.end();
+	}
 
 	@Override
 	public void render(float delta) {

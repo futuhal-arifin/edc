@@ -21,6 +21,7 @@ public class EdoocatiaModel {
 	private boolean modul1Scene3Done;
 	private boolean modul1Scene4Done;
 	private boolean modul1Scene5Done;
+	private boolean modul1Scene6Done;
 	
 	
 	private Preferences prefs;
@@ -28,7 +29,7 @@ public class EdoocatiaModel {
 	public EdoocatiaModel() {
 		prefs = Gdx.app.getPreferences("preferences");
 		this.initiateGlobalVariables();
-		//this.debug();
+		this.debug();
 	}
 	
 	public Karakter getPlayer() {
@@ -41,7 +42,7 @@ public class EdoocatiaModel {
 	
 	private void debug() {
 		this.setPlayer(new Karakter("alta"));
-		this.setModul1Scene3Done(true);
+		this.setModul1Scene3Done(false);
 		this.setModul1Scene5Done(false);
 	}
 
@@ -88,16 +89,35 @@ public class EdoocatiaModel {
 		} else {
 			this.setModul1Scene5Done(false);
 		}
+		
+		/* modul 1 scene 6 */
+		if(Gdx.app.getPreferences("preferences").contains("modul1Scene6Done")) {
+			this.modul1Scene6Done = Gdx.app.getPreferences("preferences").getBoolean("modul1Scene6Done");
+		} else {
+			this.setModul1Scene6Done(false);
+		}
 	}
 	
+	/**
+	 * Cek apakah bahan sayap sudah dipilih
+	 * @return TRUE if bahan sayap sudah dipilih
+	 */
 	public boolean isModul1Scene3Done() {
 		return modul1Scene3Done;
 	}
 
+	/**
+	 * Cek apakah sayap sudah terpasang
+	 * @return TRUE if sayap sudah terpasang
+	 */
 	public boolean isModul1Scene4Done() {
 		return modul1Scene4Done;
 	}
 
+	/**
+	 * Cek apakah spion sudah terpasang
+	 * @return TRUE if spion sudah terpasang
+	 */
 	public boolean isModul1Scene5Done() {
 		return modul1Scene5Done;
 	}
@@ -153,6 +173,16 @@ public class EdoocatiaModel {
 	public void setSoundOn(boolean soundOn) {
 		this.soundOn = soundOn;
 		prefs.putBoolean("soundOn", this.soundOn);
+		prefs.flush();
+	}
+
+	public boolean isModul1Scene6Done() {
+		return modul1Scene6Done;
+	}
+
+	public void setModul1Scene6Done(boolean modul1Scene6Done) {
+		this.modul1Scene6Done = modul1Scene6Done;
+		prefs.putBoolean("modul1Scene6Done", modul1Scene6Done);
 		prefs.flush();
 	}
 }
