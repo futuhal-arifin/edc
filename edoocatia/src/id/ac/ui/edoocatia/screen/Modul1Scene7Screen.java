@@ -72,8 +72,8 @@ public class Modul1Scene7Screen extends AbstractScreen {
 		this.pesawatTexture = new Texture(Gdx.files.internal("data/images/modul-1/pesawat/pesawat.png"));
 		
 		this.font = new BitmapFont(
-				Gdx.files.internal("data/font/kg-corner-of-the-sky-44-black.fnt"),
-				Gdx.files.internal("data/font/kg-corner-of-the-sky-44-black.png"),
+				Gdx.files.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
+				Gdx.files.internal("data/font/kg-corner-of-the-sky-44-white.png"),
 				false);
 		
 		this.commandXPosition = (VIRTUAL_WIDTH - this.font.getBounds(command).width) / 2;
