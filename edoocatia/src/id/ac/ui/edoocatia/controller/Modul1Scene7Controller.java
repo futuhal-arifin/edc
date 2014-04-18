@@ -36,7 +36,7 @@ public class Modul1Scene7Controller {
 		if(screen.getStates() == screen.READY_TO_ENTER) {
 			if(OverlapTester.overlapRectangles(screen.getPlayerCenterBounds(), screen.getPesawatCenterBounds())) {
 				screen.setStates(screen.READY_TO_FLY);
-			} else 
+			}  
 				if(Gdx.input.isTouched()) {
 				//System.out.println("istouched");
 				Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);

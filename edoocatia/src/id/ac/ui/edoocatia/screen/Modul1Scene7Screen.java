@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -39,6 +40,10 @@ public class Modul1Scene7Screen extends AbstractScreen {
 	private float playerXPosition;
 	private float playerYPosition;
 	
+	private BitmapFont font;
+	private String command = "Silakan naik ke pesawat!";
+	private float commandXPosition;
+	
 	// buat adegan ready to fly
 	private Texture[] light = new Texture[2];
 	private boolean[] lightOn = new boolean[2];
@@ -66,6 +71,12 @@ public class Modul1Scene7Screen extends AbstractScreen {
 		background = new Texture(Gdx.files.internal("data/images/modul-1/background/lab_pesawat.jpg"));
 		this.pesawatTexture = new Texture(Gdx.files.internal("data/images/modul-1/pesawat/pesawat.png"));
 		
+		this.font = new BitmapFont(
+				Gdx.files.internal("data/font/kg-corner-of-the-sky-44-black.fnt"),
+				Gdx.files.internal("data/font/kg-corner-of-the-sky-44-black.png"),
+				false);
+		
+		this.commandXPosition = (VIRTUAL_WIDTH - this.font.getBounds(command).width) / 2;
 		
 		this.setPlayerAnimation();	
 		this.playerBounds = new Rectangle(this.playerXPosition, this.playerYPosition,
@@ -75,7 +86,7 @@ public class Modul1Scene7Screen extends AbstractScreen {
 				75, 75);
 		this.setPlayerPosition(0, 0);
 		this.pesawatCenterBounds = new Rectangle((VIRTUAL_WIDTH-100)/2, 125,
-				100, 125);
+				100, 250);
 	}
 	
 	private void initiateAdeganReadyToFly() {
@@ -118,6 +129,8 @@ public class Modul1Scene7Screen extends AbstractScreen {
 			currentFrame = player.getKeyFrame(stateTime, true);
 			//System.out.println(this.playerXPosition + " | " + this.playerYPosition);
 			batcher.draw(currentFrame, this.playerXPosition, this.playerYPosition);
+			font.drawWrapped(batcher, this.command, 
+					this.commandXPosition, 700, 800);
 		} else if(this.states == this.READY_TO_FLY) {
 			if(this.lightOn[this.CENTRAL_LIGHT]) {
 				batcher.draw(this.light[this.CENTRAL_LIGHT], 0, 70);
@@ -127,7 +140,7 @@ public class Modul1Scene7Screen extends AbstractScreen {
 			}
 		} else {
 			batcher.draw(this.pesawatSideTexture, this.pesawatSideXPosition, (VIRTUAL_HEIGHT-this.pesawatSideTexture.getHeight())/2);
-			this.pesawatSideXPosition += 20;
+			this.pesawatSideXPosition += 10;
 		}
 
 		batcher.end();
