@@ -191,6 +191,7 @@ public class MainMenuScreen extends AbstractScreen {
 	public void setButtonStatus(boolean status, int index) {
 		buttonIsActive[index] = status;
 	}
+	
 	// music
 
 	public void playSoundFx() {

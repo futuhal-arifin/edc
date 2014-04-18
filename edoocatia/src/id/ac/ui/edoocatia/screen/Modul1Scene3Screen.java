@@ -4,51 +4,87 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.Modul1Scene3Controller;
 
 public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
+	private LemariPerkakas item;;
 	private Modul1Scene3Controller controller;
 	private Texture background;
-	private Texture ImageSubstance[] = new Texture[1];
-	private Rectangle ImageBounds[] = new Rectangle[1];
-	private boolean ImageIsActive[] = new boolean[1];
+	private Texture ImageSubstance[] = new Texture[13];
+	private Rectangle ImageBounds[] = new Rectangle[13];
+	private boolean ImageIsActive[] = new boolean[13];
 	boolean debug = true;
 
 	// konstanta biar kita gausah ngafalin indeksnya
-	public final int BESI = 0;
-	public final int KAYU = 1;
-	public final int GUNTING = 2;
-	public final int PLASTIK = 3;
-	public final int TANG = 4;
-	public final int CERMIN_CEKUNG = 5;
-	public final int PALU = 6;
-	public final int CERMIN_CEMBUNG = 7;
-	public final int BALON_HIDROGEN = 8;
-	public final int BALON_OKSIGEN = 9;
-	public final int BALON_NITROGEN = 10;
-	public final int CERMIN_DATAR = 11;
-	public final int MAGNET = 12;
+	public final int besi = 0;
+	public final int kayu = 1;
+	public final int plastik = 2;
+
+	public final int cermin_cekung = 3;
+	public final int cermin_datar = 4;
+	public final int cermin_cembung = 5;
+
+	public final int gunting = 6;
+	public final int tang = 7;
+	public final int palu = 8;
+	public final int magnet = 9;
+
+	public final int balon_hidrogen = 10;
+	public final int balon_oksigen = 11;
+	public final int balon_nitrogen = 12;
 
 	public Modul1Scene3Screen(Edoocatia app) {
 		super(app);
-
+		item = new LemariPerkakas(app);
 		background = new Texture(
 				Gdx.files.internal("data/images/modul-1/background/lemari.jpg"));
 		this.setBackground("data/images/modul-1/background/tada.jpg");
 		this.setDialogNaration("data/dialog/modul1/scene3.txt");
 		this.setInstructionObject("data/images/modul-1/pesawat/sayap.png");
 
-		ImageSubstance[BESI] = new Texture(
-				Gdx.files.internal("data/images/modul-1/alat/besi.png"));
+		ImageSubstance[besi] = item.getImageSubstanceTexture("besi");
+		ImageSubstance[kayu] = item.getImageSubstanceTexture("kayu");
+		ImageSubstance[plastik] = item.getImageSubstanceTexture("plastik");
+		ImageSubstance[cermin_cekung] = item
+				.getImageSubstanceTexture("cermin_cekung");
+		ImageSubstance[cermin_datar] = item
+				.getImageSubstanceTexture("cermin_datar");
+		ImageSubstance[cermin_cembung] = item
+				.getImageSubstanceTexture("cermin_cembung");
+		ImageSubstance[gunting] = item.getImageSubstanceTexture("gunting");
+		ImageSubstance[tang] = item.getImageSubstanceTexture("tang");
+		ImageSubstance[palu] = item.getImageSubstanceTexture("palu");
+		ImageSubstance[magnet] = item.getImageSubstanceTexture("magnet");
+		ImageSubstance[balon_hidrogen] = item
+				.getImageSubstanceTexture("balon_hidrogen");
+		ImageSubstance[balon_oksigen] = item
+				.getImageSubstanceTexture("balon_oksigen");
+		ImageSubstance[balon_nitrogen] = item
+				.getImageSubstanceTexture("balon_nitrogen");
 
 		// batas2 button
-		ImageBounds[BESI] = new Rectangle(width/ 5, (height/2)+50,
-				ImageSubstance[BESI].getWidth(),
-				ImageSubstance[BESI].getHeight());
+		ImageBounds[besi] = item.getImageSubstancePosition("besi");
+		ImageBounds[kayu] = item.getImageSubstancePosition("kayu");
+		ImageBounds[plastik] = item.getImageSubstancePosition("plastik");
+		ImageBounds[cermin_cekung] = item
+				.getImageSubstancePosition("cermin_cekung");
+		ImageBounds[cermin_datar] = item
+				.getImageSubstancePosition("cermin_datar");
+		ImageBounds[cermin_cembung] = item
+				.getImageSubstancePosition("cermin_cembung");
+		ImageBounds[gunting] = item.getImageSubstancePosition("gunting");
+		ImageBounds[tang] = item.getImageSubstancePosition("tang");
+		ImageBounds[palu] = item.getImageSubstancePosition("palu");
+		ImageBounds[magnet] = item.getImageSubstancePosition("magnet");
+		ImageBounds[balon_hidrogen] = item
+				.getImageSubstancePosition("balon_hidrogen");
+		ImageBounds[balon_oksigen] = item
+				.getImageSubstancePosition("balon_oksigen");
+		ImageBounds[balon_nitrogen] = item
+				.getImageSubstancePosition("balon_nitrogen");
 
 		// status button defaultnya inactive
 		for (int idx = 0; idx < this.ImageIsActive.length; idx++) {
@@ -69,16 +105,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		batcher.setProjectionMatrix(cam.combined);
 		batcher.begin();
 
-		if (!this.getShowInstruction()) {
-			batcher.draw(background, 0, 0);
-			batcher.draw(ImageSubstance[BESI], this.ImageBounds[BESI].getX(),
-					this.ImageBounds[BESI].getY());
-
-		}
-
-		if (debug) {
-			drawDebug(ImageBounds, ImageIsActive);
-		}
+		item.render(delta);
 
 		batcher.end();
 
@@ -90,4 +117,15 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	public Rectangle[] getImageBounds() {
 		return ImageBounds;
 	}
+
+	// getter button status
+	public boolean ImageIsActive(int index) {
+		return this.ImageIsActive[index];
+	}
+
+	// setter button status
+	public void setImageStatus(boolean status, int index) {
+		ImageIsActive[index] = status;
+	}
+
 }
