@@ -7,6 +7,7 @@ import id.ac.ui.edoocatia.screen.MainMenuScreen;
 import id.ac.ui.edoocatia.screen.Modul1Scene1Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene2Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene3Screen;
+import id.ac.ui.edoocatia.screen.Modul1Scene4Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene5Screen;
 import id.ac.ui.edoocatia.screen.SplashScreen;
 
