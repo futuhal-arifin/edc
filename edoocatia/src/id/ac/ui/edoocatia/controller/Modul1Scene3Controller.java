@@ -28,20 +28,25 @@ public class Modul1Scene3Controller {
 
 	public void processInput() {
 		// TODO Auto-generated method stub
-		if (Gdx.input.justTouched()) {
-			Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			cam.unproject(pos, viewport.x, viewport.y, viewport.width,
-					viewport.height);
 
-			if (OverlapTester.pointInRectangle(buttonBounds[screen.besi],
-					pos.x, pos.y)) {
-				screen.setImageStatus(true, screen.besi);
-				
-				
+		if (!screen.getShowInstruction()) {
+
+			if (Gdx.input.justTouched()) {
+				Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+				cam.unproject(pos, viewport.x, viewport.y, viewport.width,
+						viewport.height);
+
+				for (int i = 0; i < buttonBounds.length; i++) {
+					if (OverlapTester.pointInRectangle(buttonBounds[i], pos.x,
+							pos.y)) {
+						screen.setImageStatus(true, i);
+					}
+					// screen.setImageStatus(true, screen.besi);
+				}
+
 			}
 
 		}
-
 	}
 
 }

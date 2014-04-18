@@ -2,6 +2,8 @@ package id.ac.ui.edoocatia.screen;
 
 import java.io.Console;
 
+import javax.script.AbstractScriptEngine;
+
 import sun.util.logging.resources.logging;
 
 import com.badlogic.gdx.Gdx;
@@ -12,8 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.LemariPerkakasController;
+import id.ac.ui.edoocatia.util.AbstractScreen;
 
-public class LemariPerkakas extends ProfessorInstructionScreen {
+public class LemariPerkakas extends AbstractScreen {
 
 	private LemariPerkakasController controller;
 	private Texture background;
@@ -45,9 +48,6 @@ public class LemariPerkakas extends ProfessorInstructionScreen {
 
 		background = new Texture(
 				Gdx.files.internal("data/images/modul-1/background/lemari.jpg"));
-		this.setBackground("data/images/modul-1/background/tada.jpg");
-		this.setDialogNaration("data/dialog/modul1/scene3.txt");
-		this.setInstructionObject("data/images/modul-1/pesawat/sayap.png");
 
 		ImageSubstance[besi] = new Texture(
 				Gdx.files.internal("data/images/modul-1/alat/besi.png"));
@@ -89,8 +89,6 @@ public class LemariPerkakas extends ProfessorInstructionScreen {
 				(VIRTUAL_HEIGHT / 2) + 50, ImageSubstance[besi].getWidth(),
 				ImageSubstance[besi].getHeight());
 
-		
-		
 		ImageBounds[kayu] = new Rectangle(ImageBounds[besi].getX() + 150,
 				(VIRTUAL_HEIGHT / 2) + 50, ImageSubstance[kayu].getWidth(),
 				ImageSubstance[kayu].getHeight());
@@ -160,34 +158,26 @@ public class LemariPerkakas extends ProfessorInstructionScreen {
 	}
 
 	public void render(float delta) {
-		cam.update();
-
-		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
-				(int) viewport.width, (int) viewport.height);
-		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		batcher.setProjectionMatrix(cam.combined);
+		/*
+		 * cam.update();
+		 * 
+		 * Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int)
+		 * viewport.width, (int) viewport.height); Gdx.gl.glClearColor(0.1f,
+		 * 0.1f, 0.1f, 1); Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		 * 
+		 * batcher.setProjectionMatrix(cam.combined);
+		 */
 		batcher.begin();
 
-		if (!this.getShowInstruction()) {
-			batcher.draw(background, 0, 0);
+		batcher.draw(background, 0, 0);
 
-			for (int i = 0; i < ImageBounds.length; i++) {
-
-				batcher.draw(ImageSubstance[i], this.ImageBounds[i].getX(),
-						this.ImageBounds[i].getY());
-			}
-
-		}
-
-		if (debug) {
-			drawDebug(ImageBounds, ImageIsActive);
+		for (int i = 0; i < ImageSubstance.length; i++) {
+			batcher.draw(ImageSubstance[i], this.ImageBounds[i].getX(),
+					this.ImageBounds[i].getY());
 		}
 
 		batcher.end();
 
-		super.render(delta);
 		controller.processInput();
 	}
 
@@ -231,12 +221,8 @@ public class LemariPerkakas extends ProfessorInstructionScreen {
 
 	public Texture getImageSubstanceTexture(String ImageSubstance) {
 
-		System.out.print("GAMBAR = " + ImageSubstance);
-		Gdx.app.log("GAMBAR = ", ImageSubstance);
-
 		return new Texture(Gdx.files.internal("data/images/modul-1/alat/"
 				+ ImageSubstance + ".png"));
-
 	}
 
 }

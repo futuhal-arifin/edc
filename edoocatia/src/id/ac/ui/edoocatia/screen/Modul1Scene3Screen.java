@@ -13,10 +13,13 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	private LemariPerkakas item;;
 	private Modul1Scene3Controller controller;
 	private Texture background;
+	private Texture ImageTanda[] = new Texture[2];
+
 	private Texture ImageSubstance[] = new Texture[13];
 	private Rectangle ImageBounds[] = new Rectangle[13];
 	private boolean ImageIsActive[] = new boolean[13];
 	boolean debug = true;
+	private boolean[] partIsSelected = new boolean[2];
 
 	// konstanta biar kita gausah ngafalin indeksnya
 	public final int besi = 0;
@@ -36,6 +39,9 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	public final int balon_oksigen = 11;
 	public final int balon_nitrogen = 12;
 
+	public final int checklist = 0;
+	public final int wrong = 1;
+
 	public Modul1Scene3Screen(Edoocatia app) {
 		super(app);
 		item = new LemariPerkakas(app);
@@ -44,6 +50,13 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		this.setBackground("data/images/modul-1/background/tada.jpg");
 		this.setDialogNaration("data/dialog/modul1/scene3.txt");
 		this.setInstructionObject("data/images/modul-1/pesawat/sayap.png");
+
+		ImageTanda[checklist] = new Texture(
+				Gdx.files
+						.internal("data/images/icon/right_and_wrong/benar.png"));
+		ImageTanda[wrong] = new Texture(
+				Gdx.files
+						.internal("data/images/icon/right_and_wrong/salah.png"));
 
 		ImageSubstance[besi] = item.getImageSubstanceTexture("besi");
 		ImageSubstance[kayu] = item.getImageSubstanceTexture("kayu");
@@ -95,6 +108,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	}
 
 	public void render(float delta) {
+
 		cam.update();
 
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
@@ -103,12 +117,28 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batcher.setProjectionMatrix(cam.combined);
-		batcher.begin();
 
-		item.render(delta);
+		if (!this.getShowInstruction()) {
 
-		batcher.end();
+			item.render(delta);
 
+			batcher.begin();
+
+			if (this.partImageIsSelected(this.besi)) {
+				batcher.draw(ImageTanda[checklist], ImageBounds[besi].getX(),
+						this.ImageBounds[besi].getY());
+			} else {
+				for (int i = 0; i < ImageBounds.length; i++) {
+					if (ImageIsActive[i] && i != besi) {
+						batcher.draw(ImageTanda[wrong], ImageBounds[i].getX(),
+								this.ImageBounds[i].getY());
+					}
+				}
+
+			}
+
+			batcher.end();
+		}
 		super.render(delta);
 		controller.processInput();
 	}
@@ -126,6 +156,11 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	// setter button status
 	public void setImageStatus(boolean status, int index) {
 		ImageIsActive[index] = status;
+	}
+
+	// getter button status
+	public boolean partImageIsSelected(int index) {
+		return this.ImageIsActive[index];
 	}
 
 }
