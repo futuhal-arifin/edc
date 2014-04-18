@@ -25,6 +25,10 @@
                      android:title="spion done"
                      android:summary="spion done"
                      android:defaultValue="false" />
+      <CheckBoxPreference android:key="modul1Scene6Done"
+                     android:title="hidrogen done"
+                     android:summary="hidrogen done"
+                     android:defaultValue="false" />
       <EditTextPreference android:key="score"
                      android:title="score"
                      android:summary="score"
