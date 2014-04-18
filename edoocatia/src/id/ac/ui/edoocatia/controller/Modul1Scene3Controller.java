@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.screen.Modul1Scene3Screen;
 import id.ac.ui.edoocatia.util.OverlapTester;
+import id.ac.ui.edoocatia.util.ScreenEnum;
 
 public class Modul1Scene3Controller {
 	private Edoocatia app;
@@ -15,6 +16,7 @@ public class Modul1Scene3Controller {
 	private Rectangle[] buttonBounds;
 	private Rectangle viewport;
 	private OrthographicCamera cam;
+	private int mistakes = 0;
 
 	public Modul1Scene3Controller(Modul1Scene3Screen screen) {
 		// TODO Auto-generated constructor stub
@@ -40,10 +42,19 @@ public class Modul1Scene3Controller {
 					if (OverlapTester.pointInRectangle(buttonBounds[i], pos.x,
 							pos.y)) {
 						screen.setImageStatus(true, i);
+
+						if (i != 0) {
+							screen.setMistakes(mistakes++);
+						}
+
 					}
-					// screen.setImageStatus(true, screen.besi);
 				}
 
+			}
+
+			if (screen.getMistakes() > 2) {
+				app.changeScreen(ScreenEnum.MODUL1_SCENE3,
+						ScreenEnum.MODUL1_SCENE2);
 			}
 
 		}

@@ -20,6 +20,8 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	private boolean ImageIsActive[] = new boolean[13];
 	boolean debug = true;
 	private boolean[] partIsSelected = new boolean[2];
+	public boolean win;
+	public int mistakes;
 
 	// konstanta biar kita gausah ngafalin indeksnya
 	public final int besi = 0;
@@ -127,14 +129,22 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 			if (this.partImageIsSelected(this.besi)) {
 				batcher.draw(ImageTanda[checklist], ImageBounds[besi].getX(),
 						this.ImageBounds[besi].getY());
+				this.setWin(true);
 			} else {
-				for (int i = 0; i < ImageBounds.length; i++) {
-					if (ImageIsActive[i] && i != besi) {
-						batcher.draw(ImageTanda[wrong], ImageBounds[i].getX(),
-								this.ImageBounds[i].getY());
-					}
-				}
 
+				if (this.getMistakes() < 3) {
+					for (int i = 0; i < ImageBounds.length; i++) {
+						if (ImageIsActive[i] && i != besi) {
+
+							batcher.draw(ImageTanda[wrong],
+									ImageBounds[i].getX(),
+									this.ImageBounds[i].getY());
+
+						}
+					}
+				} else {
+					this.setWin(false);
+				}
 			}
 
 			batcher.end();
@@ -163,4 +173,19 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		return this.ImageIsActive[index];
 	}
 
+	public void setMistakes(int mistakes) {
+		this.mistakes = mistakes;
+	}
+
+	public int getMistakes() {
+		return this.mistakes;
+	}
+
+	public void setWin(boolean win) {
+		this.win = win;
+	}
+
+	public boolean getWin() {
+		return win;
+	}
 }
