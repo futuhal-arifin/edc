@@ -43,30 +43,44 @@ public class EdoocatiaModel {
 	private void debug() {
 		this.setPlayer(new Karakter("alta"));
 		this.setModul1Scene3Done(false);
+		this.setModul1Scene4Done(false);
 		this.setModul1Scene5Done(false);
+		this.setModul1Scene6Done(false);
 	}
 
 	/** initialize setting, game progress & player info */
 	private void initiateGlobalVariables() {
 		/* player */
-		String tempName= Gdx.app.getPreferences("preferences").getString("player");
-		if(tempName !=null && !tempName.equals("")) {
+		String tempName;
+		if(Gdx.app.getPreferences("preferences").contains("player") && 
+				!(tempName = Gdx.app.getPreferences("preferences").getString("player")).equals("")) {
 			this.player = new Karakter(tempName);
 		} else {
 			this.setPlayer(new Karakter("alta"));
 		}
 		
 		/* score */
-		String tempScore = Gdx.app.getPreferences("preferences").getString("score");
-		if(tempScore !=null && !tempScore.equals("")) {
+		String tempScore;
+		if(Gdx.app.getPreferences("preferences").contains("score") && 
+				!(tempScore = Gdx.app.getPreferences("preferences").getString("score")).equals("")) {
 			this.score = Integer.parseInt(tempScore);
 		} else {
 			this.setScore(0);
 		}
 		
-		this.soundOn = Gdx.app.getPreferences("preferences").getBoolean("soundOn");
+		/* sfx */
+		if(Gdx.app.getPreferences("preferences").contains("soundOn")) {
+			this.soundOn = Gdx.app.getPreferences("preferences").getBoolean("soundOn");
+		} else {
+			this.setSoundOn(true);
+		}
 		
-		this.musicOn = Gdx.app.getPreferences("preferences").getBoolean("musicOn");
+		/* music */
+		if(Gdx.app.getPreferences("preferences").contains("musicOn")) {
+			this.musicOn = Gdx.app.getPreferences("preferences").getBoolean("musicOn");
+		} else {
+			this.setMusicOn(true);
+		}
 		
 		/* modul 1 scene 3 */
 		if(Gdx.app.getPreferences("preferences").contains("modul1Scene3Done")) {

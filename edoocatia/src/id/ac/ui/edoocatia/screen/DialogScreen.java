@@ -67,8 +67,11 @@ public class DialogScreen extends AbstractScreen {
 	
 	private CharacterDialog currentDialog;
 	
+	private boolean screenJustTouched;
+	
 	public DialogScreen(Edoocatia app) {
 		super(app);
+		this.setScreenJustTouched(false);
 		controller = new DialogController(this);
 	}
 	
@@ -106,7 +109,7 @@ public class DialogScreen extends AbstractScreen {
 	}
 	
 	public boolean isDialogEnded() {
-		return isAllDialogEnded || (currentDialog.isEndTurn() && (currentTurn >= this.dialogPerKarakter.size() - 1));
+		return isAllDialogEnded || (currentDialog.isEndTurn() && (currentTurn >= this.dialogPerKarakter.size() - 1) && this.scrollIndex >= this.currentDialog.getCurrentDialogLine().length());
 	}
 	
 	public boolean isDialogLineEnded() {
@@ -277,5 +280,13 @@ public class DialogScreen extends AbstractScreen {
 
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
+	}
+
+	public boolean isScreenJustTouched() {
+		return screenJustTouched;
+	}
+
+	public void setScreenJustTouched(boolean screenJustTouched) {
+		this.screenJustTouched = screenJustTouched;
 	}
 }

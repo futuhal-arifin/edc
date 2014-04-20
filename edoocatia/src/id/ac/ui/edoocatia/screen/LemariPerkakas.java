@@ -1,20 +1,14 @@
 package id.ac.ui.edoocatia.screen;
 
-import java.io.Console;
-
-import javax.script.AbstractScriptEngine;
-
-import sun.util.logging.resources.logging;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.LemariPerkakasController;
 import id.ac.ui.edoocatia.util.AbstractScreen;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 public class LemariPerkakas extends AbstractScreen {
 
@@ -23,6 +17,24 @@ public class LemariPerkakas extends AbstractScreen {
 	private Texture ImageSubstance[] = new Texture[13];
 	private Rectangle ImageBounds[] = new Rectangle[13];
 	private boolean ImageIsActive[] = new boolean[13];
+	private Texture ImageTanda[] = new Texture[2];
+	private Texture ImageScore[] = new Texture[2];
+	
+	//private Texture Texture;
+	private Animation[] scoreAnimation = new Animation[2];
+	private TextureRegion[][] scoreFrames = new TextureRegion[2][];
+	private TextureRegion[] currentScoreFrame;
+	public final int SCORE_FRAME_COLS = 1;
+	public final int SCORE_FRAME_ROWS = 10;
+	private float scoreStateTime;
+	
+	private Texture[] playerTexture = new Texture[2];
+	private TextureRegion[][] playerFrames  = new TextureRegion[2][];
+	private Animation[] playerAnimation  = new Animation[2];
+	private final int FRAME_COLS = 2;
+	private final int FRAME_ROWS = 1;
+	private float playerStateTime;
+	
 	boolean debug = true;
 
 	// konstanta biar kita gausah ngafalin indeksnya
@@ -42,6 +54,10 @@ public class LemariPerkakas extends AbstractScreen {
 	public final int balon_hidrogen = 10;
 	public final int balon_oksigen = 11;
 	public final int balon_nitrogen = 12;
+	
+	private boolean[] partIsSelected = new boolean[2];
+	public final int checklist = 0;
+	public final int wrong = 1;
 
 	public LemariPerkakas(Edoocatia app) {
 		super(app);
@@ -153,7 +169,21 @@ public class LemariPerkakas extends AbstractScreen {
 		for (int idx = 0; idx < this.ImageIsActive.length; idx++) {
 			ImageIsActive[idx] = false;
 		}
+		
+		ImageTanda[checklist] = new Texture(
+				Gdx.files
+						.internal("data/images/icon/right_and_wrong/benar.png"));
+		ImageTanda[wrong] = new Texture(
+				Gdx.files
+						.internal("data/images/icon/right_and_wrong/salah.png"));
 
+		this.setScoreAnimation(this.checklist);
+		this.setScoreAnimation(this.wrong);
+		
+
+		this.setPlayerAnimation(this.checklist);
+		this.setPlayerAnimation(this.wrong);
+		
 		controller = new LemariPerkakasController(this);
 	}
 
@@ -185,6 +215,8 @@ public class LemariPerkakas extends AbstractScreen {
 	public Rectangle[] getImageBounds() {
 		return ImageBounds;
 	}
+	
+	
 
 	public Rectangle getImageSubstancePosition(String Image) {
 		if (Image.contentEquals("besi")) {
@@ -223,6 +255,133 @@ public class LemariPerkakas extends AbstractScreen {
 
 		return new Texture(Gdx.files.internal("data/images/modul-1/alat/"
 				+ ImageSubstance + ".png"));
+	}
+	
+	public Texture[] getImageSubstances() {
+		return this.ImageSubstance;
+	}
+	
+	public Texture[] getImageTanda() {
+		return this.ImageTanda;
+	}
+	
+	public boolean[] imageIsActive() {
+		return this.ImageIsActive;
+	}
+
+	public boolean[] getPartIsSelected() {
+		return partIsSelected;
+	}
+
+	public void setPartIsSelected(boolean[] partIsSelected) {
+		this.partIsSelected = partIsSelected;
+	}
+	
+	public void setImageStatus(boolean status, int index) {
+		this.ImageIsActive[index] = status;
+	}
+	
+	public Texture getLemariPerkakasBackground() {
+		return this.background;
+	}
+
+	public Texture[] getImageScore() {
+		return ImageScore;
+	}
+
+	public void setImageScore(Texture imageScore[]) {
+		ImageScore = imageScore;
+	}
+
+	public Animation[] getScoreAnimation() {
+		return scoreAnimation;
+	}
+
+	public void setScoreAnimation(Animation[] scoreAnimation) {
+		this.scoreAnimation = scoreAnimation;
+	}
+
+	public TextureRegion[] getCurrentScoreFrame() {
+		return currentScoreFrame;
+	}
+
+	public void setCurrentScoreFrame(TextureRegion[] currentScoreFrame) {
+		this.currentScoreFrame = currentScoreFrame;
+	}
+	
+	private void setScoreAnimation(int state) {
+		if(state == this.wrong) {
+			ImageScore[state] = new Texture(
+					Gdx.files
+							.internal("data/images/general/min_20.png"));
+		} else {
+			ImageScore[state] = new Texture(
+					Gdx.files
+							.internal("data/images/general/plus100.png"));
+		}
+		//playerWrongTexture = this.getApp().getEdocatiaData().getPlayer().getKarakterLoseTexture();
+		TextureRegion[][] temp = TextureRegion.split(this.ImageScore[state], this.ImageScore[state].getWidth()/SCORE_FRAME_COLS, 
+				this.ImageScore[state].getHeight()/SCORE_FRAME_ROWS);
+		this.scoreFrames[state] = new TextureRegion[SCORE_FRAME_COLS*SCORE_FRAME_ROWS];
+		int index= 0;
+		for(int ii = 0; ii < SCORE_FRAME_ROWS; ii++) {
+			for(int jj = 0; jj < SCORE_FRAME_COLS; jj++) {
+				scoreFrames[state][index++] = temp[ii][jj];
+			}
+		}
+		scoreAnimation[state] = new Animation(0.05f, this.scoreFrames[state]);
+		this.resetScoreStateTime();
+	}
+	
+	private void setPlayerAnimation(int state) {
+		if(state == this.wrong) {
+			playerTexture[state] = this.getApp().getEdocatiaData().getPlayer().getKarakterLoseTexture();
+		} else {
+			playerTexture[state] = this.getApp().getEdocatiaData().getPlayer().getKarakterWinTexture();
+		}
+		TextureRegion[][] temp = TextureRegion.split(playerTexture[state], playerTexture[state].getWidth()/FRAME_COLS, playerTexture[state].getHeight()/FRAME_ROWS);
+		this.playerFrames[state] = new TextureRegion[FRAME_COLS*FRAME_ROWS];
+		int index= 0;
+		for(int ii = 0; ii < FRAME_ROWS; ii++) {
+			for(int jj = 0; jj < FRAME_COLS; jj++) {
+				playerFrames[state][index++] = temp[ii][jj];
+			}
+		}
+		playerAnimation[state] = new Animation(0.25f, playerFrames[state]);
+		this.resetPlayerStateTime();
+	}
+
+	public void resetScoreStateTime() {
+		this.setScoreStateTime(0f);
+		
+	}
+
+	public float getScoreStateTime() {
+		return scoreStateTime;
+	}
+
+	public void setScoreStateTime(float scoreStateTime) {
+		this.scoreStateTime = scoreStateTime;
+	}
+
+	public float getPlayerStateTime() {
+		return playerStateTime;
+	}
+
+	public void setPlayerStateTime(float playerStateTime) {
+		this.playerStateTime = playerStateTime;
+	}
+
+	public Animation[] getPlayerAnimation() {
+		return playerAnimation;
+	}
+
+	public void setPlayerAnimation(Animation[] playerAnimation) {
+		this.playerAnimation = playerAnimation;
+	}
+	
+	public void resetPlayerStateTime() {
+		playerStateTime = 0f;
 	}
 
 }
