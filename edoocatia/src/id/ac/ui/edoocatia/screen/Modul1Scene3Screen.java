@@ -30,14 +30,14 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 	private short state;
 	public int mistakes;
-
+	public short PROF_INFO_SAYAP = 0;
 	public short LEMARI_PERKAKAS = 1;
 	public short PROF_INFO = 2;
 	public short PROF_INFO_WRONG = 3;
 
 	public Modul1Scene3Screen(Edoocatia app) {
 		super(app);
-		this.setState(this.LEMARI_PERKAKAS);
+		this.setState(this.PROF_INFO_SAYAP);
 		controller = new Modul1Scene3Controller(this);
 	}
 
@@ -220,6 +220,13 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		this.setInstructionObject("data/images/modul-1/alat/besi.png");
 		this.setShowInstruction(true);
 	}
+	
+	private void setProfessorInfoSayap() {
+		this.setBackground("data/images/modul-1/background/tada.jpg");
+		this.setDialogNaration("data/dialog/modul1/scene3.txt");
+		this.setInstructionObject("data/images/modul-1/pesawat/sayap.png");
+		this.setShowInstruction(true);
+	}
 
 	private void setProfessorInfoKesulitan() {
 		this.setBackground("data/images/modul-1/background/tada.jpg");
@@ -229,7 +236,10 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 	public void setState(short state) {
 		this.state = state;
-		if (state == this.LEMARI_PERKAKAS) {
+		if (state == this.PROF_INFO_SAYAP) {
+			this.item = null;
+			this.setProfessorInfoSayap();
+		} else if (state == this.LEMARI_PERKAKAS) {
 			this.setShowInstruction(false);
 			this.initiateLemariPerkakas();
 		} else {

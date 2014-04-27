@@ -86,6 +86,11 @@ public class Modul1Scene3Controller {
 				app.changeScreen(ScreenEnum.MODUL1_SCENE3,
 						ScreenEnum.MODUL1_SCENE2);
 			}
+		} else if (currentState == screen.PROF_INFO_SAYAP) {
+
+			if (!screen.getShowInstruction()) {
+				screen.setState(screen.LEMARI_PERKAKAS);
+			}
 		}
 	}
 
