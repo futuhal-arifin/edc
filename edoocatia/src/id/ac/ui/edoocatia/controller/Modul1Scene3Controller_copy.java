@@ -48,7 +48,7 @@ public class Modul1Scene3Controller_copy {
 								app.getEdocatiaData().setScore(
 										app.getEdocatiaData().getScore() + 100);
 							} else {
-								screen.setMistakes(mistakes++);
+								screen.setMistakes(++mistakes);
 								screen.setJustAnsweredWrong(true);
 								app.getEdocatiaData().setScore(
 										app.getEdocatiaData().getScore() - 20);
@@ -67,8 +67,8 @@ public class Modul1Scene3Controller_copy {
 				screen.setState(screen.PROF_INFO);
 			}
 
-			if (screen.getMistakes() > 2) {
-				//app.getEdocatiaData().setModul1Scene3Done(true);
+			if (screen.getMistakes() == 3) {
+				// app.getEdocatiaData().setModul1Scene3Done(true);
 				screen.setState(screen.PROF_INFO_WRONG);
 			}
 
@@ -78,9 +78,9 @@ public class Modul1Scene3Controller_copy {
 				app.changeScreen(ScreenEnum.MODUL1_SCENE3,
 						ScreenEnum.MODUL1_SCENE4);
 			}
-			
-		}else if(currentState== screen.PROF_INFO_WRONG){
-			
+
+		} else if (currentState == screen.PROF_INFO_WRONG) {
+
 			if (!screen.getShowInstruction()) {
 				app.getScreenManager().dispose(ScreenEnum.LEMARI_PERKAKAS);
 				app.changeScreen(ScreenEnum.MODUL1_SCENE3,

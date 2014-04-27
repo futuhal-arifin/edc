@@ -34,7 +34,7 @@ public class Modul1Scene3Screen_copy extends ProfessorInstructionScreen {
 	public short LEMARI_PERKAKAS = 1;
 	public short PROF_INFO = 2;
 	public short PROF_INFO_WRONG = 3;
-	
+
 	public Modul1Scene3Screen_copy(Edoocatia app) {
 		super(app);
 		this.setState(this.LEMARI_PERKAKAS);
@@ -100,7 +100,8 @@ public class Modul1Scene3Screen_copy extends ProfessorInstructionScreen {
 						item.getImageBounds()[i].getY());
 
 				if (this.getMistakes() < 3) {
-					
+					System.out.println("KESEALAHAN " + getMistakes());
+
 					// ngegambar tanda silang/ceklis
 					if (item.imageIsActive()[i]) {
 						if (i == this.correctItem) {
@@ -225,7 +226,7 @@ public class Modul1Scene3Screen_copy extends ProfessorInstructionScreen {
 		this.setDialogNaration("data/dialog/modul1/scene3b.txt");
 		this.setShowInstruction(true);
 	}
-	
+
 	public void setState(short state) {
 		this.state = state;
 		if (state == this.LEMARI_PERKAKAS) {
@@ -235,7 +236,7 @@ public class Modul1Scene3Screen_copy extends ProfessorInstructionScreen {
 			this.item = null;
 			if (state == this.PROF_INFO) {
 				this.setProfessorInfoBesi();
-			}else if(state == this.PROF_INFO_WRONG){
+			} else if (state == this.PROF_INFO_WRONG) {
 				this.setProfessorInfoKesulitan();
 			}
 		}
