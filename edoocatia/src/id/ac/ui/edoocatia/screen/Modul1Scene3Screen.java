@@ -47,6 +47,8 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	public Modul1Scene3Screen(Edoocatia app) {
 		super(app);
 		item = new LemariPerkakas(app);
+		
+		
 		background = new Texture(
 				Gdx.files.internal("data/images/modul-1/background/lemari.jpg"));
 		this.setBackground("data/images/modul-1/background/tada.jpg");
@@ -188,4 +190,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	public boolean getWin() {
 		return win;
 	}
+	
+	
+	
 }

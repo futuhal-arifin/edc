@@ -8,6 +8,7 @@ import id.ac.ui.edoocatia.screen.MainMenuScreen;
 import id.ac.ui.edoocatia.screen.Modul1Scene1Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene2Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene3Screen;
+import id.ac.ui.edoocatia.screen.Modul1Scene3Screen_copy;
 import id.ac.ui.edoocatia.screen.Modul1Scene4Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene5Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene6Screen;
@@ -35,7 +36,8 @@ public enum ScreenEnum {
     MODUL1_SCENE3 {
         @Override
         protected Screen getScreenInstance(Edoocatia app) {
-             return new Modul1Scene3Screen(app);
+             //return new Modul1Scene3Screen(app);
+        	return new Modul1Scene3Screen_copy(app);
         }
     },
     
