@@ -206,7 +206,7 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	}
 
 	private void setLemariPerkakas() {
-		item = new LemariPerkakas(this.getApp());
+		item = new LemariPerkakas(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, this.getApp());
 		this.correctItem = item.palu;
 	}
 

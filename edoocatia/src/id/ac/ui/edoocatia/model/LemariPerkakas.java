@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
-public class LemariPerkakas extends AbstractScreen {
+public class LemariPerkakas {
 
 	private Texture background;
 	private Texture ImageSubstance[] = new Texture[13];
@@ -56,10 +56,16 @@ public class LemariPerkakas extends AbstractScreen {
 	private boolean[] partIsSelected = new boolean[2];
 	public final int checklist = 0;
 	public final int wrong = 1;
+	
+	private float VIRTUAL_HEIGHT;
+	private float VIRTUAL_WIDTH;
+	private Edoocatia app;
 
-	public LemariPerkakas(Edoocatia app) {
-		super(app);
-
+	public LemariPerkakas(float vIRTUAL_WIDTH2, float vIRTUAL_HEIGHT2, Edoocatia app) {
+		this.app = app;
+		this.VIRTUAL_HEIGHT = vIRTUAL_HEIGHT2;
+		this.VIRTUAL_WIDTH = vIRTUAL_WIDTH2;
+		
 		background = new Texture(
 				Gdx.files.internal("data/images/modul-1/background/lemari.jpg"));
 
@@ -310,9 +316,9 @@ public class LemariPerkakas extends AbstractScreen {
 	
 	private void setPlayerAnimation(int state) {
 		if(state == this.wrong) {
-			playerTexture[state] = this.getApp().getEdocatiaData().getPlayer().getKarakterLoseTexture();
+			playerTexture[state] = this.app.getEdocatiaData().getPlayer().getKarakterLoseTexture();
 		} else {
-			playerTexture[state] = this.getApp().getEdocatiaData().getPlayer().getKarakterWinTexture();
+			playerTexture[state] = this.app.getEdocatiaData().getPlayer().getKarakterWinTexture();
 		}
 		TextureRegion[][] temp = TextureRegion.split(playerTexture[state], playerTexture[state].getWidth()/FRAME_COLS, playerTexture[state].getHeight()/FRAME_ROWS);
 		this.playerFrames[state] = new TextureRegion[FRAME_COLS*FRAME_ROWS];
