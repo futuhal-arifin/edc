@@ -24,8 +24,8 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	private int correctItem;
 	private short justSelectedItem;
 
-	public final int ANIMATION_STATE_LIMIT = 3;
-	public final int WIN_DELAY = 4;
+	public final int ANIMATION_STATE_LIMIT = 1;
+	public final int WIN_OR_LOSE_DELAY = 3;
 
 	private short state;
 	public int mistakes;
@@ -100,7 +100,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 							item.getImageBounds()[i].getX(),
 							item.getImageBounds()[i].getY());
 
-					if (this.getMistakes() < 3) {
+					if (this.getMistakes() < 4) {
 						// ngegambar tanda silang/ceklis
 						if (item.imageIsActive()[i]) {
 							if (i == this.correctItem) {
@@ -149,7 +149,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 				// animasi player sedih waktunya dibatasi, krn masih
 				// bisa
 				// ngeklik lagi
-				if (item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
+				if (this.mistakes == 3 || item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
 					// animasi player sedih
 					item.setPlayerStateTime(item.getPlayerStateTime()
 							+ Gdx.graphics.getDeltaTime());

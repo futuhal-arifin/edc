@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector3;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.screen.Modul1Scene3Screen;
-import id.ac.ui.edoocatia.screen.Modul1Scene6Screen;
 import id.ac.ui.edoocatia.util.OverlapTester;
 import id.ac.ui.edoocatia.util.ScreenEnum;
 
@@ -62,13 +61,15 @@ public class Modul1Scene3Controller {
 
 			// cek timer
 			if (screen.isJustAnsweredCorrectly()
-					&& screen.getPlayerStateTime() > screen.WIN_DELAY) {
+					&& screen.getPlayerStateTime() > screen.WIN_OR_LOSE_DELAY) {
 				app.getEdocatiaData().setModul1Scene3Done(true);
 				screen.setState(screen.PROF_INFO);
 			}
 
-			if (screen.getMistakes() == 3) {
-				// app.getEdocatiaData().setModul1Scene3Done(true);
+			if (screen.isJustAnsweredWrong()
+					&& screen.getPlayerStateTime() > screen.WIN_OR_LOSE_DELAY
+					&& screen.getMistakes() == 3) {
+				System.out.println("masuk sini");
 				screen.setState(screen.PROF_INFO_WRONG);
 			}
 
