@@ -93,32 +93,33 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 			for (int i = 0; i < item.getImageSubstances().length; i++) {
 
-				// ngegambar items
-				batcher.draw(item.getImageSubstances()[i],
-						item.getImageBounds()[i].getX(),
-						item.getImageBounds()[i].getY());
+				if (this.cekCerminCembung(i)) {
 
-				if (this.getMistakes() < 3) {
-					// ngegambar tanda silang/ceklis
-					if (item.imageIsActive()[i]) {
-						if (i == this.correctItem) {
-							batcher.draw(item.getImageTanda()[item.checklist],
-									item.getImageBounds()[i].getX(),
-									item.getImageBounds()[i].getY());
-						} else {
-							batcher.draw(item.getImageTanda()[item.wrong],
-									item.getImageBounds()[i].getX(),
-									item.getImageBounds()[i].getY());
+					// ngegambar items
+					batcher.draw(item.getImageSubstances()[i],
+							item.getImageBounds()[i].getX(),
+							item.getImageBounds()[i].getY());
 
+					if (this.getMistakes() < 3) {
+						// ngegambar tanda silang/ceklis
+						if (item.imageIsActive()[i]) {
+							if (i == this.correctItem) {
+								batcher.draw(
+										item.getImageTanda()[item.checklist],
+										item.getImageBounds()[i].getX(),
+										item.getImageBounds()[i].getY());
+							} else {
+								batcher.draw(item.getImageTanda()[item.wrong],
+										item.getImageBounds()[i].getX(),
+										item.getImageBounds()[i].getY());
+
+							}
 						}
+
 					}
-
-					
-
 				}
-
 			}
-			
+
 			// kalo baru klik item yg benar/salah, mulai animasi
 			// karakter &
 			// munculin skor
@@ -153,23 +154,19 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 					item.setPlayerStateTime(item.getPlayerStateTime()
 							+ Gdx.graphics.getDeltaTime());
 					currentPlayerFrame = item.getPlayerAnimation()[item.wrong]
-							.getKeyFrame(item.getPlayerStateTime(),
-									true);
+							.getKeyFrame(item.getPlayerStateTime(), true);
 					batcher.draw(currentPlayerFrame, 0, 0);
 					// animasi skor -20
 					item.setScoreStateTime(item.getScoreStateTime()
 							+ Gdx.graphics.getDeltaTime());
 					currentScoreFrame = item.getScoreAnimation()[item.wrong]
-							.getKeyFrame(item.getScoreStateTime(),
-									false);
+							.getKeyFrame(item.getScoreStateTime(), false);
 					batcher.draw(
 							currentScoreFrame,
-							item.getImageBounds()[this.justSelectedItem]
-									.getX()
+							item.getImageBounds()[this.justSelectedItem].getX()
 									+ item.getImageBounds()[this.justSelectedItem].width
 									/ 2,
-							item.getImageBounds()[this.justSelectedItem]
-									.getY()
+							item.getImageBounds()[this.justSelectedItem].getY()
 									+ item.getImageBounds()[this.justSelectedItem].height
 									/ 2);
 
@@ -219,7 +216,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		this.setInstructionObject("data/images/modul-1/alat/besi.png");
 		this.setShowInstruction(true);
 	}
-	
+
 	private void setProfessorInfoSayap() {
 		this.setBackground("data/images/modul-1/background/tada.jpg");
 		this.setDialogNaration("data/dialog/modul1/scene3.txt");
@@ -257,6 +254,15 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 	public int getMistakes() {
 		return this.mistakes;
+	}
+
+	public boolean cekCerminCembung(int index) {
+		return index != item.cermin_cembung
+				|| (index == item.cermin_cembung && this.showCerminCembung());
+	}
+
+	private boolean showCerminCembung() {
+		return !this.getApp().getEdocatiaData().isModul1Scene5Done();
 	}
 
 }
