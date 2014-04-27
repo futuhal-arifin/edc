@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.Modul1Scene3Controller;
-import id.ac.ui.edoocatia.controller.Modul1Scene6Controller;
 
 public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
@@ -25,7 +24,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	private int correctItem;
 	private short justSelectedItem;
 
-	public final int ANIMATION_STATE_LIMIT = 5;
+	public final int ANIMATION_STATE_LIMIT = 3;
 	public final int WIN_DELAY = 4;
 
 	private short state;
@@ -100,8 +99,6 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 						item.getImageBounds()[i].getY());
 
 				if (this.getMistakes() < 3) {
-					System.out.println("KESEALAHAN " + getMistakes());
-
 					// ngegambar tanda silang/ceklis
 					if (item.imageIsActive()[i]) {
 						if (i == this.correctItem) {
@@ -116,74 +113,76 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 						}
 					}
 
-					// kalo baru klik item yg benar/salah, mulai animasi
-					// karakter &
-					// munculin skor
-					if (this.justAnsweredCorrectly) {
-						// animasi player senang
-						item.setPlayerStateTime(item.getPlayerStateTime()
-								+ Gdx.graphics.getDeltaTime());
-						currentPlayerFrame = item.getPlayerAnimation()[item.checklist]
-								.getKeyFrame(item.getPlayerStateTime(), true);
-						batcher.draw(currentPlayerFrame, 0, 0);
-
-						// animasi skor +100
-						item.setScoreStateTime(item.getScoreStateTime()
-								+ Gdx.graphics.getDeltaTime());
-						currentScoreFrame = item.getScoreAnimation()[item.checklist]
-								.getKeyFrame(item.getScoreStateTime(), false);
-						batcher.draw(
-								currentScoreFrame,
-								item.getImageBounds()[this.correctItem].getX()
-										+ item.getImageBounds()[this.correctItem].width
-										/ 2,
-								item.getImageBounds()[this.correctItem].getY()
-										+ item.getImageBounds()[this.correctItem].height
-										/ 2);
-
-					} else if (this.justAnsweredWrong) {
-						// animasi player sedih waktunya dibatasi, krn masih
-						// bisa
-						// ngeklik lagi
-						if (item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
-							// animasi player sedih
-							item.setPlayerStateTime(item.getPlayerStateTime()
-									+ Gdx.graphics.getDeltaTime());
-							currentPlayerFrame = item.getPlayerAnimation()[item.wrong]
-									.getKeyFrame(item.getPlayerStateTime(),
-											true);
-							batcher.draw(currentPlayerFrame, 0, 0);
-							// animasi skor -20
-							item.setScoreStateTime(item.getScoreStateTime()
-									+ Gdx.graphics.getDeltaTime());
-							currentScoreFrame = item.getScoreAnimation()[item.wrong]
-									.getKeyFrame(item.getScoreStateTime(),
-											false);
-							batcher.draw(
-									currentScoreFrame,
-									item.getImageBounds()[this.justSelectedItem]
-											.getX()
-											+ item.getImageBounds()[this.justSelectedItem].width
-											/ 2,
-									item.getImageBounds()[this.justSelectedItem]
-											.getY()
-											+ item.getImageBounds()[this.justSelectedItem].height
-											/ 2);
-
-						} else {
-							// kl animasi udah, reset variabel
-							item.resetPlayerStateTime();
-							item.resetScoreStateTime();
-							this.setJustAnsweredWrong(false);
-						}
-					} else {
-						// keadaan normal
-						this.resetJustSelectedItem();
-						batcher.draw(this.playerDefaultTexture, 0, 0);
-					}
+					
 
 				}
 
+			}
+			
+			// kalo baru klik item yg benar/salah, mulai animasi
+			// karakter &
+			// munculin skor
+			if (this.justAnsweredCorrectly) {
+				// animasi player senang
+				item.setPlayerStateTime(item.getPlayerStateTime()
+						+ Gdx.graphics.getDeltaTime());
+				currentPlayerFrame = item.getPlayerAnimation()[item.checklist]
+						.getKeyFrame(item.getPlayerStateTime(), true);
+				batcher.draw(currentPlayerFrame, 0, 0);
+
+				// animasi skor +100
+				item.setScoreStateTime(item.getScoreStateTime()
+						+ Gdx.graphics.getDeltaTime());
+				currentScoreFrame = item.getScoreAnimation()[item.checklist]
+						.getKeyFrame(item.getScoreStateTime(), false);
+				batcher.draw(
+						currentScoreFrame,
+						item.getImageBounds()[this.correctItem].getX()
+								+ item.getImageBounds()[this.correctItem].width
+								/ 2,
+						item.getImageBounds()[this.correctItem].getY()
+								+ item.getImageBounds()[this.correctItem].height
+								/ 2);
+
+			} else if (this.justAnsweredWrong) {
+				// animasi player sedih waktunya dibatasi, krn masih
+				// bisa
+				// ngeklik lagi
+				if (item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
+					// animasi player sedih
+					item.setPlayerStateTime(item.getPlayerStateTime()
+							+ Gdx.graphics.getDeltaTime());
+					currentPlayerFrame = item.getPlayerAnimation()[item.wrong]
+							.getKeyFrame(item.getPlayerStateTime(),
+									true);
+					batcher.draw(currentPlayerFrame, 0, 0);
+					// animasi skor -20
+					item.setScoreStateTime(item.getScoreStateTime()
+							+ Gdx.graphics.getDeltaTime());
+					currentScoreFrame = item.getScoreAnimation()[item.wrong]
+							.getKeyFrame(item.getScoreStateTime(),
+									false);
+					batcher.draw(
+							currentScoreFrame,
+							item.getImageBounds()[this.justSelectedItem]
+									.getX()
+									+ item.getImageBounds()[this.justSelectedItem].width
+									/ 2,
+							item.getImageBounds()[this.justSelectedItem]
+									.getY()
+									+ item.getImageBounds()[this.justSelectedItem].height
+									/ 2);
+
+				} else {
+					// kl animasi udah, reset variabel
+					item.resetPlayerStateTime();
+					item.resetScoreStateTime();
+					this.setJustAnsweredWrong(false);
+				}
+			} else {
+				// keadaan normal
+				this.resetJustSelectedItem();
+				batcher.draw(this.playerDefaultTexture, 0, 0);
 			}
 
 		}
