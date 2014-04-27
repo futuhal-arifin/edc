@@ -3,116 +3,82 @@ package id.ac.ui.edoocatia.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.Modul1Scene3Controller;
+import id.ac.ui.edoocatia.controller.Modul1Scene6Controller;
 
 public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
-	private LemariPerkakas item;;
 	private Modul1Scene3Controller controller;
-	private Texture background;
-	private Texture ImageTanda[] = new Texture[2];
+	// private Texture background;
 
-	private Texture ImageSubstance[] = new Texture[13];
-	private Rectangle ImageBounds[] = new Rectangle[13];
-	private boolean ImageIsActive[] = new boolean[13];
-	boolean debug = true;
-	private boolean[] partIsSelected = new boolean[2];
-	public boolean win;
+	// buat lemari perkakas
+	private LemariPerkakas item;
+	private Texture playerDefaultTexture;
+	// jawaban benar/salah
+	private TextureRegion currentPlayerFrame;
+	private TextureRegion currentScoreFrame;
+	private boolean justAnsweredWrong;
+	private boolean justAnsweredCorrectly;
+	private int correctItem;
+	private short justSelectedItem;
+
+	public final int ANIMATION_STATE_LIMIT = 5;
+	public final int WIN_DELAY = 4;
+
+	private short state;
 	public int mistakes;
 
-	// konstanta biar kita gausah ngafalin indeksnya
-	public final int besi = 0;
-	public final int kayu = 1;
-	public final int plastik = 2;
-
-	public final int cermin_cekung = 3;
-	public final int cermin_datar = 4;
-	public final int cermin_cembung = 5;
-
-	public final int gunting = 6;
-	public final int tang = 7;
-	public final int palu = 8;
-	public final int magnet = 9;
-
-	public final int balon_hidrogen = 10;
-	public final int balon_oksigen = 11;
-	public final int balon_nitrogen = 12;
-
-	public final int checklist = 0;
-	public final int wrong = 1;
+	public short LEMARI_PERKAKAS = 1;
+	public short PROF_INFO = 2;
+	public short PROF_INFO_WRONG = 3;
 
 	public Modul1Scene3Screen(Edoocatia app) {
 		super(app);
-		item = new LemariPerkakas(app);
-		
-		
-		background = new Texture(
-				Gdx.files.internal("data/images/modul-1/background/lemari.jpg"));
-		this.setBackground("data/images/modul-1/background/tada.jpg");
-		this.setDialogNaration("data/dialog/modul1/scene3.txt");
-		this.setInstructionObject("data/images/modul-1/pesawat/sayap.png");
-
-		ImageTanda[checklist] = new Texture(
-				Gdx.files
-						.internal("data/images/icon/right_and_wrong/benar.png"));
-		ImageTanda[wrong] = new Texture(
-				Gdx.files
-						.internal("data/images/icon/right_and_wrong/salah.png"));
-
-		ImageSubstance[besi] = item.getImageSubstanceTexture("besi");
-		ImageSubstance[kayu] = item.getImageSubstanceTexture("kayu");
-		ImageSubstance[plastik] = item.getImageSubstanceTexture("plastik");
-		ImageSubstance[cermin_cekung] = item
-				.getImageSubstanceTexture("cermin_cekung");
-		ImageSubstance[cermin_datar] = item
-				.getImageSubstanceTexture("cermin_datar");
-		ImageSubstance[cermin_cembung] = item
-				.getImageSubstanceTexture("cermin_cembung");
-		ImageSubstance[gunting] = item.getImageSubstanceTexture("gunting");
-		ImageSubstance[tang] = item.getImageSubstanceTexture("tang");
-		ImageSubstance[palu] = item.getImageSubstanceTexture("palu");
-		ImageSubstance[magnet] = item.getImageSubstanceTexture("magnet");
-		ImageSubstance[balon_hidrogen] = item
-				.getImageSubstanceTexture("balon_hidrogen");
-		ImageSubstance[balon_oksigen] = item
-				.getImageSubstanceTexture("balon_oksigen");
-		ImageSubstance[balon_nitrogen] = item
-				.getImageSubstanceTexture("balon_nitrogen");
-
-		// batas2 button
-		ImageBounds[besi] = item.getImageSubstancePosition("besi");
-		ImageBounds[kayu] = item.getImageSubstancePosition("kayu");
-		ImageBounds[plastik] = item.getImageSubstancePosition("plastik");
-		ImageBounds[cermin_cekung] = item
-				.getImageSubstancePosition("cermin_cekung");
-		ImageBounds[cermin_datar] = item
-				.getImageSubstancePosition("cermin_datar");
-		ImageBounds[cermin_cembung] = item
-				.getImageSubstancePosition("cermin_cembung");
-		ImageBounds[gunting] = item.getImageSubstancePosition("gunting");
-		ImageBounds[tang] = item.getImageSubstancePosition("tang");
-		ImageBounds[palu] = item.getImageSubstancePosition("palu");
-		ImageBounds[magnet] = item.getImageSubstancePosition("magnet");
-		ImageBounds[balon_hidrogen] = item
-				.getImageSubstancePosition("balon_hidrogen");
-		ImageBounds[balon_oksigen] = item
-				.getImageSubstancePosition("balon_oksigen");
-		ImageBounds[balon_nitrogen] = item
-				.getImageSubstancePosition("balon_nitrogen");
-
-		// status button defaultnya inactive
-		for (int idx = 0; idx < this.ImageIsActive.length; idx++) {
-			ImageIsActive[idx] = false;
-		}
-
+		this.setState(this.LEMARI_PERKAKAS);
 		controller = new Modul1Scene3Controller(this);
 	}
 
-	public void render(float delta) {
+	public int getCorrectItem() {
+		return this.correctItem;
+	}
 
+	public LemariPerkakas getItem() {
+		return this.item;
+	}
+
+	public short getJustSelectedItem() {
+		return justSelectedItem;
+	}
+
+	public float getPlayerStateTime() {
+		return item.getPlayerStateTime();
+	}
+
+	public short getState() {
+		return state;
+	}
+
+	private void initiateLemariPerkakas() {
+		this.setLemariPerkakas();
+		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
+				.getKarakterDialogTexture();
+		this.setJustAnsweredCorrectly(false);
+		this.setJustAnsweredWrong(false);
+		this.resetJustSelectedItem();
+	}
+
+	public boolean isJustAnsweredCorrectly() {
+		return justAnsweredCorrectly;
+	}
+
+	public boolean isJustAnsweredWrong() {
+		return justAnsweredWrong;
+	}
+
+	public void render(float delta) {
 		cam.update();
 
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
@@ -121,58 +87,159 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batcher.setProjectionMatrix(cam.combined);
+		batcher.begin();
 
-		if (!this.getShowInstruction()) {
+		if (this.state == this.LEMARI_PERKAKAS) {
+			batcher.draw(item.getLemariPerkakasBackground(), 0, 0);
 
-			item.render(delta);
+			for (int i = 0; i < item.getImageSubstances().length; i++) {
 
-			batcher.begin();
-
-			if (this.partImageIsSelected(this.besi)) {
-				batcher.draw(ImageTanda[checklist], ImageBounds[besi].getX(),
-						this.ImageBounds[besi].getY());
-				this.setWin(true);
-			} else {
+				// ngegambar items
+				batcher.draw(item.getImageSubstances()[i],
+						item.getImageBounds()[i].getX(),
+						item.getImageBounds()[i].getY());
 
 				if (this.getMistakes() < 3) {
-					for (int i = 0; i < ImageBounds.length; i++) {
-						if (ImageIsActive[i] && i != besi) {
+					System.out.println("KESEALAHAN " + getMistakes());
 
-							batcher.draw(ImageTanda[wrong],
-									ImageBounds[i].getX(),
-									this.ImageBounds[i].getY());
+					// ngegambar tanda silang/ceklis
+					if (item.imageIsActive()[i]) {
+						if (i == this.correctItem) {
+							batcher.draw(item.getImageTanda()[item.checklist],
+									item.getImageBounds()[i].getX(),
+									item.getImageBounds()[i].getY());
+						} else {
+							batcher.draw(item.getImageTanda()[item.wrong],
+									item.getImageBounds()[i].getX(),
+									item.getImageBounds()[i].getY());
 
 						}
 					}
-				} else {
-					this.setWin(false);
+
+					// kalo baru klik item yg benar/salah, mulai animasi
+					// karakter &
+					// munculin skor
+					if (this.justAnsweredCorrectly) {
+						// animasi player senang
+						item.setPlayerStateTime(item.getPlayerStateTime()
+								+ Gdx.graphics.getDeltaTime());
+						currentPlayerFrame = item.getPlayerAnimation()[item.checklist]
+								.getKeyFrame(item.getPlayerStateTime(), true);
+						batcher.draw(currentPlayerFrame, 0, 0);
+
+						// animasi skor +100
+						item.setScoreStateTime(item.getScoreStateTime()
+								+ Gdx.graphics.getDeltaTime());
+						currentScoreFrame = item.getScoreAnimation()[item.checklist]
+								.getKeyFrame(item.getScoreStateTime(), false);
+						batcher.draw(
+								currentScoreFrame,
+								item.getImageBounds()[this.correctItem].getX()
+										+ item.getImageBounds()[this.correctItem].width
+										/ 2,
+								item.getImageBounds()[this.correctItem].getY()
+										+ item.getImageBounds()[this.correctItem].height
+										/ 2);
+
+					} else if (this.justAnsweredWrong) {
+						// animasi player sedih waktunya dibatasi, krn masih
+						// bisa
+						// ngeklik lagi
+						if (item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
+							// animasi player sedih
+							item.setPlayerStateTime(item.getPlayerStateTime()
+									+ Gdx.graphics.getDeltaTime());
+							currentPlayerFrame = item.getPlayerAnimation()[item.wrong]
+									.getKeyFrame(item.getPlayerStateTime(),
+											true);
+							batcher.draw(currentPlayerFrame, 0, 0);
+							// animasi skor -20
+							item.setScoreStateTime(item.getScoreStateTime()
+									+ Gdx.graphics.getDeltaTime());
+							currentScoreFrame = item.getScoreAnimation()[item.wrong]
+									.getKeyFrame(item.getScoreStateTime(),
+											false);
+							batcher.draw(
+									currentScoreFrame,
+									item.getImageBounds()[this.justSelectedItem]
+											.getX()
+											+ item.getImageBounds()[this.justSelectedItem].width
+											/ 2,
+									item.getImageBounds()[this.justSelectedItem]
+											.getY()
+											+ item.getImageBounds()[this.justSelectedItem].height
+											/ 2);
+
+						} else {
+							// kl animasi udah, reset variabel
+							item.resetPlayerStateTime();
+							item.resetScoreStateTime();
+							this.setJustAnsweredWrong(false);
+						}
+					} else {
+						// keadaan normal
+						this.resetJustSelectedItem();
+						batcher.draw(this.playerDefaultTexture, 0, 0);
+					}
+
 				}
+
 			}
 
-			batcher.end();
 		}
+		batcher.end();
+		// ngegambar penjelasan profesor di akhir scene
 		super.render(delta);
 		controller.processInput();
 	}
 
-	// getter button bounds
-	public Rectangle[] getImageBounds() {
-		return ImageBounds;
+	public void resetJustSelectedItem() {
+		this.justSelectedItem = -1;
 	}
 
-	// getter button status
-	public boolean ImageIsActive(int index) {
-		return this.ImageIsActive[index];
+	public void setJustSelectedItem(short justSelectedItem) {
+		this.justSelectedItem = justSelectedItem;
 	}
 
-	// setter button status
-	public void setImageStatus(boolean status, int index) {
-		ImageIsActive[index] = status;
+	public void setJustAnsweredCorrectly(boolean justAnsweredCorrectly) {
+		this.justAnsweredCorrectly = justAnsweredCorrectly;
 	}
 
-	// getter button status
-	public boolean partImageIsSelected(int index) {
-		return this.ImageIsActive[index];
+	public void setJustAnsweredWrong(boolean justAnsweredWrong) {
+		this.justAnsweredWrong = justAnsweredWrong;
+	}
+
+	private void setLemariPerkakas() {
+		item = new LemariPerkakas(this.getApp());
+		this.correctItem = item.besi;
+	}
+
+	private void setProfessorInfoBesi() {
+		this.setBackground("data/images/modul-1/background/tada.jpg");
+		this.setDialogNaration("data/dialog/modul1/scene3a.txt");
+		this.setInstructionObject("data/images/modul-1/alat/besi.png");
+		this.setShowInstruction(true);
+	}
+
+	private void setProfessorInfoKesulitan() {
+		this.setBackground("data/images/modul-1/background/tada.jpg");
+		this.setDialogNaration("data/dialog/modul1/scene3b.txt");
+		this.setShowInstruction(true);
+	}
+
+	public void setState(short state) {
+		this.state = state;
+		if (state == this.LEMARI_PERKAKAS) {
+			this.setShowInstruction(false);
+			this.initiateLemariPerkakas();
+		} else {
+			this.item = null;
+			if (state == this.PROF_INFO) {
+				this.setProfessorInfoBesi();
+			} else if (state == this.PROF_INFO_WRONG) {
+				this.setProfessorInfoKesulitan();
+			}
+		}
 	}
 
 	public void setMistakes(int mistakes) {
@@ -183,14 +250,4 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		return this.mistakes;
 	}
 
-	public void setWin(boolean win) {
-		this.win = win;
-	}
-
-	public boolean getWin() {
-		return win;
-	}
-	
-	
-	
 }
