@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.Modul1Scene6Controller;
+import id.ac.ui.edoocatia.model.LemariPerkakas;
 
 public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 

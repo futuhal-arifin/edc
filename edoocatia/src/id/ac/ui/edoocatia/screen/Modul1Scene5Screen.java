@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import id.ac.ui.edoocatia.Edoocatia;
-import id.ac.ui.edoocatia.controller.Modul1Scene4Controller;
 import id.ac.ui.edoocatia.controller.Modul1Scene5Controller;
+import id.ac.ui.edoocatia.model.LemariPerkakas;
 
 public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	private Modul1Scene5Controller controller;

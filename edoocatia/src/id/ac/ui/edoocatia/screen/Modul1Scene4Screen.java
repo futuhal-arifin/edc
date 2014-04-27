@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.Modul1Scene4Controller;
+import id.ac.ui.edoocatia.model.LemariPerkakas;
 
 public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	private Modul1Scene4Controller controller;
@@ -147,6 +148,8 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 						item.getImageBounds()[this.correctItem].getY() + item.getImageBounds()[this.correctItem].height/2);
 				
 			} else if(this.justAnsweredWrong) {
+				System.out.println("scene 4 "+item.getPlayerStateTime() +" "+Gdx.graphics.getDeltaTime());
+				
 				// animasi player sedih waktunya dibatasi, krn masih bisa ngeklik lagi
 				if(item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
 					// animasi player sedih

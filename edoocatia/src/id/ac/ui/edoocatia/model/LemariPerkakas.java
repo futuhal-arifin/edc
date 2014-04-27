@@ -1,7 +1,6 @@
-package id.ac.ui.edoocatia.screen;
+package id.ac.ui.edoocatia.model;
 
 import id.ac.ui.edoocatia.Edoocatia;
-import id.ac.ui.edoocatia.controller.LemariPerkakasController;
 import id.ac.ui.edoocatia.util.AbstractScreen;
 
 import com.badlogic.gdx.Gdx;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class LemariPerkakas extends AbstractScreen {
 
-	private LemariPerkakasController controller;
 	private Texture background;
 	private Texture ImageSubstance[] = new Texture[13];
 	private Rectangle ImageBounds[] = new Rectangle[13];
@@ -184,32 +182,9 @@ public class LemariPerkakas extends AbstractScreen {
 		this.setPlayerAnimation(this.checklist);
 		this.setPlayerAnimation(this.wrong);
 		
-		controller = new LemariPerkakasController(this);
+		//controller = new LemariPerkakasController(this);
 	}
 
-	public void render(float delta) {
-		/*
-		 * cam.update();
-		 * 
-		 * Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int)
-		 * viewport.width, (int) viewport.height); Gdx.gl.glClearColor(0.1f,
-		 * 0.1f, 0.1f, 1); Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		 * 
-		 * batcher.setProjectionMatrix(cam.combined);
-		 */
-		batcher.begin();
-
-		batcher.draw(background, 0, 0);
-
-		for (int i = 0; i < ImageSubstance.length; i++) {
-			batcher.draw(ImageSubstance[i], this.ImageBounds[i].getX(),
-					this.ImageBounds[i].getY());
-		}
-
-		batcher.end();
-
-		controller.processInput();
-	}
 
 	// getter button bounds
 	public Rectangle[] getImageBounds() {
