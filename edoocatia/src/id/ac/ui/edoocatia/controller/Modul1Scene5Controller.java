@@ -67,7 +67,10 @@ public class Modul1Scene5Controller {
 				screen.setState(screen.PROF_INFO);
 			}
 
-			if (screen.getMistakes() == 3) {
+			if (screen.isJustAnsweredWrong()
+					&& screen.getPlayerStateTime() > screen.WIN_DELAY
+					&& screen.getMistakes() == 3) {
+
 				// app.getEdocatiaData().setModul1Scene3Done(true);
 				screen.setState(screen.PROF_INFO_WRONG);
 			}
@@ -83,7 +86,7 @@ public class Modul1Scene5Controller {
 				app.changeScreen(ScreenEnum.MODUL1_SCENE4,
 						ScreenEnum.MODUL1_SCENE2);
 			}
-			
+
 		} else if (currentState == screen.PROF_INFO_WRONG) {
 
 			if (!screen.getShowInstruction()) {

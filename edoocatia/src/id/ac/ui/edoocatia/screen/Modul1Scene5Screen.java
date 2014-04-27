@@ -131,7 +131,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 							item.getImageBounds()[i].getX(),
 							item.getImageBounds()[i].getY());
 
-					if (this.getMistakes() < 3) {
+					if (this.getMistakes() < 4) {
 
 						// ngegambar tanda silang/ceklis
 						if (item.imageIsActive()[i]) {
@@ -178,7 +178,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 			} else if (this.justAnsweredWrong) {
 				// animasi player sedih waktunya dibatasi, krn masih bisa
 				// ngeklik lagi
-				if (item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
+				if (this.mistakes == 3 || item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
 					// animasi player sedih
 					item.setPlayerStateTime(item.getPlayerStateTime()
 							+ Gdx.graphics.getDeltaTime());
