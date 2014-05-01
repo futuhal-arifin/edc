@@ -24,9 +24,16 @@ public class DialogController {
 	public void processInput() {
 		// kalau klik waktu baris dialog lagi jalan, teks baris dialognyanya langsung dimunculin semua
 		if(Gdx.input.justTouched()) {
+			screen.setScreenJustTouched(true);
+		}
+		
+		if(!Gdx.input.isTouched() && screen.isScreenJustTouched()) {
+			screen.setScreenJustTouched(false);
 			if(screen.isDialogLineEnded()) {
+				//System.out.print(" isDialogLineEnded");
 				this.showNextDialogLine();
 			} else {
+				//System.out.print(" NOT isDialogLineEnded");
 				screen.endDialogLine();
 			}
 		}

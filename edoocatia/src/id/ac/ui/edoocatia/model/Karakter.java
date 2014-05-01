@@ -14,7 +14,7 @@ public class Karakter {
 	private Texture karakterDialogTexture;
 	private Texture karakterWinTexture;
 	private Texture karakterLoseTexture;
-	
+	private Texture karakterMemaluTexture;
 	
 	public Karakter(String karakterName) {
 		if(karakterName.equals("player")) {
@@ -29,18 +29,20 @@ public class Karakter {
 		}
 		
 		if(this.karakterName.equals("professor")) {
-			// masukin win lose texture
-		} else if (this.karakterName.equals("alta")) {
-			this.setKarakterWinTexture(new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+"_happy.png")));;
-		} else if (this.karakterName.equals("azmo")) {
-			// masukin win lose texture
-		} else if (this.karakterName.equals("momo")) {
-			// masukin win lose texture
-		} else if (this.karakterName.equals("tsarina")) {
-			// masukin win lose texture
-		} 
+			this.karakterDialogTexture = new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+".png"));
+		} else {
+			this.setKarakterTexture();
+		}
 		
+		//this.setKarakterTexture();
+		
+	}
+	
+	private void setKarakterTexture() {
 		this.karakterDialogTexture = new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+".png"));
+		this.setKarakterWinTexture(new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+"_happy.png")));
+		this.setKarakterLoseTexture(new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+"_sad.png")));
+		this.setKarakterMemaluTexture(new Texture(Gdx.files.internal("data/images/modul-1/animasi/"+this.karakterName+"/"+this.karakterName+"_memalu.png")));
 	}
 
 	public Texture getKarakterDialogTexture() {
@@ -69,5 +71,13 @@ public class Karakter {
 
 	public void setKarakterLoseTexture(Texture karakterLoseTexture) {
 		this.karakterLoseTexture = karakterLoseTexture;
+	}
+
+	public Texture getKarakterMemaluTexture() {
+		return karakterMemaluTexture;
+	}
+
+	public void setKarakterMemaluTexture(Texture karakterMemaluTexture) {
+		this.karakterMemaluTexture = karakterMemaluTexture;
 	}
 }

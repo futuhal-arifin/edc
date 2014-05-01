@@ -163,22 +163,10 @@ public class Modul1Scene2Screen extends DialogScreen {
 		
 		batcher.draw(this.background, 0, 0);
 		
-		//if(this.aPartHasBeenSelected) {
-			/*
-			if(this.partIsSelected[this.SAYAP]) {
-				batcher.draw(this.pesawatParts[this.SAYAP], 
-						(width-this.pesawatParts[this.SAYAP].getWidth())/2, 
-						400);
-			} else {
-				batcher.draw(this.pesawatParts[this.SPION], 
-						(width-this.pesawatParts[this.SPION].getWidth())/2, 
-						500);
-			}
-			*/
-		//} else {
 			batcher.draw(this.pesawatBody, 
 				(VIRTUAL_WIDTH-this.pesawatBody.getWidth())/2, 
 				100);
+			
 			if(this.isShowDialog() || this.partIsSelected(this.SAYAP) || this.status[this.SAYAP_IS_DONE]) {
 				batcher.draw(this.pesawatParts[this.SAYAP], 
 						(VIRTUAL_WIDTH-this.pesawatParts[this.SAYAP].getWidth())/2, 
@@ -192,11 +180,11 @@ public class Modul1Scene2Screen extends DialogScreen {
 			if(this.isShowDialog() || this.partIsSelected(this.SPION) || this.status[this.SPION_IS_DONE]) {
 				batcher.draw(this.pesawatParts[this.SPION], 
 						(VIRTUAL_WIDTH-this.pesawatParts[this.SPION].getWidth())/2, 
-						300); // normal
+						300);
 			} else {
 				batcher.draw(this.pesawatPartsSelected[this.SPION], 
 						(VIRTUAL_WIDTH-this.pesawatParts[this.SPION].getWidth())/2, 
-						300); // hitam
+						300);
 			}
 			
 			if(this.status[this.SAYAP_IS_DONE] && this.status[this.SPION_IS_DONE]) {
@@ -205,8 +193,7 @@ public class Modul1Scene2Screen extends DialogScreen {
 				batcher.draw(currentFrame, VIRTUAL_WIDTH - (currentFrame.getRegionWidth()), 0);
 			}
 			
-		//}
-
+		
 		batcher.end();
 		
 		// kl mau munculin bounds, ubah variabel debug jd true
