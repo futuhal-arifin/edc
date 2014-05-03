@@ -3,6 +3,7 @@ package id.ac.ui.edoocatia;
 import id.ac.ui.edoocatia.model.EdoocatiaModel;
 import id.ac.ui.edoocatia.util.ScreenEnum;
 import id.ac.ui.edoocatia.util.ScreenManager;
+import id.ac.ui.edoocatia.util.SoundFxPlayer;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;

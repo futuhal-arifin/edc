@@ -1,7 +1,6 @@
 package id.ac.ui.edoocatia.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -16,7 +15,6 @@ public class ChooseCharacterController {
 	ChooseCharacterScreen screen;
 	Edoocatia app;
 	private Rectangle[] characterBounds;
-	private Preferences prefs;
 	private OrthographicCamera cam;
 	private Rectangle viewport;
 	
@@ -26,7 +24,6 @@ public class ChooseCharacterController {
 		cam = screen.getCam();
 		viewport = screen.getViewport();
 		this.characterBounds = screen.getCharacterBounds();
-		prefs = Gdx.app.getPreferences("preferences");
 	}
 
 	public void processInput() {
