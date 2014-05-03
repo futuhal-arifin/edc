@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 import id.ac.ui.edoocatia.Edoocatia;
-import id.ac.ui.edoocatia.screen.Modul1Scene4Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene5Screen;
 import id.ac.ui.edoocatia.util.OverlapTester;
 import id.ac.ui.edoocatia.util.ScreenEnum;
@@ -82,7 +81,6 @@ public class Modul1Scene5Controller {
 			}
 		} else if (currentState == screen.PLAYER_MEMALU) {
 			if (screen.getMemaluStateTime() > 3) {
-				app.getScreenManager().dispose(ScreenEnum.LEMARI_PERKAKAS);
 				app.changeScreen(ScreenEnum.MODUL1_SCENE4,
 						ScreenEnum.MODUL1_SCENE2);
 			}
@@ -90,7 +88,6 @@ public class Modul1Scene5Controller {
 		} else if (currentState == screen.PROF_INFO_WRONG) {
 
 			if (!screen.getShowInstruction()) {
-				app.getScreenManager().dispose(ScreenEnum.LEMARI_PERKAKAS);
 				app.changeScreen(ScreenEnum.MODUL1_SCENE5,
 						ScreenEnum.MODUL1_SCENE2);
 			}

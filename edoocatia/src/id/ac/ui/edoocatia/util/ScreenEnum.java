@@ -3,14 +3,11 @@ package id.ac.ui.edoocatia.util;
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.screen.ChooseCharacterScreen;
 import id.ac.ui.edoocatia.screen.IntroScreen;
-import id.ac.ui.edoocatia.screen.LemariPerkakas;
 import id.ac.ui.edoocatia.screen.MainMenuScreen;
 import id.ac.ui.edoocatia.screen.Modul1Scene1Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene2Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene3Screen;
-import id.ac.ui.edoocatia.screen.Modul1Scene3Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene4Screen;
-import id.ac.ui.edoocatia.screen.Modul1Scene5Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene5Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene6Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene7Screen;
@@ -37,16 +34,11 @@ public enum ScreenEnum {
     MODUL1_SCENE3 {
         @Override
         protected Screen getScreenInstance(Edoocatia app) {
-           return new Modul1Scene3Screen(app);
+             return new Modul1Scene3Screen(app);
         }
     },
     
-    LEMARI_PERKAKAS {
-        @Override
-        protected Screen getScreenInstance(Edoocatia app) {
-             return new LemariPerkakas(app);
-        }
-    },
+
     
     MODUL1_SCENE4 {
         @Override

@@ -68,7 +68,6 @@ public class Modul1Scene4Controller {
 			}
 		} else if(currentState == screen.PLAYER_MEMALU) {
 			if(screen.getMemaluStateTime() > 3) {
-				app.getScreenManager().dispose(ScreenEnum.LEMARI_PERKAKAS);
 				app.changeScreen(ScreenEnum.MODUL1_SCENE4, ScreenEnum.MODUL1_SCENE2);
 			}
 		}

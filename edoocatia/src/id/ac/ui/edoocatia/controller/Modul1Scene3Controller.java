@@ -69,13 +69,11 @@ public class Modul1Scene3Controller {
 			if (screen.isJustAnsweredWrong()
 					&& screen.getPlayerStateTime() > screen.WIN_OR_LOSE_DELAY
 					&& screen.getMistakes() == 3) {
-				System.out.println("masuk sini");
 				screen.setState(screen.PROF_INFO_WRONG);
 			}
 
 		} else if (currentState == screen.PROF_INFO) {
 			if (!screen.getShowInstruction()) {
-				app.getScreenManager().dispose(ScreenEnum.LEMARI_PERKAKAS);
 				app.changeScreen(ScreenEnum.MODUL1_SCENE3,
 						ScreenEnum.MODUL1_SCENE4);
 			}
@@ -83,7 +81,6 @@ public class Modul1Scene3Controller {
 		} else if (currentState == screen.PROF_INFO_WRONG) {
 
 			if (!screen.getShowInstruction()) {
-				app.getScreenManager().dispose(ScreenEnum.LEMARI_PERKAKAS);
 				app.changeScreen(ScreenEnum.MODUL1_SCENE3,
 						ScreenEnum.MODUL1_SCENE2);
 			}

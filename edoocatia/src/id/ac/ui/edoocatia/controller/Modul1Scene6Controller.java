@@ -63,7 +63,6 @@ public class Modul1Scene6Controller {
 
 		} else if(currentState == screen.PROF_INFO) {
 			if(!screen.getShowInstruction()) {
-				app.getScreenManager().dispose(ScreenEnum.LEMARI_PERKAKAS);
 				app.changeScreen(ScreenEnum.MODUL1_SCENE6, ScreenEnum.MODUL1_SCENE7);
 			}
 		} 
