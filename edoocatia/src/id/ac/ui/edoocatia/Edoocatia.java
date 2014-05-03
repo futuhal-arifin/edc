@@ -31,6 +31,10 @@ public class Edoocatia extends Game {
 		screenMgr = ScreenManager.getInstance();
 		screenMgr.initialize(this);
 		screenMgr.show(ScreenEnum.SPLASH);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26165e4d126e9f6da6f8fa2c4a05e4715d054ab8
 	}
 
 	public EdoocatiaModel getEdocatiaData() {

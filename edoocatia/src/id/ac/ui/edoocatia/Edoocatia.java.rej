@@ -1,0 +1,12 @@
+diff a/edoocatia/src/id/ac/ui/edoocatia/Edoocatia.java b/edoocatia/src/id/ac/ui/edoocatia/Edoocatia.java	(rejected hunks)
+@@ -31,6 +31,10 @@
+  		screenMgr = ScreenManager.getInstance();
+  		screenMgr.initialize(this);
+  		screenMgr.show(ScreenEnum.SPLASH);
+++<<<<<<< HEAD
+++=======
++ 
+++>>>>>>> 26165e4d126e9f6da6f8fa2c4a05e4715d054ab8
+  	}
+  
+  	public EdoocatiaModel getEdocatiaData() {
