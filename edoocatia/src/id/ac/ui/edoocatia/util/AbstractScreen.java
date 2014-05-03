@@ -2,7 +2,9 @@ package id.ac.ui.edoocatia.util;
 
 import id.ac.ui.edoocatia.Edoocatia;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +26,8 @@ private Edoocatia edoocatiaApp;
 	protected SpriteBatch batcher;
 	private int screenType;
 	
+	private Music musicBg;
+	
 	//buat ngerender rectangle bounds kalo mau liat boundsnya
 	protected ShapeRenderer debugRenderer = new ShapeRenderer();
 	
@@ -39,6 +43,31 @@ private Edoocatia edoocatiaApp;
 		batcher = new SpriteBatch();
 		
 		viewport = new Rectangle(0f, 0f, (float)width, (float)height);
+	}
+	
+	protected void setMusicBg(String path){
+		// kalau dibuka langsung play bg music
+		musicBg = Gdx.audio.newMusic(Gdx.files.internal(path));
+		if (this.musicBg != null) {
+			musicBg.setLooping(true);
+			musicBg.play();
+		}
+	}
+	
+	public void stopMusic() {
+		// Gdx.app.getPreferences("preferences").putFloat("music_pos",
+		// this.mainMenuMusicBg.getPosition());
+		if (this.musicBg != null) {
+			if (this.musicBg.isPlaying()) {
+				if (this.musicBg.isLooping()) {
+					this.musicBg.setLooping(false);
+				}
+				this.musicBg.stop();
+				this.musicBg.dispose();
+				this.musicBg = null;
+			}
+			this.musicBg = null;
+		}
 	}
 	
 	public int getScreenType() {

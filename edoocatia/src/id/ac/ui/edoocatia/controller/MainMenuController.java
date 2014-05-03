@@ -92,13 +92,14 @@ public class MainMenuController {
 			else if(screen.buttonIsActive(screen.JELAJAH_WEB)){
 				screen.setButtonStatus(false, screen.JELAJAH_WEB);
 				if(OverlapTester.pointInRectangle( buttonBounds[screen.JELAJAH_WEB], pos.x, pos.y)){
+					screen.stopMusic();
 					app.changeScreen(ScreenEnum.MAIN_MENU, ScreenEnum.MODUL1_SCENE7);
 				}
 			}
 			else if(screen.buttonIsActive(screen.SANG_JUARA)){
 				screen.setButtonStatus(false, screen.SANG_JUARA);
 				if(OverlapTester.pointInRectangle( buttonBounds[screen.SANG_JUARA], pos.x, pos.y)){
-					
+					//screen.stopMusic();
 				}
 			}
 			

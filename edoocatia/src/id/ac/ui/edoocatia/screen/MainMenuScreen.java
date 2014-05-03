@@ -35,7 +35,7 @@ public class MainMenuScreen extends AbstractScreen {
 	public final int SANG_JUARA = 3;
 
 	// music
-	private Music mainMenuMusicBg;
+	//private Music mainMenuMusicBg;
 	private Sound clickSfx;
 
 	private boolean debug = false;
@@ -101,14 +101,10 @@ public class MainMenuScreen extends AbstractScreen {
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
 			buttonIsActive[idx] = false;
 		}
+		
 		// kalau dibuka langsung play bg music
-		mainMenuMusicBg = Gdx.audio.newMusic(Gdx.files
-				.internal("data/sounds/music/menu.ogg"));
-		if (this.mainMenuMusicBg != null) {
-			// Gdx.app.getPreferences("preferences").getFloat("music_pos");
-			mainMenuMusicBg.setLooping(true);
-			mainMenuMusicBg.play();
-		}
+		this.setMusicBg("data/sounds/music/menu.ogg");
+
 		// sfx buat klik
 		clickSfx = Gdx.audio.newSound(Gdx.files
 				.internal("data/sounds/sfx/click.wav"));
@@ -197,21 +193,5 @@ public class MainMenuScreen extends AbstractScreen {
 	public void playSoundFx() {
 	 if(Gdx.app.getPreferences("preferences").getBoolean("soundOn"))
 		this.clickSfx.play();
-	}
-
-	public void stopMusic() {
-		// Gdx.app.getPreferences("preferences").putFloat("music_pos",
-		// this.mainMenuMusicBg.getPosition());
-		if (this.mainMenuMusicBg != null) {
-			if (this.mainMenuMusicBg.isPlaying()) {
-				if (this.mainMenuMusicBg.isLooping()) {
-					this.mainMenuMusicBg.setLooping(false);
-				}
-				this.mainMenuMusicBg.stop();
-				this.mainMenuMusicBg.dispose();
-				this.mainMenuMusicBg = null;
-			}
-			this.mainMenuMusicBg = null;
-		}
 	}
 }

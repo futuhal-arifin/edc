@@ -31,18 +31,6 @@ public class Edoocatia extends Game {
 		screenMgr = ScreenManager.getInstance();
 		screenMgr.initialize(this);
 		screenMgr.show(ScreenEnum.SPLASH);
-<<<<<<< HEAD
-//		screenMgr.show(ScreenEnum.MODUL1_SCENE3);
-
-		
-		// setScreen(new MainMenuScreen(this));
-		/*
-		 * batch = new SpriteBatch(); font = new BitmapFont();
-		 * 
-		 * this.setScreen(new MainMenuScreen(this));
-		 */
-=======
->>>>>>> 276e82ec1c59242c388c57424a7c2d32ef8439bb
 	}
 
 	public EdoocatiaModel getEdocatiaData() {
