@@ -23,6 +23,7 @@ public class Modul1Scene6Controller {
 		app = screen.getApp();
 		cam = screen.getCam();
 		viewport = screen.getViewport();
+		app.sfxPlayer.setSoundFxModul1();
 	}
 
 	public void processInput() {
@@ -43,9 +44,11 @@ public class Modul1Scene6Controller {
 							if(i == screen.getCorrectItem()) {
 								screen.setJustAnsweredCorrectly(true);
 								app.getEdocatiaData().setScore(app.getEdocatiaData().getScore() + 100);
+								app.sfxPlayer.playModul1RightSoundFx();
 							} else {
 								screen.setJustAnsweredWrong(true);
 								app.getEdocatiaData().setScore(app.getEdocatiaData().getScore() - 20);
+								app.sfxPlayer.playModul1WrongSoundFx();
 							}
 						}
 					}
@@ -58,6 +61,7 @@ public class Modul1Scene6Controller {
 			
 			if(screen.isJustAnsweredCorrectly() && screen.getPlayerStateTime() > screen.WIN_DELAY) {
 				app.getEdocatiaData().setModul1Scene6Done(true);
+				app.sfxPlayer.disposeModul1SoundFx();
 				screen.setState(screen.PROF_INFO);
 			}
 

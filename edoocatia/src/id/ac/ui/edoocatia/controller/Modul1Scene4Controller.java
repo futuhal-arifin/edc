@@ -22,7 +22,8 @@ public class Modul1Scene4Controller {
 		app = screen.getApp();
 		cam = screen.getCam();
 		viewport = screen.getViewport();
-		//
+		app.sfxPlayer.setSoundFxModul1();
+		app.sfxPlayer.setPukulPaluSoundFx();
 	}
 
 	public void processInput() {
@@ -47,9 +48,11 @@ public class Modul1Scene4Controller {
 							if(i == screen.getCorrectItem()) {
 								screen.setJustAnsweredCorrectly(true);
 								app.getEdocatiaData().setScore(app.getEdocatiaData().getScore() + 100);
+								app.sfxPlayer.playModul1RightSoundFx();
 							} else {
 								screen.setJustAnsweredWrong(true);
 								app.getEdocatiaData().setScore(app.getEdocatiaData().getScore() - 20);
+								app.sfxPlayer.playModul1WrongSoundFx();
 							}
 						}
 					}
@@ -59,6 +62,7 @@ public class Modul1Scene4Controller {
 			if(screen.isJustAnsweredCorrectly() && screen.getPlayerStateTime() > screen.WIN_DELAY) {
 				app.getEdocatiaData().setModul1Scene3Done(true);
 				app.getEdocatiaData().setModul1Scene4Done(true);
+				app.sfxPlayer.disposeModul1SoundFx();
 				screen.setState(screen.PROF_INFO);
 			}
 
@@ -67,7 +71,9 @@ public class Modul1Scene4Controller {
 				screen.setState(screen.PLAYER_MEMALU);
 			}
 		} else if(currentState == screen.PLAYER_MEMALU) {
+			
 			if(screen.getMemaluStateTime() > 3) {
+				app.sfxPlayer.disposePukulPaluSoundFx();
 				app.changeScreen(ScreenEnum.MODUL1_SCENE4, ScreenEnum.MODUL1_SCENE2);
 			}
 		}

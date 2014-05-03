@@ -11,6 +11,7 @@ public class Edoocatia extends Game {
 
 	private EdoocatiaModel edoocatia;
 	public ScreenManager screenMgr;
+	public SoundFxPlayer sfxPlayer = new SoundFxPlayer();
 
 	/*
 	 * public static final int GAME_STATE_PLAY = 0; public static final int

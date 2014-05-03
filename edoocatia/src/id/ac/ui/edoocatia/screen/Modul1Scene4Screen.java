@@ -148,8 +148,6 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 						item.getImageBounds()[this.correctItem].getY() + item.getImageBounds()[this.correctItem].height/2);
 				
 			} else if(this.justAnsweredWrong) {
-				System.out.println("scene 4 "+item.getPlayerStateTime() +" "+Gdx.graphics.getDeltaTime());
-				
 				// animasi player sedih waktunya dibatasi, krn masih bisa ngeklik lagi
 				if(item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
 					// animasi player sedih
@@ -177,8 +175,13 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		} else if(this.state == this.PLAYER_MEMALU) {
 			batcher.draw(this.memaluBackground, 0, 0);
 			// animasi player memalu besi
+			int temp = this.playerMemaluAnimation.getKeyFrameIndex(memaluStateTime);
 			memaluStateTime += Gdx.graphics.getDeltaTime();
 			currentMemaluFrame = this.playerMemaluAnimation.getKeyFrame(memaluStateTime, false);
+			int current = this.playerMemaluAnimation.getKeyFrameIndex(memaluStateTime);
+			if(current % 2 != 0 && temp != current) {
+				this.getApp().sfxPlayer.playPukulPaluSoundFx();
+			} 
 			batcher.draw(currentMemaluFrame, 
 					(VIRTUAL_WIDTH - (currentMemaluFrame.getRegionWidth()))/2, 
 					(VIRTUAL_HEIGHT - (currentMemaluFrame.getRegionHeight()))/2);
