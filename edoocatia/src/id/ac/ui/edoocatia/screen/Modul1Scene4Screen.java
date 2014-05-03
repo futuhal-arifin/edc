@@ -247,7 +247,9 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		if(state == this.LEMARI_PERKAKAS) {
 			this.initiateLemariPerkakas();
 		} else {
-			this.item = null;
+			if(item != null) {
+				item.dispose();
+			}
 			if (state == this.PROF_INFO) {
 				this.setProfessorInfoPalu();
 			} else if (state == this.PLAYER_MEMALU) {
@@ -261,5 +263,12 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	private boolean showCerminCembung() {
 		return !this.getApp().getEdocatiaData().isModul1Scene5Done();
 	}
-
+	
+	@Override
+	public void dispose() {
+		this.memaluBackground.dispose();
+		this.playerMemaluTexture.dispose();
+		//this.playerDefaultTexture.dispose();
+		super.dispose();
+	}
 }

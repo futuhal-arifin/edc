@@ -190,11 +190,19 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 			this.setShowInstruction(false);
 			this.initiateLemariPerkakas();
 		} else {
-			this.item = null;
+			if(item != null) {
+				item.dispose();
+			}
 			if (state == this.PROF_INFO) {
 				this.setProfessorInfoHidrogen();
 			} 
 		}
+	}
+	
+	@Override
+	public void dispose() {
+		//this.playerDefaultTexture.dispose();
+		super.dispose();
 	}
 
 }

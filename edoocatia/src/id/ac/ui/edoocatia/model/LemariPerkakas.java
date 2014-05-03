@@ -1,7 +1,6 @@
 package id.ac.ui.edoocatia.model;
 
 import id.ac.ui.edoocatia.Edoocatia;
-import id.ac.ui.edoocatia.util.AbstractScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -364,5 +363,20 @@ public class LemariPerkakas {
 	public void resetPlayerStateTime() {
 		playerStateTime = 0f;
 	}
-
+	
+	public void dispose() {
+		this.background.dispose();
+		for(int index = 0; index < this.ImageSubstance.length; index++) {
+			this.ImageSubstance[index].dispose();
+		}
+		for(int index = 0; index < this.ImageTanda.length; index++) {
+			this.ImageTanda[index].dispose();
+		}
+		for(int index = 0; index < this.ImageScore.length; index++) {
+			this.ImageScore[index].dispose();
+		}
+		for(int index = 0; index < this.playerTexture.length; index++) {
+			this.playerTexture[index].dispose();
+		}
+	}
 }

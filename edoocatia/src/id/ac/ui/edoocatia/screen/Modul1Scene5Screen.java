@@ -3,7 +3,6 @@ package id.ac.ui.edoocatia.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import id.ac.ui.edoocatia.Edoocatia;
@@ -12,7 +11,6 @@ import id.ac.ui.edoocatia.model.LemariPerkakas;
 
 public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	private Modul1Scene5Controller controller;
-	private Texture memaluBackground;
 
 	// buat lemari perkakas
 	private LemariPerkakas item;
@@ -28,14 +26,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public final int ANIMATION_STATE_LIMIT = 1;
 	public final int WIN_DELAY = 3;
 
-	// buat player memalu
-	private Texture playerMemaluTexture;
-	private Animation playerMemaluAnimation;
-	private TextureRegion[] playerMemaluFrames;
-	private TextureRegion currentMemaluFrame;
-	private final int MEMALU_FRAME_COLS = 1;
-	private final int MEMALU_FRAME_ROWS = 6;
-	private float memaluStateTime;
 
 	// private boolean debug = true;
 
@@ -77,10 +67,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 	public short getJustSelectedItem() {
 		return justSelectedItem;
-	}
-
-	public float getMemaluStateTime() {
-		return this.memaluStateTime;
 	}
 
 	public float getPlayerStateTime() {
@@ -210,17 +196,8 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 				this.resetJustSelectedItem();
 				batcher.draw(this.playerDefaultTexture, 0, 0);
 			}
-		} else if (this.state == this.PLAYER_MEMALU) {
-			batcher.draw(this.memaluBackground, 0, 0);
-			// animasi player memalu besi
-			memaluStateTime += Gdx.graphics.getDeltaTime();
-			currentMemaluFrame = this.playerMemaluAnimation.getKeyFrame(
-					memaluStateTime, false);
-			batcher.draw(
-					currentMemaluFrame,
-					(VIRTUAL_WIDTH - (currentMemaluFrame.getRegionWidth())) / 2,
-					(VIRTUAL_HEIGHT - (currentMemaluFrame.getRegionHeight())) / 2);
-		}
+		} 
+		
 		batcher.end();
 		// ngegambar instruksi profesor di awal scene, trus ngegambar penjelasan
 		// profesor stlh item dipilih
@@ -249,27 +226,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		this.correctItem = item.cermin_cembung;
 	}
 
-	private void setPlayerMemaluAnimation() {
-		memaluBackground = new Texture(
-				Gdx.files.internal("data/images/modul-1/background/tada.jpg"));
-
-		playerMemaluTexture = this.getApp().getEdocatiaData().getPlayer()
-				.getKarakterMemaluTexture();
-		TextureRegion[][] temp = TextureRegion.split(playerMemaluTexture,
-				playerMemaluTexture.getWidth() / MEMALU_FRAME_COLS,
-				playerMemaluTexture.getHeight() / MEMALU_FRAME_ROWS);
-		this.playerMemaluFrames = new TextureRegion[MEMALU_FRAME_COLS
-				* MEMALU_FRAME_ROWS];
-		int index = 0;
-		for (int ii = 0; ii < MEMALU_FRAME_ROWS; ii++) {
-			for (int jj = 0; jj < MEMALU_FRAME_COLS; jj++) {
-				playerMemaluFrames[index++] = temp[ii][jj];
-			}
-		}
-		playerMemaluAnimation = new Animation(0.25f, playerMemaluFrames);
-		memaluStateTime = 0f;
-	}
-
+	
 	private void setProfessorInfoCerminCembung() {
 		this.setBackground("data/images/modul-1/background/tada.jpg");
 		this.setDialogNaration("data/dialog/modul1/scene5a.txt");
@@ -294,13 +251,13 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		if (state == this.LEMARI_PERKAKAS) {
 			this.initiateLemariPerkakas();
 		} else {
-			this.item = null;
+			if(item != null) {
+				item.dispose();
+			}
 			if (state == this.PROF_INFO) {
 				this.setProfessorInfoCerminCembung();
 				
-			} else if (state == this.PLAYER_MEMALU) {
-				this.setPlayerMemaluAnimation();
-			}else if(state == this.PROF_INFO_WRONG){
+			} else if(state == this.PROF_INFO_WRONG){
 				this.setProfessorInfoKesulitan();
 			}
 			else {
@@ -320,5 +277,11 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 	public int getMistakes() {
 		return this.mistakes;
+	}
+	
+	@Override
+	public void dispose() {
+		//this.playerDefaultTexture.dispose();
+		super.dispose();
 	}
 }

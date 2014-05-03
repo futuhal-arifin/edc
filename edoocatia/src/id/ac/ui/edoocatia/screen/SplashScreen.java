@@ -70,4 +70,10 @@ public class SplashScreen extends AbstractScreen {
 	public long getSplashTime() {
 		return this.SPLASH_TIME;
 	}
+
+	@Override
+	public void dispose() {
+		this.background.dispose();
+		super.dispose();
+	}
 }

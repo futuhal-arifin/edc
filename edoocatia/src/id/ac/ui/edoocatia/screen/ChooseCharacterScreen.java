@@ -1,7 +1,6 @@
 package id.ac.ui.edoocatia.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,7 +25,6 @@ public class ChooseCharacterScreen extends AbstractScreen {
 	public final int AZMO = 2;
 	public final int TSARINA = 3;
 	// music
-	private Music mainMenuMusicBg;
 	private Sound clickSfx;
 	
 	private BitmapFont fontTitle;
@@ -125,5 +123,16 @@ public class ChooseCharacterScreen extends AbstractScreen {
 
 	public void setCharacterIsChosen(boolean status, int index) {
 		this.characterIsChosen[index] = status;
+	}
+
+	@Override
+	public void dispose() {
+		this.noneChosenTexture.dispose();
+		for(int index = 0; index < this.characterChosenTexture.length; index++) {
+			this.characterChosenTexture[index].dispose();
+		}
+		fontTitle.dispose();
+		this.clickSfx.dispose();
+		super.dispose();
 	}
 }

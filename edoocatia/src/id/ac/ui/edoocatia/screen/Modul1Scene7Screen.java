@@ -280,4 +280,17 @@ public class Modul1Scene7Screen extends AbstractScreen {
 	public void incrementCurrentMonitorFlickerCount() {
 		this.currentMonitorFlickerCount++;
 	}
+
+	@Override
+	public void dispose() {
+		this.background.dispose();
+		this.pesawatTexture.dispose();
+		this.playerTexture.dispose();
+		this.font.dispose();
+		for(int index = 0; index < this.light.length; index++) {
+			this.light[index].dispose();
+		}
+		this.pesawatSideTexture.dispose();
+		super.dispose();
+	}
 }

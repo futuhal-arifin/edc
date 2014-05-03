@@ -26,10 +26,12 @@ private Edoocatia edoocatiaApp;
 	protected SpriteBatch batcher;
 	private int screenType;
 	
-	private Music musicBg;
+	protected Music musicBg;
 	
 	//buat ngerender rectangle bounds kalo mau liat boundsnya
 	protected ShapeRenderer debugRenderer = new ShapeRenderer();
+	
+	
 	
 	public AbstractScreen(Edoocatia app){
 		this.edoocatiaApp = app;
@@ -211,10 +213,13 @@ private Edoocatia edoocatiaApp;
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		//com.badlogic.gdx.Screen.dispose();
+		if(this.musicBg != null) {
+			this.musicBg.dispose();
+		}
+		this.batcher.dispose();
 	}
+
 }

@@ -1,7 +1,6 @@
 package id.ac.ui.edoocatia.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -193,5 +192,18 @@ public class MainMenuScreen extends AbstractScreen {
 	public void playSoundFx() {
 	 if(Gdx.app.getPreferences("preferences").getBoolean("soundOn"))
 		this.clickSfx.play();
+	}
+
+	@Override
+	public void dispose() {
+		this.background.dispose();
+		this.titleTexture.dispose();
+		this.charTexture.dispose();
+		for(int index = 0; index < this.buttonTexture.length; index++) {
+			this.buttonTexture[index].dispose();
+			this.buttonActiveTexture[index].dispose();
+		}
+		this.clickSfx.dispose();
+		super.dispose();
 	}
 }

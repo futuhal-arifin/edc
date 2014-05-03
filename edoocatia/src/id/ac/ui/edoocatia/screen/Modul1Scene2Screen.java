@@ -281,4 +281,15 @@ public class Modul1Scene2Screen extends DialogScreen {
 	public void setStartDelay(long startDelay) {
 		this.startDelay = startDelay;
 	}
+	
+	@Override
+	public void dispose() {
+		this.background.dispose();
+		this.pesawatBody.dispose();
+		for(int index = 0; index < this.pesawatParts.length; index++) {
+			this.pesawatParts[index].dispose();
+			this.pesawatPartsSelected[index].dispose();
+		}
+		super.dispose();
+	}
 }

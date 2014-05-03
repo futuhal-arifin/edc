@@ -1,7 +1,6 @@
 package id.ac.ui.edoocatia.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -24,16 +23,14 @@ public class IntroScreen extends AbstractScreen {
 	private final int SCENE_TEXT_4 = 4000;
 	private final int SCENE_TEXT_12 = 5000;
 	private final int SCENE_TEXT_19 = 3000;
-	private int current_scene_time = SCENE_TIME_DEFAULT;
+	private int current_scene_time = SCENE_TEXT_0;
 
-	
-	private Music introMusicBg;
 	
 	private IntroController introController;
 
 	public IntroScreen(Edoocatia app) {
 		super(app);
-		Texture.setEnforcePotImages(false);
+		//Texture.setEnforcePotImages(false);
 		
 		for (int idx = 0; idx < this.sceneIntro.length; idx++) {
 			sceneIntro[idx] = new Texture(Gdx.files.internal("data/images/intro/"+(idx)+".jpg"));
@@ -43,25 +40,13 @@ public class IntroScreen extends AbstractScreen {
 		startTime = TimeUtils.millis();
 		
 		// kalau dibuka langsung play bg music
-		introMusicBg = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/music/intro.ogg"));
-		if (this.introMusicBg != null) {
-			//Gdx.app.getPreferences("preferences").getFloat("music_pos");
-			introMusicBg.setLooping(true);
-			introMusicBg.play();
-		} 
+		this.setMusicBg("data/sounds/music/intro.ogg"); 
 		// !! wajib daftarin controller
 		introController = new IntroController(this);
 	}
 
 	public void render(float delta) {
 		
-		switch(this.rendCount) {
-			case 0:  current_scene_time = this.SCENE_TEXT_0; break;
-			case 4:  current_scene_time = this.SCENE_TEXT_4; break;
-			case 12:  current_scene_time = this.SCENE_TEXT_12; break;
-			case 19:  current_scene_time = this.SCENE_TEXT_19; break;
-			default: current_scene_time = this.SCENE_TIME_DEFAULT; break;
-		}
 		
 		cam.update();
 		
@@ -100,6 +85,13 @@ public class IntroScreen extends AbstractScreen {
 
 	public void incrementCounter() {
 		this.rendCount++;
+		switch(this.rendCount) {
+			case 0:  current_scene_time = this.SCENE_TEXT_0; break;
+			case 4:  current_scene_time = this.SCENE_TEXT_4; break;
+			case 12:  current_scene_time = this.SCENE_TEXT_12; break;
+			case 19:  current_scene_time = this.SCENE_TEXT_19; break;
+			default: current_scene_time = this.SCENE_TIME_DEFAULT; break;
+		}
 	}
 
 	public long getBgTime() {
@@ -112,19 +104,12 @@ public class IntroScreen extends AbstractScreen {
 		else
 			return false;
 	}
-	
-	public void stopMusic() {
-		//Gdx.app.getPreferences("preferences").putFloat("music_pos", this.mainMenuMusicBg.getPosition());
-		if(this.introMusicBg != null) {
-			if (this.introMusicBg.isPlaying()) {
-				if (this.introMusicBg.isLooping()) {
-					this.introMusicBg.setLooping(false);
-				}
-				this.introMusicBg.stop();
-				this.introMusicBg.dispose();
-				this.introMusicBg = null;
-			}
-			this.introMusicBg = null;
+
+	@Override
+	public void dispose() {
+		for(int index = 0; index < this.sceneIntro.length; index++) {
+			this.sceneIntro[index].dispose();
 		}
+		super.dispose();
 	}
 }

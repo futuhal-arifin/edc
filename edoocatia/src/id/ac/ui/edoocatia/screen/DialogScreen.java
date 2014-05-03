@@ -210,6 +210,7 @@ public class DialogScreen extends AbstractScreen {
 		this.isDialogLineEnded = isDialogLineEnded;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setDialogNaration(String path) {
 		this.setAllDialogVariables();
 		this.dialogNaration = Gdx.files.internal(path);
@@ -288,5 +289,13 @@ public class DialogScreen extends AbstractScreen {
 
 	public void setScreenJustTouched(boolean screenJustTouched) {
 		this.screenJustTouched = screenJustTouched;
+	}
+
+	@Override
+	public void dispose() {
+		this.font.dispose();
+		this.dialogBackground.dispose();
+		this.currentKarakterTexture.dispose();
+		super.dispose();
 	}
 }

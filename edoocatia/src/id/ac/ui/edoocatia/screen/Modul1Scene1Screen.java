@@ -1,8 +1,8 @@
 package id.ac.ui.edoocatia.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
+//import com.badlogic.gdx.audio.Music;
+//import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -15,8 +15,8 @@ public class Modul1Scene1Screen extends DialogScreen {
 	private Texture background;
 	
 	// music
-	private Music sceneMusicBg;
-	private Sound clickSfx;
+	//private Music sceneMusicBg;
+	//private Sound clickSfx;
 
 	public Modul1Scene1Screen(Edoocatia app) {
 		super(app);
@@ -54,6 +54,12 @@ public class Modul1Scene1Screen extends DialogScreen {
 		
 		super.render(delta);
 		controller.processInput();
+	}
+	
+	@Override
+	public void dispose() {
+		this.background.dispose();
+		super.dispose();
 	}
 
 }
