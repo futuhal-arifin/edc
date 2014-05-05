@@ -13,34 +13,26 @@ public class IntroController {
 
 	private Edoocatia app;
 	private IntroScreen screen;
-	//private OrthographicCamera cam;
-	//private Rectangle viewport;
-	
+
 	public IntroController(IntroScreen screen) {
 		Gdx.input.setCatchBackKey(false);
 		this.screen = screen;
 		app = screen.getApp();
-		//cam = screen.getCam();
-		//viewport = screen.getViewport();
 	}
 
 	public void processInput() {
 		// TODO Auto-generated method stub
-		long currentTime  = TimeUtils.millis();
-		if(currentTime > (screen.getStartTime() + screen.getBgTime())) {
-			if(screen.isIntroEnded()) {
+		long currentTime = TimeUtils.millis();
+		if (currentTime > (screen.getStartTime() + screen.getBgTime())) {
+			if (screen.isIntroEnded()) {
 				screen.stopMusic();
 				app.changeScreen(ScreenEnum.INTRO, ScreenEnum.MAIN_MENU);
-			}
-			else {
+			} else {
 				screen.setStartTime(currentTime);
 				screen.incrementCounter();
 			}
 		}
-		
-		
-		
-		
+
 	}
 
 }

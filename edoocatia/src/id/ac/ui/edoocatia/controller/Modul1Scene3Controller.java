@@ -57,7 +57,7 @@ public class Modul1Scene3Controller {
 							}
 						}
 					}
-					// screen.setImageStatus(true, screen.besi);
+				
 				}
 
 			}

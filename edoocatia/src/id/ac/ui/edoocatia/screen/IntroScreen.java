@@ -30,7 +30,6 @@ public class IntroScreen extends AbstractScreen {
 
 	public IntroScreen(Edoocatia app) {
 		super(app);
-		//Texture.setEnforcePotImages(false);
 		
 		for (int idx = 0; idx < this.sceneIntro.length; idx++) {
 			sceneIntro[idx] = new Texture(Gdx.files.internal("data/images/intro/"+(idx)+".jpg"));

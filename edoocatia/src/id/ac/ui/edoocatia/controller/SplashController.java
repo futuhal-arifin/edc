@@ -10,15 +10,17 @@ import id.ac.ui.edoocatia.util.ScreenEnum;
 public class SplashController {
 	SplashScreen screen;
 	Edoocatia app;
+
 	public SplashController(SplashScreen screen) {
 		this.screen = screen;
 		app = screen.getApp();
 	}
-	
+
 	public void processInput() {
-		if(Gdx.input.isTouched() || TimeUtils.millis() > screen.getStartTime() + screen.getSplashTime()) {
+		if (Gdx.input.isTouched()
+				|| TimeUtils.millis() > screen.getStartTime()
+						+ screen.getSplashTime()) {
 			app.changeScreen(ScreenEnum.SPLASH, ScreenEnum.MAIN_MENU);
 		}
-            //myGame.setScreen(new GameScreen());
 	}
 }

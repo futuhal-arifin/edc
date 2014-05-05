@@ -13,7 +13,7 @@ import id.ac.ui.edoocatia.model.LemariPerkakas;
 public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	private Modul1Scene4Controller controller;
 	private Texture memaluBackground;
-	
+
 	// buat lemari perkakas
 	private LemariPerkakas item;
 	private Texture playerDefaultTexture;
@@ -27,7 +27,7 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 
 	public final int ANIMATION_STATE_LIMIT = 1;
 	public final int WIN_DELAY = 3;
-	
+
 	// buat player memalu
 	private Texture playerMemaluTexture;
 	private Animation playerMemaluAnimation;
@@ -37,52 +37,52 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	private final int MEMALU_FRAME_ROWS = 6;
 	private float memaluStateTime;
 
-	//private boolean debug = true;
-	
 	private short state;
-	
+
 	public short PROF_INSTRUCTION = 0;
 	public short LEMARI_PERKAKAS = 1;
 	public short PROF_INFO = 2;
 	public short PLAYER_MEMALU = 3;
-	
+
 	public Modul1Scene4Screen(Edoocatia app) {
 		super(app);
 		this.setState(this.PROF_INSTRUCTION);
 		controller = new Modul1Scene4Controller(this);
 	}
-	
+
 	public boolean cekCerminCembung(int index) {
-		return index != item.cermin_cembung || (index == item.cermin_cembung && this.showCerminCembung());
+		return index != item.cermin_cembung
+				|| (index == item.cermin_cembung && this.showCerminCembung());
 	}
-	
+
 	public int getCorrectItem() {
 		return this.correctItem;
 	}
-	
+
 	public LemariPerkakas getItem() {
 		return this.item;
 	}
-	
+
 	public short getJustSelectedItem() {
 		return justSelectedItem;
 	}
-	
+
 	public float getMemaluStateTime() {
 		return this.memaluStateTime;
 	}
-	
+
 	public float getPlayerStateTime() {
-		return item.getPlayerStateTime() ;
+		return item.getPlayerStateTime();
 	}
 
 	public short getState() {
 		return state;
 	}
-	
+
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
-		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer().getKarakterDialogTexture();
+		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
+				.getKarakterDialogTexture();
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
@@ -91,11 +91,11 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	public boolean isJustAnsweredCorrectly() {
 		return justAnsweredCorrectly;
 	}
-	
+
 	public boolean isJustAnsweredWrong() {
 		return justAnsweredWrong;
 	}
-	
+
 	public void render(float delta) {
 
 		cam.update();
@@ -108,59 +108,80 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		batcher.setProjectionMatrix(cam.combined);
 		batcher.begin();
 		// lemari perkakas
-		if (this.state == this.LEMARI_PERKAKAS) {			
+		if (this.state == this.LEMARI_PERKAKAS) {
 			batcher.draw(item.getLemariPerkakasBackground(), 0, 0);
 
 			for (int i = 0; i < item.getImageSubstances().length; i++) {
-				if(i != item.besi &&  this.cekCerminCembung(i)) {
+				if (i != item.besi && this.cekCerminCembung(i)) {
 					// ngegambar items
-					batcher.draw(item.getImageSubstances()[i], item.getImageBounds()[i].getX(),
+					batcher.draw(item.getImageSubstances()[i],
+							item.getImageBounds()[i].getX(),
 							item.getImageBounds()[i].getY());
-					
-					// ngegambar tanda silang/ceklis 
+
+					// ngegambar tanda silang/ceklis
 					if (item.imageIsActive()[i]) {
-						if(i == this.correctItem) {
-							batcher.draw(item.getImageTanda()[item.checklist], 
+						if (i == this.correctItem) {
+							batcher.draw(item.getImageTanda()[item.checklist],
 									item.getImageBounds()[i].getX(),
 									item.getImageBounds()[i].getY());
 						} else {
-							batcher.draw(item.getImageTanda()[item.wrong], 
+							batcher.draw(item.getImageTanda()[item.wrong],
 									item.getImageBounds()[i].getX(),
 									item.getImageBounds()[i].getY());
-								
+
 						}
 					}
 				}
 			}
-			
-			// kalo baru klik item yg benar/salah, mulai animasi karakter & munculin skor
-			if(this.justAnsweredCorrectly) {
+
+			// kalo baru klik item yg benar/salah, mulai animasi karakter &
+			// munculin skor
+			if (this.justAnsweredCorrectly) {
 				// animasi player senang
-				item.setPlayerStateTime(item.getPlayerStateTime() + Gdx.graphics.getDeltaTime());
-				currentPlayerFrame = item.getPlayerAnimation()[item.checklist].getKeyFrame(item.getPlayerStateTime(), true);
+				item.setPlayerStateTime(item.getPlayerStateTime()
+						+ Gdx.graphics.getDeltaTime());
+				currentPlayerFrame = item.getPlayerAnimation()[item.checklist]
+						.getKeyFrame(item.getPlayerStateTime(), true);
 				batcher.draw(currentPlayerFrame, 0, 0);
-				
+
 				// animasi skor +100
-				item.setScoreStateTime(item.getScoreStateTime() + Gdx.graphics.getDeltaTime());
-				currentScoreFrame = item.getScoreAnimation()[item.checklist].getKeyFrame(item.getScoreStateTime(), false);
-				batcher.draw(currentScoreFrame, 
-						item.getImageBounds()[this.correctItem].getX() + item.getImageBounds()[this.correctItem].width/2,
-						item.getImageBounds()[this.correctItem].getY() + item.getImageBounds()[this.correctItem].height/2);
-				
-			} else if(this.justAnsweredWrong) {
-				// animasi player sedih waktunya dibatasi, krn masih bisa ngeklik lagi
-				if(item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
+				item.setScoreStateTime(item.getScoreStateTime()
+						+ Gdx.graphics.getDeltaTime());
+				currentScoreFrame = item.getScoreAnimation()[item.checklist]
+						.getKeyFrame(item.getScoreStateTime(), false);
+				batcher.draw(
+						currentScoreFrame,
+						item.getImageBounds()[this.correctItem].getX()
+								+ item.getImageBounds()[this.correctItem].width
+								/ 2,
+						item.getImageBounds()[this.correctItem].getY()
+								+ item.getImageBounds()[this.correctItem].height
+								/ 2);
+
+			} else if (this.justAnsweredWrong) {
+				// animasi player sedih waktunya dibatasi, krn masih bisa
+				// ngeklik lagi
+				if (item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
 					// animasi player sedih
-					item.setPlayerStateTime(item.getPlayerStateTime() + Gdx.graphics.getDeltaTime());
-					currentPlayerFrame = item.getPlayerAnimation()[item.wrong].getKeyFrame(item.getPlayerStateTime(), true);
+					item.setPlayerStateTime(item.getPlayerStateTime()
+							+ Gdx.graphics.getDeltaTime());
+					currentPlayerFrame = item.getPlayerAnimation()[item.wrong]
+							.getKeyFrame(item.getPlayerStateTime(), true);
 					batcher.draw(currentPlayerFrame, 0, 0);
 					// animasi skor -20
-					item.setScoreStateTime(item.getScoreStateTime() + Gdx.graphics.getDeltaTime());
-					currentScoreFrame = item.getScoreAnimation()[item.wrong].getKeyFrame(item.getScoreStateTime(), false);
-					batcher.draw(currentScoreFrame, 
-							item.getImageBounds()[this.justSelectedItem].getX() + item.getImageBounds()[this.justSelectedItem].width/2,
-							item.getImageBounds()[this.justSelectedItem].getY() + item.getImageBounds()[this.justSelectedItem].height/2);
-					
+					item.setScoreStateTime(item.getScoreStateTime()
+							+ Gdx.graphics.getDeltaTime());
+					currentScoreFrame = item.getScoreAnimation()[item.wrong]
+							.getKeyFrame(item.getScoreStateTime(), false);
+					batcher.draw(
+							currentScoreFrame,
+							item.getImageBounds()[this.justSelectedItem].getX()
+									+ item.getImageBounds()[this.justSelectedItem].width
+									/ 2,
+							item.getImageBounds()[this.justSelectedItem].getY()
+									+ item.getImageBounds()[this.justSelectedItem].height
+									/ 2);
+
 				} else {
 					// kl animasi udah, reset variabel
 					item.resetPlayerStateTime();
@@ -172,34 +193,39 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 				this.resetJustSelectedItem();
 				batcher.draw(this.playerDefaultTexture, 0, 0);
 			}
-		} else if(this.state == this.PLAYER_MEMALU) {
+		} else if (this.state == this.PLAYER_MEMALU) {
 			batcher.draw(this.memaluBackground, 0, 0);
 			// animasi player memalu besi
-			int temp = this.playerMemaluAnimation.getKeyFrameIndex(memaluStateTime);
+			int temp = this.playerMemaluAnimation
+					.getKeyFrameIndex(memaluStateTime);
 			memaluStateTime += Gdx.graphics.getDeltaTime();
-			currentMemaluFrame = this.playerMemaluAnimation.getKeyFrame(memaluStateTime, false);
-			int current = this.playerMemaluAnimation.getKeyFrameIndex(memaluStateTime);
-			if(current % 2 != 0 && temp != current) {
+			currentMemaluFrame = this.playerMemaluAnimation.getKeyFrame(
+					memaluStateTime, false);
+			int current = this.playerMemaluAnimation
+					.getKeyFrameIndex(memaluStateTime);
+			if (current % 2 != 0 && temp != current) {
 				this.getApp().sfxPlayer.playPukulPaluSoundFx();
-			} 
-			batcher.draw(currentMemaluFrame, 
-					(VIRTUAL_WIDTH - (currentMemaluFrame.getRegionWidth()))/2, 
-					(VIRTUAL_HEIGHT - (currentMemaluFrame.getRegionHeight()))/2);
+			}
+			batcher.draw(
+					currentMemaluFrame,
+					(VIRTUAL_WIDTH - (currentMemaluFrame.getRegionWidth())) / 2,
+					(VIRTUAL_HEIGHT - (currentMemaluFrame.getRegionHeight())) / 2);
 		}
 		batcher.end();
-		// ngegambar instruksi profesor di awal scene, trus ngegambar penjelasan profesor stlh item dipilih
+		// ngegambar instruksi profesor di awal scene, trus ngegambar penjelasan
+		// profesor stlh item dipilih
 		super.render(delta);
 		controller.processInput();
 	}
-	
+
 	public void resetJustSelectedItem() {
 		this.justSelectedItem = -1;
 	}
-	
+
 	public void setJustAnsweredCorrectly(boolean justAnsweredCorrectly) {
 		this.justAnsweredCorrectly = justAnsweredCorrectly;
 	}
-	
+
 	public void setJustAnsweredWrong(boolean justAnsweredWrong) {
 		this.justAnsweredWrong = justAnsweredWrong;
 	}
@@ -214,14 +240,19 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	}
 
 	private void setPlayerMemaluAnimation() {
-		memaluBackground = new Texture(Gdx.files.internal("data/images/modul-1/background/tada.jpg"));
-		
-		playerMemaluTexture = this.getApp().getEdocatiaData().getPlayer().getKarakterMemaluTexture();
-		TextureRegion[][] temp = TextureRegion.split(playerMemaluTexture, playerMemaluTexture.getWidth()/MEMALU_FRAME_COLS, playerMemaluTexture.getHeight()/MEMALU_FRAME_ROWS);
-		this.playerMemaluFrames = new TextureRegion[MEMALU_FRAME_COLS*MEMALU_FRAME_ROWS];
-		int index= 0;
-		for(int ii = 0; ii < MEMALU_FRAME_ROWS; ii++) {
-			for(int jj = 0; jj < MEMALU_FRAME_COLS; jj++) {
+		memaluBackground = new Texture(
+				Gdx.files.internal("data/images/modul-1/background/tada.jpg"));
+
+		playerMemaluTexture = this.getApp().getEdocatiaData().getPlayer()
+				.getKarakterMemaluTexture();
+		TextureRegion[][] temp = TextureRegion.split(playerMemaluTexture,
+				playerMemaluTexture.getWidth() / MEMALU_FRAME_COLS,
+				playerMemaluTexture.getHeight() / MEMALU_FRAME_ROWS);
+		this.playerMemaluFrames = new TextureRegion[MEMALU_FRAME_COLS
+				* MEMALU_FRAME_ROWS];
+		int index = 0;
+		for (int ii = 0; ii < MEMALU_FRAME_ROWS; ii++) {
+			for (int jj = 0; jj < MEMALU_FRAME_COLS; jj++) {
 				playerMemaluFrames[index++] = temp[ii][jj];
 			}
 		}
@@ -244,10 +275,10 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 
 	public void setState(short state) {
 		this.state = state;
-		if(state == this.LEMARI_PERKAKAS) {
+		if (state == this.LEMARI_PERKAKAS) {
 			this.initiateLemariPerkakas();
 		} else {
-			if(item != null) {
+			if (item != null) {
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
@@ -259,16 +290,15 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 			}
 		}
 	}
-	
+
 	private boolean showCerminCembung() {
 		return !this.getApp().getEdocatiaData().isModul1Scene5Done();
 	}
-	
+
 	@Override
 	public void dispose() {
 		this.memaluBackground.dispose();
 		this.playerMemaluTexture.dispose();
-		//this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 }

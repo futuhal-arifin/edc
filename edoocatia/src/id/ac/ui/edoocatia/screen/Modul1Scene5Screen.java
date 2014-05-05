@@ -27,8 +27,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public final int WIN_DELAY = 3;
 
 
-	// private boolean debug = true;
-
 	private short state;
 
 	public short PROF_INSTRUCTION = 0;
@@ -45,7 +43,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 	public boolean cekBesi(int index) {
 
-		// System.out.println("CEK SHOW BESI+PALU " +this.showBesiDanPalu());
 		// kl uda 3&4, dapetin indeks
 		return index != item.besi
 				|| (index == item.besi && this.showBesiDanPalu());
@@ -281,7 +278,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	
 	@Override
 	public void dispose() {
-		//this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 }

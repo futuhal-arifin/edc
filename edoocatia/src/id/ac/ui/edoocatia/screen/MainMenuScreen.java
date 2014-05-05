@@ -126,9 +126,7 @@ public class MainMenuScreen extends AbstractScreen {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		//stage.act(delta);
-		//stage.draw();
-
+		
 		/*
 		 * Setiap mau gambar set dulu projection matrixnya, terus diawali
 		 * batcher.begin(), diakhiri batcher.end()
@@ -142,10 +140,6 @@ public class MainMenuScreen extends AbstractScreen {
 
 		// gambar background
 		batcher.draw(background, 0, 0);
-		// batcher.draw(titleTexture, Gdx.graphics.getWidth()/2 -
-		// titleTexture.getWidth()/2, Gdx.graphics.getHeight()/2 );
-		//System.out.println(VIRTUAL_HEIGHT - titleTexture.getHeight() - 100);
-		//System.out.println(Gdx.graphics.getWidth() / 6);
 		batcher.draw(titleTexture, (VIRTUAL_WIDTH-titleTexture.getWidth())/2,
 				VIRTUAL_HEIGHT - titleTexture.getHeight() - 80);
 		batcher.draw(charTexture, 0, 0);

@@ -72,8 +72,7 @@ public class ChooseCharacterScreen extends AbstractScreen {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		//stage.act(delta);
-		//stage.draw();
+		
 
 		/*
 		 * Setiap mau gambar set dulu projection matrixnya, terus diawali

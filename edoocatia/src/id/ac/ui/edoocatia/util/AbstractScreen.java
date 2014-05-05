@@ -57,8 +57,6 @@ private Edoocatia edoocatiaApp;
 	}
 	
 	public void stopMusic() {
-		// Gdx.app.getPreferences("preferences").putFloat("music_pos",
-		// this.mainMenuMusicBg.getPosition());
 		if (this.musicBg != null) {
 			if (this.musicBg.isPlaying()) {
 				if (this.musicBg.isLooping()) {
@@ -193,7 +191,7 @@ private Edoocatia edoocatiaApp;
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		//System.out.println("show called");
+		
 	}
 
 	@Override

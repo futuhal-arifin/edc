@@ -14,18 +14,6 @@ public class Edoocatia extends Game {
 	public ScreenManager screenMgr;
 	public SoundFxPlayer sfxPlayer = new SoundFxPlayer();
 
-	/*
-	 * public static final int GAME_STATE_PLAY = 0; public static final int
-	 * GAME_STATE_PAUSE = 1; public static final int GAME_STATE_ANIMATE = 2;
-	 * 
-	 * public final static int WIDTH = 800; public final static int HEIGHT =
-	 * 480;
-	 * 
-	 * private MainMenuScreen menuScreen;
-	 * 
-	 * public OrthographicCamera camera; public SpriteBatch batch; public
-	 * Texture texture; public Sprite sprite; public BitmapFont font;
-	 */
 	@Override
 	public void create() {
 		Texture.setEnforcePotImages(false);
@@ -48,9 +36,7 @@ public class Edoocatia extends Game {
 	public void dispose() {
 		super.dispose();
 		ScreenManager.getInstance().dispose();
-		/*
-		 * batch.dispose(); font.dispose(); texture.dispose();
-		 */
+
 	}
 
 	public void changeScreen(ScreenEnum current, ScreenEnum next) {

@@ -52,7 +52,7 @@ public class Modul1Scene6Controller {
 							}
 						}
 					}
-					// screen.setImageStatus(true, screen.besi);
+					
 				}
 
 			}

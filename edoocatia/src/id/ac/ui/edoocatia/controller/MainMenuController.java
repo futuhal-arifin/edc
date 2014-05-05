@@ -11,16 +11,11 @@ import id.ac.ui.edoocatia.util.OverlapTester;
 import id.ac.ui.edoocatia.util.ScreenEnum;
 
 public class MainMenuController {
-	
+
 	MainMenuScreen screen;
 	Edoocatia app;
 	private Rectangle[] buttonBounds;
-	/*
-	private Rectangle playButtonBounds;
-	private Rectangle forumButtonBounds;
-	private Rectangle sangJuaraButtonBounds;
-	private Rectangle jelajahWebButtonBounds;
-	*/
+
 	private OrthographicCamera cam;
 	private Rectangle viewport;
 
@@ -30,81 +25,78 @@ public class MainMenuController {
 		cam = screen.getCam();
 		viewport = screen.getViewport();
 		this.buttonBounds = screen.getButtonBounds();
-		/*
-		playButtonBounds = screen.getPlayButtonBounds();
-		forumButtonBounds = screen.getForumButtonBounds();
-		sangJuaraButtonBounds = screen.getSangJuaraButtonBounds();
-		jelajahWebButtonBounds = screen.getJelajahWebButtonBounds();*/
 	}
 
 	public void processInput() {
-		if(Gdx.input.justTouched()){
-			
+		if (Gdx.input.justTouched()) {
+
 			Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			cam.unproject(pos, viewport.x, viewport.y, viewport.width, viewport.height);
-			
-			if(OverlapTester.pointInRectangle( buttonBounds[screen.PLAY], pos.x, pos.y)){
-				//screen.stopMusic();
+			cam.unproject(pos, viewport.x, viewport.y, viewport.width,
+					viewport.height);
+
+			if (OverlapTester.pointInRectangle(buttonBounds[screen.PLAY],
+					pos.x, pos.y)) {
+				// screen.stopMusic();
 				screen.playSoundFx();
 				screen.setButtonStatus(true, screen.PLAY);
-			}
-			else if(OverlapTester.pointInRectangle( buttonBounds[screen.FORUM], 
-					pos.x, pos.y)){
-				//screen.stopMusic();
+			} else if (OverlapTester.pointInRectangle(
+					buttonBounds[screen.FORUM], pos.x, pos.y)) {
+				// screen.stopMusic();
 				screen.playSoundFx();
 				screen.setButtonStatus(true, screen.FORUM);
-			}
-			else if(OverlapTester.pointInRectangle( buttonBounds[screen.JELAJAH_WEB], 
-					pos.x, pos.y)){
-				//screen.stopMusic();
+			} else if (OverlapTester.pointInRectangle(
+					buttonBounds[screen.JELAJAH_WEB], pos.x, pos.y)) {
+				// screen.stopMusic();
 				screen.playSoundFx();
 				screen.setButtonStatus(true, screen.JELAJAH_WEB);
-			}
-			else if(OverlapTester.pointInRectangle( buttonBounds[screen.SANG_JUARA], 
-					pos.x, pos.y)){
-				//screen.stopMusic();
+			} else if (OverlapTester.pointInRectangle(
+					buttonBounds[screen.SANG_JUARA], pos.x, pos.y)) {
+				// screen.stopMusic();
 				screen.playSoundFx();
 				screen.setButtonStatus(true, screen.SANG_JUARA);
 			}
 		}
-		
-		if(Gdx.input.isTouched()){
-			//kosongin dulu deh~
-		}
-		else{
+
+		if (Gdx.input.isTouched()) {
+			// kosongin dulu deh~
+		} else {
 			Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			cam.unproject(pos, viewport.x, viewport.y, viewport.width, viewport.height);
-			
-			if(screen.buttonIsActive(screen.PLAY)){
+			cam.unproject(pos, viewport.x, viewport.y, viewport.width,
+					viewport.height);
+
+			if (screen.buttonIsActive(screen.PLAY)) {
 				screen.setButtonStatus(false, screen.PLAY);
-				if(OverlapTester.pointInRectangle( buttonBounds[screen.PLAY], pos.x, pos.y)){
+				if (OverlapTester.pointInRectangle(buttonBounds[screen.PLAY],
+						pos.x, pos.y)) {
 					screen.stopMusic();
 					app.changeScreen(ScreenEnum.MAIN_MENU, ScreenEnum.INTRO);
 				}
-			}
-			else if(screen.buttonIsActive(screen.FORUM)){
+			} else if (screen.buttonIsActive(screen.FORUM)) {
 				screen.setButtonStatus(false, screen.FORUM);
-				if(OverlapTester.pointInRectangle( buttonBounds[screen.FORUM], pos.x, pos.y)){
+				if (OverlapTester.pointInRectangle(buttonBounds[screen.FORUM],
+						pos.x, pos.y)) {
 					screen.stopMusic();
-					app.changeScreen(ScreenEnum.MAIN_MENU, ScreenEnum.MODUL1_SCENE1);
+					app.changeScreen(ScreenEnum.MAIN_MENU,
+							ScreenEnum.MODUL1_SCENE1);
 				}
-			}
-			else if(screen.buttonIsActive(screen.JELAJAH_WEB)){
+			} else if (screen.buttonIsActive(screen.JELAJAH_WEB)) {
 				screen.setButtonStatus(false, screen.JELAJAH_WEB);
-				if(OverlapTester.pointInRectangle( buttonBounds[screen.JELAJAH_WEB], pos.x, pos.y)){
+				if (OverlapTester.pointInRectangle(
+						buttonBounds[screen.JELAJAH_WEB], pos.x, pos.y)) {
 					screen.stopMusic();
-					app.changeScreen(ScreenEnum.MAIN_MENU, ScreenEnum.MODUL1_SCENE7);
+					app.changeScreen(ScreenEnum.MAIN_MENU,
+							ScreenEnum.MODUL1_SCENE7);
 				}
-			}
-			else if(screen.buttonIsActive(screen.SANG_JUARA)){
+			} else if (screen.buttonIsActive(screen.SANG_JUARA)) {
 				screen.setButtonStatus(false, screen.SANG_JUARA);
-				if(OverlapTester.pointInRectangle( buttonBounds[screen.SANG_JUARA], pos.x, pos.y)){
-					//screen.stopMusic();
+				if (OverlapTester.pointInRectangle(
+						buttonBounds[screen.SANG_JUARA], pos.x, pos.y)) {
+					// screen.stopMusic();
 				}
 			}
-			
+
 		}
-		
+
 	}
 
 }

@@ -201,7 +201,6 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 	
 	@Override
 	public void dispose() {
-		//this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 

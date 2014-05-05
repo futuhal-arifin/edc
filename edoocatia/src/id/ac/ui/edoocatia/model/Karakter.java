@@ -34,7 +34,7 @@ public class Karakter {
 			this.setKarakterTexture();
 		}
 		
-		//this.setKarakterTexture();
+		
 		
 	}
 	

@@ -187,7 +187,6 @@ public class LemariPerkakas {
 		this.setPlayerAnimation(this.checklist);
 		this.setPlayerAnimation(this.wrong);
 		
-		//controller = new LemariPerkakasController(this);
 	}
 
 
@@ -299,7 +298,6 @@ public class LemariPerkakas {
 					Gdx.files
 							.internal("data/images/general/plus100.png"));
 		}
-		//playerWrongTexture = this.getApp().getEdocatiaData().getPlayer().getKarakterLoseTexture();
 		TextureRegion[][] temp = TextureRegion.split(this.ImageScore[state], this.ImageScore[state].getWidth()/SCORE_FRAME_COLS, 
 				this.ImageScore[state].getHeight()/SCORE_FRAME_ROWS);
 		this.scoreFrames[state] = new TextureRegion[SCORE_FRAME_COLS*SCORE_FRAME_ROWS];
