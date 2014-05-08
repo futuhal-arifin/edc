@@ -63,8 +63,8 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
-		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
-				.getKarakterDialogTexture();
+		playerDefaultTexture = new Texture(
+				Gdx.files.internal(this.getApp().getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
@@ -270,7 +270,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	
 	@Override
 	public void dispose() {
-		//this.playerDefaultTexture.dispose();
+		this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 

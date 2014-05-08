@@ -26,6 +26,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public final int ANIMATION_STATE_LIMIT = 1;
 	public final int WIN_DELAY = 3;
 
+	// private boolean debug = true;
 
 	private short state;
 
@@ -34,7 +35,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public short PROF_INFO = 2;
 	public short PLAYER_MEMALU = 3;
 	public short PROF_INFO_WRONG = 4;
-	
+
 	public Modul1Scene5Screen(Edoocatia app) {
 		super(app);
 		this.setState(this.PROF_INSTRUCTION);
@@ -43,6 +44,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 	public boolean cekBesi(int index) {
 
+		// System.out.println("CEK SHOW BESI+PALU " +this.showBesiDanPalu());
 		// kl uda 3&4, dapetin indeks
 		return index != item.besi
 				|| (index == item.besi && this.showBesiDanPalu());
@@ -76,8 +78,8 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
-		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
-				.getKarakterDialogTexture();
+		playerDefaultTexture = new Texture(Gdx.files.internal(this.getApp()
+				.getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
@@ -161,7 +163,8 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 			} else if (this.justAnsweredWrong) {
 				// animasi player sedih waktunya dibatasi, krn masih bisa
 				// ngeklik lagi
-				if (this.mistakes == 3 || item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
+				if (this.mistakes == 3
+						|| item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
 					// animasi player sedih
 					item.setPlayerStateTime(item.getPlayerStateTime()
 							+ Gdx.graphics.getDeltaTime());
@@ -193,8 +196,8 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 				this.resetJustSelectedItem();
 				batcher.draw(this.playerDefaultTexture, 0, 0);
 			}
-		} 
-		
+		}
+
 		batcher.end();
 		// ngegambar instruksi profesor di awal scene, trus ngegambar penjelasan
 		// profesor stlh item dipilih
@@ -223,7 +226,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		this.correctItem = item.cermin_cembung;
 	}
 
-	
 	private void setProfessorInfoCerminCembung() {
 		this.setBackground("data/images/modul-1/background/tada.jpg");
 		this.setDialogNaration("data/dialog/modul1/scene5a.txt");
@@ -236,7 +238,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		this.setDialogNaration("data/dialog/modul1/scene5.txt");
 		this.setInstructionObject("data/images/modul-1/pesawat/spion.png");
 	}
-	
+
 	private void setProfessorInfoKesulitan() {
 		this.setBackground("data/images/modul-1/background/tada.jpg");
 		this.setDialogNaration("data/dialog/modul1/scene5b.txt");
@@ -248,16 +250,15 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		if (state == this.LEMARI_PERKAKAS) {
 			this.initiateLemariPerkakas();
 		} else {
-			if(item != null) {
+			if (item != null) {
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
 				this.setProfessorInfoCerminCembung();
-				
-			} else if(state == this.PROF_INFO_WRONG){
+
+			} else if (state == this.PROF_INFO_WRONG) {
 				this.setProfessorInfoKesulitan();
-			}
-			else {
+			} else {
 				this.setProfessorInstruction();
 			}
 		}
@@ -275,9 +276,10 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public int getMistakes() {
 		return this.mistakes;
 	}
-	
+
 	@Override
 	public void dispose() {
+		// this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 }

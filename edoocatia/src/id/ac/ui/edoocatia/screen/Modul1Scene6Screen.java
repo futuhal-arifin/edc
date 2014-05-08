@@ -12,8 +12,8 @@ import id.ac.ui.edoocatia.model.LemariPerkakas;
 public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 
 	private Modul1Scene6Controller controller;
-	//private Texture background;
-	
+	// private Texture background;
+
 	// buat lemari perkakas
 	private LemariPerkakas item;
 	private Texture playerDefaultTexture;
@@ -27,41 +27,42 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 
 	public final int ANIMATION_STATE_LIMIT = 1;
 	public final int WIN_DELAY = 3;
-	
+
 	private short state;
-	
+
 	public short LEMARI_PERKAKAS = 1;
 	public short PROF_INFO = 2;
-	
+
 	public Modul1Scene6Screen(Edoocatia app) {
 		super(app);
 		this.setState(this.LEMARI_PERKAKAS);
 		controller = new Modul1Scene6Controller(this);
 	}
-	
+
 	public int getCorrectItem() {
 		return this.correctItem;
 	}
-	
+
 	public LemariPerkakas getItem() {
 		return this.item;
 	}
-	
+
 	public short getJustSelectedItem() {
 		return justSelectedItem;
 	}
-	
+
 	public float getPlayerStateTime() {
-		return item.getPlayerStateTime() ;
+		return item.getPlayerStateTime();
 	}
-	
+
 	public short getState() {
 		return state;
 	}
-	
+
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
-		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer().getKarakterDialogTexture();
+		playerDefaultTexture = new Texture(Gdx.files.internal(this.getApp()
+				.getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
@@ -70,7 +71,7 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 	public boolean isJustAnsweredCorrectly() {
 		return justAnsweredCorrectly;
 	}
-	
+
 	public boolean isJustAnsweredWrong() {
 		return justAnsweredWrong;
 	}
@@ -85,59 +86,81 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 
 		batcher.setProjectionMatrix(cam.combined);
 		batcher.begin();
-		
-		if (this.state == this.LEMARI_PERKAKAS) {			
+
+		if (this.state == this.LEMARI_PERKAKAS) {
 			batcher.draw(item.getLemariPerkakasBackground(), 0, 0);
 
 			for (int i = 0; i < item.getImageSubstances().length; i++) {
-				if(i != item.besi &&  i != item.cermin_cembung && i != item.palu) {
+				if (i != item.besi && i != item.cermin_cembung
+						&& i != item.palu) {
 					// ngegambar items
-					batcher.draw(item.getImageSubstances()[i], item.getImageBounds()[i].getX(),
+					batcher.draw(item.getImageSubstances()[i],
+							item.getImageBounds()[i].getX(),
 							item.getImageBounds()[i].getY());
-					
-					// ngegambar tanda silang/ceklis 
+
+					// ngegambar tanda silang/ceklis
 					if (item.imageIsActive()[i]) {
-						if(i == this.correctItem) {
-							batcher.draw(item.getImageTanda()[item.checklist], 
+						if (i == this.correctItem) {
+							batcher.draw(item.getImageTanda()[item.checklist],
 									item.getImageBounds()[i].getX(),
 									item.getImageBounds()[i].getY());
 						} else {
-							batcher.draw(item.getImageTanda()[item.wrong], 
+							batcher.draw(item.getImageTanda()[item.wrong],
 									item.getImageBounds()[i].getX(),
 									item.getImageBounds()[i].getY());
-								
+
 						}
 					}
 				}
 			}
-			// kalo baru klik item yg benar/salah, mulai animasi karakter & munculin skor
-			if(this.justAnsweredCorrectly) {
+			// kalo baru klik item yg benar/salah, mulai animasi karakter &
+			// munculin skor
+			if (this.justAnsweredCorrectly) {
 				// animasi player senang
-				item.setPlayerStateTime(item.getPlayerStateTime() + Gdx.graphics.getDeltaTime());
-				currentPlayerFrame = item.getPlayerAnimation()[item.checklist].getKeyFrame(item.getPlayerStateTime(), true);
+				item.setPlayerStateTime(item.getPlayerStateTime()
+						+ Gdx.graphics.getDeltaTime());
+				currentPlayerFrame = item.getPlayerAnimation()[item.checklist]
+						.getKeyFrame(item.getPlayerStateTime(), true);
 				batcher.draw(currentPlayerFrame, 0, 0);
-				
+
 				// animasi skor +100
-				item.setScoreStateTime(item.getScoreStateTime() + Gdx.graphics.getDeltaTime());
-				currentScoreFrame = item.getScoreAnimation()[item.checklist].getKeyFrame(item.getScoreStateTime(), false);
-				batcher.draw(currentScoreFrame, 
-						item.getImageBounds()[this.correctItem].getX() + item.getImageBounds()[this.correctItem].width/2,
-						item.getImageBounds()[this.correctItem].getY() + item.getImageBounds()[this.correctItem].height/2);
-				
-			} else if(this.justAnsweredWrong) {
-				// animasi player sedih waktunya dibatasi, krn masih bisa ngeklik lagi
-				if(item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
+				item.setScoreStateTime(item.getScoreStateTime()
+						+ Gdx.graphics.getDeltaTime());
+				currentScoreFrame = item.getScoreAnimation()[item.checklist]
+						.getKeyFrame(item.getScoreStateTime(), false);
+				batcher.draw(
+						currentScoreFrame,
+						item.getImageBounds()[this.correctItem].getX()
+								+ item.getImageBounds()[this.correctItem].width
+								/ 2,
+						item.getImageBounds()[this.correctItem].getY()
+								+ item.getImageBounds()[this.correctItem].height
+								/ 2);
+
+			} else if (this.justAnsweredWrong) {
+				// animasi player sedih waktunya dibatasi, krn masih bisa
+				// ngeklik lagi
+				if (item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
 					// animasi player sedih
-					item.setPlayerStateTime(item.getPlayerStateTime() + Gdx.graphics.getDeltaTime());
-					currentPlayerFrame = item.getPlayerAnimation()[item.wrong].getKeyFrame(item.getPlayerStateTime(), true);
+					item.setPlayerStateTime(item.getPlayerStateTime()
+							+ Gdx.graphics.getDeltaTime());
+					currentPlayerFrame = item.getPlayerAnimation()[item.wrong]
+							.getKeyFrame(item.getPlayerStateTime(), true);
 					batcher.draw(currentPlayerFrame, 0, 0);
 					// animasi skor -20
-					item.setScoreStateTime(item.getScoreStateTime() + Gdx.graphics.getDeltaTime());
-					currentScoreFrame = item.getScoreAnimation()[item.wrong].getKeyFrame(item.getScoreStateTime(), false);
-					batcher.draw(currentScoreFrame, 
-							item.getImageBounds()[this.justSelectedItem].getX() + item.getImageBounds()[this.justSelectedItem].width/2,
-							item.getImageBounds()[this.justSelectedItem].getY() + item.getImageBounds()[this.justSelectedItem].height/2);
-					
+					item.setScoreStateTime(item.getScoreStateTime()
+							+ Gdx.graphics.getDeltaTime());
+					currentScoreFrame = item.getScoreAnimation()[item.wrong]
+							.getKeyFrame(item.getScoreStateTime(), false);
+					batcher.draw(
+							currentScoreFrame,
+							item.getImageBounds()[this.justSelectedItem].getX()
+									+ item.getImageBounds()[this.justSelectedItem].width
+									/ 2,
+							item.getImageBounds()[this.justSelectedItem].getY()
+									+ item.getImageBounds()[this.justSelectedItem].height
+									/ 2);
+
 				} else {
 					// kl animasi udah, reset variabel
 					item.resetPlayerStateTime();
@@ -152,31 +175,31 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 		}
 		batcher.end();
 		// ngegambar penjelasan profesor di akhir scene
-		super.render(delta);	
+		super.render(delta);
 		controller.processInput();
 	}
-	
+
 	public void resetJustSelectedItem() {
 		this.justSelectedItem = -1;
 	}
-	
+
 	public void setJustSelectedItem(short justSelectedItem) {
 		this.justSelectedItem = justSelectedItem;
 	}
-	
+
 	public void setJustAnsweredCorrectly(boolean justAnsweredCorrectly) {
 		this.justAnsweredCorrectly = justAnsweredCorrectly;
 	}
-	
+
 	public void setJustAnsweredWrong(boolean justAnsweredWrong) {
 		this.justAnsweredWrong = justAnsweredWrong;
 	}
-	
+
 	private void setLemariPerkakas() {
 		item = new LemariPerkakas(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, this.getApp());
 		this.correctItem = item.balon_hidrogen;
 	}
-	
+
 	private void setProfessorInfoHidrogen() {
 		this.setBackground("data/images/modul-1/background/tada.jpg");
 		this.setDialogNaration("data/dialog/modul1/scene6a.txt");
@@ -186,21 +209,22 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 
 	public void setState(short state) {
 		this.state = state;
-		if(state == this.LEMARI_PERKAKAS) {
+		if (state == this.LEMARI_PERKAKAS) {
 			this.setShowInstruction(false);
 			this.initiateLemariPerkakas();
 		} else {
-			if(item != null) {
+			if (item != null) {
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
 				this.setProfessorInfoHidrogen();
-			} 
+			}
 		}
 	}
-	
+
 	@Override
 	public void dispose() {
+		this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 

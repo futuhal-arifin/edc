@@ -11,10 +11,14 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Karakter {
 	private String karakterName;
-	private Texture karakterDialogTexture;
-	private Texture karakterWinTexture;
-	private Texture karakterLoseTexture;
-	private Texture karakterMemaluTexture;
+	//private Texture karakterDialogTexture;
+	//private Texture karakterWinTexture;
+	//private Texture karakterLoseTexture;
+	//private Texture karakterMemaluTexture;
+	private String karakterDialogTexturePath;
+	private String karakterWinTexturePath;
+	private String karakterLoseTexturePath;
+	private String karakterMemaluTexturePath;
 	
 	public Karakter(String karakterName) {
 		if(karakterName.equals("player")) {
@@ -29,24 +33,21 @@ public class Karakter {
 		}
 		
 		if(this.karakterName.equals("professor")) {
-			this.karakterDialogTexture = new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+".png"));
+			this.karakterDialogTexturePath = "data/images/characters/"+this.karakterName+".png";
 		} else {
 			this.setKarakterTexture();
 		}
-		
-		
-		
 	}
 	
 	private void setKarakterTexture() {
-		this.karakterDialogTexture = new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+".png"));
-		this.setKarakterWinTexture(new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+"_happy.png")));
-		this.setKarakterLoseTexture(new Texture(Gdx.files.internal("data/images/characters/"+this.karakterName+"_sad.png")));
-		this.setKarakterMemaluTexture(new Texture(Gdx.files.internal("data/images/modul-1/animasi/"+this.karakterName+"/"+this.karakterName+"_memalu.png")));
+		this.karakterDialogTexturePath = "data/images/characters/"+this.karakterName+".png";
+		this.setKarakterWinTexturePath("data/images/characters/"+this.karakterName+"_happy.png");
+		this.setKarakterLoseTexturePath("data/images/characters/"+this.karakterName+"_sad.png");
+		this.setKarakterMemaluTexturePath("data/images/modul-1/animasi/"+this.karakterName+"/"+this.karakterName+"_memalu.png");
 	}
 
-	public Texture getKarakterDialogTexture() {
-		return this.karakterDialogTexture;
+	public String getKarakterDialogTexturePath() {
+		return this.karakterDialogTexturePath;
 	}
 	
 	public Texture getKarakterDialogTexture(String karakterName) {
@@ -57,27 +58,27 @@ public class Karakter {
 		return this.karakterName;
 	}
 
-	public Texture getKarakterWinTexture() {
-		return karakterWinTexture;
+	public String getKarakterWinTexturePath() {
+		return karakterWinTexturePath;
 	}
 
-	public void setKarakterWinTexture(Texture karakterWinTexture) {
-		this.karakterWinTexture = karakterWinTexture;
+	public void setKarakterWinTexturePath(String path) {
+		this.karakterWinTexturePath = path;
 	}
 
-	public Texture getKarakterLoseTexture() {
-		return karakterLoseTexture;
+	public String getKarakterLoseTexturePath() {
+		return karakterLoseTexturePath;
 	}
 
-	public void setKarakterLoseTexture(Texture karakterLoseTexture) {
-		this.karakterLoseTexture = karakterLoseTexture;
+	public void setKarakterLoseTexturePath(String path) {
+		this.karakterLoseTexturePath = path;
 	}
 
-	public Texture getKarakterMemaluTexture() {
-		return karakterMemaluTexture;
+	public String getKarakterMemaluTexturePath() {
+		return karakterMemaluTexturePath;
 	}
 
-	public void setKarakterMemaluTexture(Texture karakterMemaluTexture) {
-		this.karakterMemaluTexture = karakterMemaluTexture;
+	public void setKarakterMemaluTexturePath(String path) {
+		this.karakterMemaluTexturePath = path;
 	}
 }
