@@ -46,6 +46,8 @@ public class EdoocatiaModel {
 		this.setModul1Scene4Done(false);
 		this.setModul1Scene5Done(false);
 		this.setModul1Scene6Done(false);
+		//this.setScore(0);
+		
 	}
 
 	/** initialize setting, game progress & player info */

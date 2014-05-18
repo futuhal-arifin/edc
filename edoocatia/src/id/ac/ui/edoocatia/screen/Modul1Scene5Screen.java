@@ -3,6 +3,7 @@ package id.ac.ui.edoocatia.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import id.ac.ui.edoocatia.Edoocatia;
@@ -15,6 +16,10 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	// buat lemari perkakas
 	private LemariPerkakas item;
 	private Texture playerDefaultTexture;
+	private String score = "0";
+	private float scoreXPosition;
+	private BitmapFont font;
+
 	// jawaban benar/salah
 	private TextureRegion currentPlayerFrame;
 	private TextureRegion currentScoreFrame;
@@ -26,7 +31,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public final int ANIMATION_STATE_LIMIT = 1;
 	public final int WIN_DELAY = 3;
 
-
 	private short state;
 
 	public short PROF_INSTRUCTION = 0;
@@ -34,7 +38,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public short PROF_INFO = 2;
 	public short PLAYER_MEMALU = 3;
 	public short PROF_INFO_WRONG = 4;
-	
+
 	public Modul1Scene5Screen(Edoocatia app) {
 		super(app);
 		this.setState(this.PROF_INSTRUCTION);
@@ -83,6 +87,21 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		this.resetJustSelectedItem();
 	}
 
+	private void initiateScore() {
+
+		this.font = new BitmapFont(
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.png"),
+				false);
+
+		score = this.getApp().getEdocatiaData().getScore() + "";
+
+		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
+
+	}
+
 	public boolean isJustAnsweredCorrectly() {
 		return justAnsweredCorrectly;
 	}
@@ -105,6 +124,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		// lemari perkakas
 		if (this.state == this.LEMARI_PERKAKAS) {
 			batcher.draw(item.getLemariPerkakasBackground(), 0, 0);
+			font.drawWrapped(batcher, this.score, this.scoreXPosition, 700, 800);
 
 			for (int i = 0; i < item.getImageSubstances().length; i++) {
 				if (this.cekBesi(i) && cekPalu(i)) {
@@ -161,7 +181,8 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 			} else if (this.justAnsweredWrong) {
 				// animasi player sedih waktunya dibatasi, krn masih bisa
 				// ngeklik lagi
-				if (this.mistakes == 3 || item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
+				if (this.mistakes == 3
+						|| item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
 					// animasi player sedih
 					item.setPlayerStateTime(item.getPlayerStateTime()
 							+ Gdx.graphics.getDeltaTime());
@@ -193,8 +214,8 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 				this.resetJustSelectedItem();
 				batcher.draw(this.playerDefaultTexture, 0, 0);
 			}
-		} 
-		
+		}
+
 		batcher.end();
 		// ngegambar instruksi profesor di awal scene, trus ngegambar penjelasan
 		// profesor stlh item dipilih
@@ -223,7 +244,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		this.correctItem = item.cermin_cembung;
 	}
 
-	
 	private void setProfessorInfoCerminCembung() {
 		this.setBackground("data/images/modul-1/background/tada.jpg");
 		this.setDialogNaration("data/dialog/modul1/scene5a.txt");
@@ -236,7 +256,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		this.setDialogNaration("data/dialog/modul1/scene5.txt");
 		this.setInstructionObject("data/images/modul-1/pesawat/spion.png");
 	}
-	
+
 	private void setProfessorInfoKesulitan() {
 		this.setBackground("data/images/modul-1/background/tada.jpg");
 		this.setDialogNaration("data/dialog/modul1/scene5b.txt");
@@ -247,17 +267,18 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		this.state = state;
 		if (state == this.LEMARI_PERKAKAS) {
 			this.initiateLemariPerkakas();
+			this.initiateScore();
+
 		} else {
-			if(item != null) {
+			if (item != null) {
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
 				this.setProfessorInfoCerminCembung();
-				
-			} else if(state == this.PROF_INFO_WRONG){
+
+			} else if (state == this.PROF_INFO_WRONG) {
 				this.setProfessorInfoKesulitan();
-			}
-			else {
+			} else {
 				this.setProfessorInstruction();
 			}
 		}
@@ -275,7 +296,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public int getMistakes() {
 		return this.mistakes;
 	}
-	
+
 	@Override
 	public void dispose() {
 		super.dispose();

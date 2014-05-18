@@ -3,10 +3,13 @@ package id.ac.ui.edoocatia.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.Modul1Scene3Controller;
+import id.ac.ui.edoocatia.model.EdoocatiaModel;
 import id.ac.ui.edoocatia.model.LemariPerkakas;
 
 public class Modul1Scene3Screen extends ProfessorInstructionScreen {
@@ -17,6 +20,10 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	// buat lemari perkakas
 	private LemariPerkakas item;
 	private Texture playerDefaultTexture;
+	private String score = "0";
+	private float scoreXPosition;
+	private BitmapFont font;
+
 	// jawaban benar/salah
 	private TextureRegion currentPlayerFrame;
 	private TextureRegion currentScoreFrame;
@@ -65,9 +72,26 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		this.setLemariPerkakas();
 		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
 				.getKarakterDialogTexture();
+
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
+
+	}
+
+	private void initiateScore() {
+
+		this.font = new BitmapFont(
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.png"),
+				false);
+
+		score = this.getApp().getEdocatiaData().getScore() + "";
+
+		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
+
 	}
 
 	public boolean isJustAnsweredCorrectly() {
@@ -91,6 +115,8 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 		if (this.state == this.LEMARI_PERKAKAS) {
 			batcher.draw(item.getLemariPerkakasBackground(), 0, 0);
+
+			font.drawWrapped(batcher, this.score, this.scoreXPosition, 700, 800);
 
 			for (int i = 0; i < item.getImageSubstances().length; i++) {
 
@@ -150,7 +176,8 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 				// animasi player sedih waktunya dibatasi, krn masih
 				// bisa
 				// ngeklik lagi
-				if (this.mistakes == 3 || item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
+				if (this.mistakes == 3
+						|| item.getPlayerStateTime() < this.ANIMATION_STATE_LIMIT) {
 					// animasi player sedih
 					item.setPlayerStateTime(item.getPlayerStateTime()
 							+ Gdx.graphics.getDeltaTime());
@@ -239,8 +266,9 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		} else if (state == this.LEMARI_PERKAKAS) {
 			this.setShowInstruction(false);
 			this.initiateLemariPerkakas();
+			this.initiateScore();
 		} else {
-			if(item != null) {
+			if (item != null) {
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
@@ -267,10 +295,10 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	private boolean showCerminCembung() {
 		return !this.getApp().getEdocatiaData().isModul1Scene5Done();
 	}
-	
+
 	@Override
 	public void dispose() {
-		//this.playerDefaultTexture.dispose();
+		// this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 

@@ -25,6 +25,7 @@ public class MainMenuController {
 		cam = screen.getCam();
 		viewport = screen.getViewport();
 		this.buttonBounds = screen.getButtonBounds();
+		this.app.getEdocatiaData().setScore(0);
 	}
 
 	public void processInput() {

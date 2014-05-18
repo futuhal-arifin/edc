@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import id.ac.ui.edoocatia.Edoocatia;
@@ -17,6 +18,10 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	// buat lemari perkakas
 	private LemariPerkakas item;
 	private Texture playerDefaultTexture;
+	private String score = "0";
+	private float scoreXPosition;
+	private BitmapFont font;
+
 	// jawaban benar/salah
 	private TextureRegion currentPlayerFrame;
 	private TextureRegion currentScoreFrame;
@@ -79,6 +84,21 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		return state;
 	}
 
+	private void initiateScore() {
+
+		this.font = new BitmapFont(
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.png"),
+				false);
+
+		score = this.getApp().getEdocatiaData().getScore() + "";
+
+		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
+
+	}
+
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
 		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
@@ -110,6 +130,7 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		// lemari perkakas
 		if (this.state == this.LEMARI_PERKAKAS) {
 			batcher.draw(item.getLemariPerkakasBackground(), 0, 0);
+			font.drawWrapped(batcher, this.score, this.scoreXPosition, 700, 800);
 
 			for (int i = 0; i < item.getImageSubstances().length; i++) {
 				if (i != item.besi && this.cekCerminCembung(i)) {
@@ -277,6 +298,8 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		this.state = state;
 		if (state == this.LEMARI_PERKAKAS) {
 			this.initiateLemariPerkakas();
+			this.initiateScore();
+
 		} else {
 			if (item != null) {
 				item.dispose();

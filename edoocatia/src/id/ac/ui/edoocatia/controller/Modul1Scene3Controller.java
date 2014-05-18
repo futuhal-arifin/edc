@@ -18,7 +18,8 @@ public class Modul1Scene3Controller {
 	private Rectangle viewport;
 	private OrthographicCamera cam;
 	private int mistakes = 0;
-
+	
+	
 	public Modul1Scene3Controller(Modul1Scene3Screen screen) {
 		this.screen = screen;
 		app = screen.getApp();
