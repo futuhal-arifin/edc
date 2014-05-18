@@ -68,15 +68,9 @@ public class LemariPerkakas {
 	public LemariPerkakas(float vIRTUAL_WIDTH2, float vIRTUAL_HEIGHT2,
 			Edoocatia app) {
 		this.app = app;
-<<<<<<< HEAD
 
-		this.setMusicPath("data/sounds/music/modul1/lemariperkakas.ogg");
-
-=======
-		
 		this.setMusicPath("data/sounds/music/modul1/lemariperkakas.mp3");
-		
->>>>>>> 01b10622ca73e948614389451ce868a8833cc153
+
 		this.VIRTUAL_HEIGHT = vIRTUAL_HEIGHT2;
 		this.VIRTUAL_WIDTH = vIRTUAL_WIDTH2;
 
