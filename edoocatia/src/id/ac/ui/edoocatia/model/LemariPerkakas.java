@@ -66,7 +66,7 @@ public class LemariPerkakas {
 			Edoocatia app) {
 		this.app = app;
 		
-		this.setMusicPath("data/sounds/music/modul1/lemariperkakas.ogg");
+		this.setMusicPath("data/sounds/music/modul1/lemariperkakas.mp3");
 		
 		this.VIRTUAL_HEIGHT = vIRTUAL_HEIGHT2;
 		this.VIRTUAL_WIDTH = vIRTUAL_WIDTH2;
