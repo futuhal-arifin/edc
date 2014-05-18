@@ -64,6 +64,9 @@ public class Modul1Scene7Screen extends AbstractScreen {
 	public Modul1Scene7Screen(Edoocatia app) {
 		super(app);
 		this.setStates(this.READY_TO_ENTER);
+		
+		this.setMusicBg("data/sounds/music/modul1/scene7theme.ogg");
+		
 		this.controller = new Modul1Scene7Controller(this);
 	}
 

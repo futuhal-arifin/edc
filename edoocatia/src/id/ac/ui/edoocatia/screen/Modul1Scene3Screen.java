@@ -68,6 +68,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
+		this.setMusicBg(item.getMusicPath());
 	}
 
 	public boolean isJustAnsweredCorrectly() {
@@ -233,17 +234,18 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 	public void setState(short state) {
 		this.state = state;
-		if (state == this.PROF_INFO_SAYAP) {
-			this.item = null;
-			this.setProfessorInfoSayap();
-		} else if (state == this.LEMARI_PERKAKAS) {
+		if (state == this.LEMARI_PERKAKAS) {
 			this.setShowInstruction(false);
 			this.initiateLemariPerkakas();
 		} else {
 			if(item != null) {
+				this.stopMusic();
 				item.dispose();
 			}
-			if (state == this.PROF_INFO) {
+			if (state == this.PROF_INFO_SAYAP) {
+				this.item = null;
+				this.setProfessorInfoSayap();
+			} else if (state == this.PROF_INFO) {
 				this.setProfessorInfoBesi();
 			} else if (state == this.PROF_INFO_WRONG) {
 				this.setProfessorInfoKesulitan();

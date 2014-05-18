@@ -31,6 +31,8 @@ public class LemariPerkakas {
 	private final int FRAME_COLS = 2;
 	private final int FRAME_ROWS = 1;
 	private float playerStateTime;
+	
+	private String musicPath;
 
 	boolean debug = true;
 
@@ -63,6 +65,9 @@ public class LemariPerkakas {
 	public LemariPerkakas(float vIRTUAL_WIDTH2, float vIRTUAL_HEIGHT2,
 			Edoocatia app) {
 		this.app = app;
+		
+		this.setMusicPath("data/sounds/music/modul1/lemariperkakas.ogg");
+		
 		this.VIRTUAL_HEIGHT = vIRTUAL_HEIGHT2;
 		this.VIRTUAL_WIDTH = vIRTUAL_WIDTH2;
 
@@ -377,5 +382,13 @@ public class LemariPerkakas {
 		for (int index = 0; index < this.playerTexture.length; index++) {
 			this.playerTexture[index].dispose();
 		}
+	}
+
+	public String getMusicPath() {
+		return musicPath;
+	}
+
+	public void setMusicPath(String musicPath) {
+		this.musicPath = musicPath;
 	}
 }

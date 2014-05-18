@@ -142,7 +142,8 @@ public class Modul1Scene2Screen extends DialogScreen {
 							this.sayapYPosition, sayapRect4Width, 200),
 				};
 		}
-		//this.aPartHasBeenSelected = false;
+		
+		this.setMusicBg("data/sounds/music/modul1/scene2theme.ogg");
 		
 		this.controller = new Modul1Scene2Controller(this);
 	}

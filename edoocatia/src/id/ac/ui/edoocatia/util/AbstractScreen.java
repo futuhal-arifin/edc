@@ -191,7 +191,7 @@ private Edoocatia edoocatiaApp;
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+		//System.out.println("show called");
 	}
 
 	@Override
@@ -214,6 +214,7 @@ private Edoocatia edoocatiaApp;
 	
 	@Override
 	public void dispose() {
+		this.stopMusic();
 		if(this.musicBg != null) {
 			this.musicBg.dispose();
 		}

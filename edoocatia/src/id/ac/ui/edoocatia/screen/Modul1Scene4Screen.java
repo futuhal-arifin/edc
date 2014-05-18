@@ -88,6 +88,7 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
+		this.setMusicBg(item.getMusicPath());
 	}
 
 	public boolean isJustAnsweredCorrectly() {
@@ -281,6 +282,7 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 			this.initiateLemariPerkakas();
 		} else {
 			if (item != null) {
+				this.stopMusic();
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
