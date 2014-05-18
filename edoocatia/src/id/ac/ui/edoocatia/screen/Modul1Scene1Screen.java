@@ -30,7 +30,7 @@ public class Modul1Scene1Screen extends DialogScreen {
 		this.setFont("data/font/kg-corner-of-the-sky-44-black.fnt", 
 				"data/font/kg-corner-of-the-sky-44-black.png");
 		
-		this.setMusicBg("data/sounds/music/modul1/scene1theme.ogg");
+		this.setMusicBg("data/sounds/music/modul1/scene1theme.mp3");
 		
 		this.controller = new Modul1Scene1Controller(this);
 	}

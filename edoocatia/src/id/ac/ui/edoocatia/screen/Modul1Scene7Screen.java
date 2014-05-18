@@ -65,7 +65,7 @@ public class Modul1Scene7Screen extends AbstractScreen {
 		super(app);
 		this.setStates(this.READY_TO_ENTER);
 		
-		this.setMusicBg("data/sounds/music/modul1/scene7theme.ogg");
+		this.setMusicBg("data/sounds/music/modul1/scene7theme.mp3");
 		
 		this.controller = new Modul1Scene7Controller(this);
 	}

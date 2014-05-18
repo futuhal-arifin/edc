@@ -63,7 +63,7 @@ public class ProfessorInstructionScreen extends DialogScreen {
 	public void setShowInstruction(boolean status) {
 		this.showInstruction = status;
 		if(this.showInstruction) {
-			this.setMusicBg("data/sounds/music/modul1/instruksi.ogg");
+			this.setMusicBg("data/sounds/music/modul1/instruksi.mp3");
 		} else {
 			this.stopMusic();
 		}
