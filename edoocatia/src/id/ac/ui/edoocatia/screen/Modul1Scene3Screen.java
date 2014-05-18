@@ -70,9 +70,9 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
-<<<<<<< HEAD
-		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
-				.getKarakterDialogTexture();
+
+		playerDefaultTexture = new Texture(Gdx.files.internal(this.getApp()
+				.getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
 
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
@@ -93,14 +93,12 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
 
-=======
-		playerDefaultTexture = new Texture(
-				Gdx.files.internal(this.getApp().getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
+		playerDefaultTexture = new Texture(Gdx.files.internal(this.getApp()
+				.getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
 		this.setMusicBg(item.getMusicPath());
->>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 	}
 
 	public boolean isJustAnsweredCorrectly() {
@@ -274,12 +272,8 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 			this.initiateLemariPerkakas();
 			this.initiateScore();
 		} else {
-<<<<<<< HEAD
 			if (item != null) {
-=======
-			if(item != null) {
 				this.stopMusic();
->>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 				item.dispose();
 			}
 			if (state == this.PROF_INFO_SAYAP) {
@@ -312,12 +306,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 
 	@Override
 	public void dispose() {
-<<<<<<< HEAD
-		// this.playerDefaultTexture.dispose();
-=======
 		this.playerDefaultTexture.dispose();
->>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 		super.dispose();
 	}
-
 }

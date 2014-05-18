@@ -31,11 +31,8 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public final int ANIMATION_STATE_LIMIT = 1;
 	public final int WIN_DELAY = 3;
 
-<<<<<<< HEAD
-=======
 	// private boolean debug = true;
 
->>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 	private short state;
 
 	public short PROF_INSTRUCTION = 0;
@@ -278,10 +275,8 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 		} else {
 			if (item != null) {
-<<<<<<< HEAD
-=======
 				this.stopMusic();
->>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
+
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
