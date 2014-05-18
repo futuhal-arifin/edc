@@ -11,16 +11,16 @@ public class SoundFxPlayer {
 	
 	public void setSoundFxModul1 () {
 		modul1RightSfx = Gdx.audio.newSound(Gdx.files
-				.internal("data/sounds/sfx/modul-1/benar.ogg"));
+				.internal("data/sounds/sfx/modul-1/benar.mp3"));
 		modul1WrongSfx = Gdx.audio.newSound(Gdx.files
-				.internal("data/sounds/sfx/modul-1/salah.ogg"));
+				.internal("data/sounds/sfx/modul-1/salah.mp3"));
 		modul1LoseSfx = Gdx.audio.newSound(Gdx.files
-				.internal("data/sounds/sfx/modul-1/oou.ogg"));
+				.internal("data/sounds/sfx/modul-1/oou.mp3"));
 	}
 	
 	public void setPukulPaluSoundFx() {
 		pukulPaluSfx = Gdx.audio.newSound(Gdx.files
-				.internal("data/sounds/sfx/modul-1/pukul-palu.ogg"));
+				.internal("data/sounds/sfx/modul-1/pukul-palu.mp3"));
 	}
 	
 	public void playPukulPaluSoundFx() {

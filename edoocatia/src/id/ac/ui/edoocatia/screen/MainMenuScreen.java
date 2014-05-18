@@ -102,7 +102,7 @@ public class MainMenuScreen extends AbstractScreen {
 		}
 		
 		// kalau dibuka langsung play bg music
-		this.setMusicBg("data/sounds/music/menu.ogg");
+		this.setMusicBg("data/sounds/music/menu.mp3");
 
 		// sfx buat klik
 		clickSfx = Gdx.audio.newSound(Gdx.files
