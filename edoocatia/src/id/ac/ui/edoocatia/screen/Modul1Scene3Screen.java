@@ -77,27 +77,6 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
-
-	}
-
-	private void initiateScore() {
-
-		this.font = new BitmapFont(
-				Gdx.files
-						.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
-				Gdx.files
-						.internal("data/font/kg-corner-of-the-sky-44-white.png"),
-				false);
-
-		score = this.getApp().getEdocatiaData().getScore() + "";
-
-		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
-
-		playerDefaultTexture = new Texture(Gdx.files.internal(this.getApp()
-				.getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
-		this.setJustAnsweredCorrectly(false);
-		this.setJustAnsweredWrong(false);
-		this.resetJustSelectedItem();
 		this.setMusicBg(item.getMusicPath());
 	}
 
@@ -243,6 +222,13 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 	private void setLemariPerkakas() {
 		item = new LemariPerkakas(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, this.getApp());
 		this.correctItem = item.besi;
+
+		font = LemariPerkakas.getFont();
+
+		score = LemariPerkakas.getScore();
+
+		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
+
 	}
 
 	private void setProfessorInfoBesi() {
@@ -270,7 +256,7 @@ public class Modul1Scene3Screen extends ProfessorInstructionScreen {
 		if (state == this.LEMARI_PERKAKAS) {
 			this.setShowInstruction(false);
 			this.initiateLemariPerkakas();
-			this.initiateScore();
+
 		} else {
 			if (item != null) {
 				this.stopMusic();

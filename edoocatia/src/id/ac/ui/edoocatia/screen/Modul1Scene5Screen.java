@@ -91,21 +91,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		this.setMusicBg(item.getMusicPath());
 	}
 
-	private void initiateScore() {
-
-		this.font = new BitmapFont(
-				Gdx.files
-						.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
-				Gdx.files
-						.internal("data/font/kg-corner-of-the-sky-44-white.png"),
-				false);
-
-		score = this.getApp().getEdocatiaData().getScore() + "";
-
-		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
-
-	}
-
 	public boolean isJustAnsweredCorrectly() {
 		return justAnsweredCorrectly;
 	}
@@ -246,6 +231,12 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	private void setLemariPerkakas() {
 		item = new LemariPerkakas(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, this.getApp());
 		this.correctItem = item.cermin_cembung;
+
+		font = LemariPerkakas.getFont();
+
+		score = LemariPerkakas.getScore();
+
+		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
 	}
 
 	private void setProfessorInfoCerminCembung() {
@@ -271,7 +262,6 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 		this.state = state;
 		if (state == this.LEMARI_PERKAKAS) {
 			this.initiateLemariPerkakas();
-			this.initiateScore();
 
 		} else {
 			if (item != null) {

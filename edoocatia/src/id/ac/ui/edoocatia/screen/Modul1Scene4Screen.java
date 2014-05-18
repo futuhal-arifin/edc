@@ -86,21 +86,7 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		return state;
 	}
 
-	private void initiateScore() {
-
-		this.font = new BitmapFont(
-				Gdx.files
-						.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
-				Gdx.files
-						.internal("data/font/kg-corner-of-the-sky-44-white.png"),
-				false);
-
-		score = this.getApp().getEdocatiaData().getScore() + "";
-
-		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
-
-	}
-
+	
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
 		playerDefaultTexture = new Texture(Gdx.files.internal(this.getApp()
@@ -261,6 +247,12 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	private void setLemariPerkakas() {
 		item = new LemariPerkakas(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, this.getApp());
 		this.correctItem = item.palu;
+		font = LemariPerkakas.getFont();
+
+		score = LemariPerkakas.getScore();
+
+		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
+		
 	}
 
 	private void setPlayerMemaluAnimation() {
@@ -301,7 +293,7 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		this.state = state;
 		if (state == this.LEMARI_PERKAKAS) {
 			this.initiateLemariPerkakas();
-			this.initiateScore();
+		
 
 		} else {
 			if (item != null) {

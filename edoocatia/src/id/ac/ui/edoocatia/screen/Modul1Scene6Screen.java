@@ -75,21 +75,6 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 		this.setMusicBg(item.getMusicPath());
 	}
 
-	private void initiateScore() {
-
-		this.font = new BitmapFont(
-				Gdx.files
-						.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
-				Gdx.files
-						.internal("data/font/kg-corner-of-the-sky-44-white.png"),
-				false);
-
-		score = this.getApp().getEdocatiaData().getScore() + "";
-
-		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
-
-	}
-
 	public boolean isJustAnsweredCorrectly() {
 		return justAnsweredCorrectly;
 	}
@@ -221,6 +206,12 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 	private void setLemariPerkakas() {
 		item = new LemariPerkakas(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, this.getApp());
 		this.correctItem = item.balon_hidrogen;
+		
+		font = LemariPerkakas.getFont();
+
+		score = LemariPerkakas.getScore();
+
+		this.scoreXPosition = (VIRTUAL_WIDTH - this.font.getBounds(score).width) / 2;
 	}
 
 	private void setProfessorInfoHidrogen() {
@@ -235,7 +226,7 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 		if (state == this.LEMARI_PERKAKAS) {
 			this.setShowInstruction(false);
 			this.initiateLemariPerkakas();
-			this.initiateScore();
+
 		} else {
 			if (item != null) {
 				this.stopMusic();

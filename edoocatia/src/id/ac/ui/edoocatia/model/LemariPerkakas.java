@@ -5,6 +5,7 @@ import id.ac.ui.edoocatia.Edoocatia;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -31,9 +32,11 @@ public class LemariPerkakas {
 	private final int FRAME_COLS = 2;
 	private final int FRAME_ROWS = 1;
 	private float playerStateTime;
-	
-	private String musicPath;
 
+	private String musicPath;
+	private static String score = "0";
+	private float scoreXPosition;
+	private static BitmapFont font;
 	boolean debug = true;
 
 	// konstanta biar kita gausah ngafalin indeksnya
@@ -60,14 +63,14 @@ public class LemariPerkakas {
 
 	private float VIRTUAL_HEIGHT;
 	private float VIRTUAL_WIDTH;
-	private Edoocatia app;
+	private static Edoocatia app;
 
 	public LemariPerkakas(float vIRTUAL_WIDTH2, float vIRTUAL_HEIGHT2,
 			Edoocatia app) {
 		this.app = app;
-		
+
 		this.setMusicPath("data/sounds/music/modul1/lemariperkakas.ogg");
-		
+
 		this.VIRTUAL_HEIGHT = vIRTUAL_HEIGHT2;
 		this.VIRTUAL_WIDTH = vIRTUAL_WIDTH2;
 
@@ -229,6 +232,25 @@ public class LemariPerkakas {
 
 		return null;
 
+	}
+
+	public static BitmapFont getFont() {
+
+		font = new BitmapFont(
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.png"),
+				false);
+
+		return font;
+
+	}
+
+	public static String getScore() {
+
+		score = app.getEdocatiaData().getScore() + "";
+		return score;
 	}
 
 	public Texture getImageSubstanceTexture(String ImageSubstance) {
