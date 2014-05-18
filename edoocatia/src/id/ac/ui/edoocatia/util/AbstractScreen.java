@@ -181,7 +181,11 @@ public abstract class AbstractScreen implements Screen {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 
+=======
+		//System.out.println("show called");
+>>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 	}
 
 	@Override
@@ -204,7 +208,12 @@ public abstract class AbstractScreen implements Screen {
 
 	@Override
 	public void dispose() {
+<<<<<<< HEAD
 		if (this.musicBg != null) {
+=======
+		this.stopMusic();
+		if(this.musicBg != null) {
+>>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 			this.musicBg.dispose();
 		}
 		this.batcher.dispose();

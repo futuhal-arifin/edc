@@ -42,6 +42,8 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	private final int MEMALU_FRAME_ROWS = 6;
 	private float memaluStateTime;
 
+	// private boolean debug = true;
+
 	private short state;
 
 	public short PROF_INSTRUCTION = 0;
@@ -101,11 +103,12 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
-		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
-				.getKarakterDialogTexture();
+		playerDefaultTexture = new Texture(Gdx.files.internal(this.getApp()
+				.getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
+		this.setMusicBg(item.getMusicPath());
 	}
 
 	public boolean isJustAnsweredCorrectly() {
@@ -264,8 +267,8 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 		memaluBackground = new Texture(
 				Gdx.files.internal("data/images/modul-1/background/tada.jpg"));
 
-		playerMemaluTexture = this.getApp().getEdocatiaData().getPlayer()
-				.getKarakterMemaluTexture();
+		playerMemaluTexture = new Texture(Gdx.files.internal(this.getApp()
+				.getEdocatiaData().getPlayer().getKarakterMemaluTexturePath()));
 		TextureRegion[][] temp = TextureRegion.split(playerMemaluTexture,
 				playerMemaluTexture.getWidth() / MEMALU_FRAME_COLS,
 				playerMemaluTexture.getHeight() / MEMALU_FRAME_ROWS);
@@ -302,6 +305,7 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 
 		} else {
 			if (item != null) {
+				this.stopMusic();
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
@@ -322,6 +326,7 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	public void dispose() {
 		this.memaluBackground.dispose();
 		this.playerMemaluTexture.dispose();
+		this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 }

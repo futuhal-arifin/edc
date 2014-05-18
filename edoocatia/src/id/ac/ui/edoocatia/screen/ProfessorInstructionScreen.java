@@ -18,7 +18,7 @@ public class ProfessorInstructionScreen extends DialogScreen {
 	public ProfessorInstructionScreen(Edoocatia app) {
 		super(app);
 		
-		this.showInstruction = true;
+		this.setShowInstruction(true);
 		this.setDialogBackground("data/images/general/dialog.png");
 		this.setDialogBackgroundPosition(100+(this.getWidth()- this.dialogBackground.getWidth())/2, 0);
 		this.setKarakterLeftPosition(0, 0);
@@ -62,6 +62,11 @@ public class ProfessorInstructionScreen extends DialogScreen {
 	
 	public void setShowInstruction(boolean status) {
 		this.showInstruction = status;
+		if(this.showInstruction) {
+			this.setMusicBg("data/sounds/music/modul1/instruksi.ogg");
+		} else {
+			this.stopMusic();
+		}
 	}
 	
 	public boolean getShowInstruction() {

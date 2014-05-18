@@ -16,22 +16,24 @@ public class LemariPerkakas {
 	private boolean ImageIsActive[] = new boolean[13];
 	private Texture ImageTanda[] = new Texture[2];
 	private Texture ImageScore[] = new Texture[2];
-	
-	//private Texture Texture;
+
+	// private Texture Texture;
 	private Animation[] scoreAnimation = new Animation[2];
 	private TextureRegion[][] scoreFrames = new TextureRegion[2][];
 	private TextureRegion[] currentScoreFrame;
 	public final int SCORE_FRAME_COLS = 1;
 	public final int SCORE_FRAME_ROWS = 10;
 	private float scoreStateTime;
-	
+
 	private Texture[] playerTexture = new Texture[2];
-	private TextureRegion[][] playerFrames  = new TextureRegion[2][];
-	private Animation[] playerAnimation  = new Animation[2];
+	private TextureRegion[][] playerFrames = new TextureRegion[2][];
+	private Animation[] playerAnimation = new Animation[2];
 	private final int FRAME_COLS = 2;
 	private final int FRAME_ROWS = 1;
 	private float playerStateTime;
 	
+	private String musicPath;
+
 	boolean debug = true;
 
 	// konstanta biar kita gausah ngafalin indeksnya
@@ -51,20 +53,24 @@ public class LemariPerkakas {
 	public final int balon_hidrogen = 10;
 	public final int balon_oksigen = 11;
 	public final int balon_nitrogen = 12;
-	
+
 	private boolean[] partIsSelected = new boolean[2];
 	public final int checklist = 0;
 	public final int wrong = 1;
-	
+
 	private float VIRTUAL_HEIGHT;
 	private float VIRTUAL_WIDTH;
 	private Edoocatia app;
 
-	public LemariPerkakas(float vIRTUAL_WIDTH2, float vIRTUAL_HEIGHT2, Edoocatia app) {
+	public LemariPerkakas(float vIRTUAL_WIDTH2, float vIRTUAL_HEIGHT2,
+			Edoocatia app) {
 		this.app = app;
+		
+		this.setMusicPath("data/sounds/music/modul1/lemariperkakas.ogg");
+		
 		this.VIRTUAL_HEIGHT = vIRTUAL_HEIGHT2;
 		this.VIRTUAL_WIDTH = vIRTUAL_WIDTH2;
-		
+
 		background = new Texture(
 				Gdx.files.internal("data/images/modul-1/background/lemari.jpg"));
 
@@ -172,7 +178,7 @@ public class LemariPerkakas {
 		for (int idx = 0; idx < this.ImageIsActive.length; idx++) {
 			ImageIsActive[idx] = false;
 		}
-		
+
 		ImageTanda[checklist] = new Texture(
 				Gdx.files
 						.internal("data/images/icon/right_and_wrong/benar.png"));
@@ -182,20 +188,15 @@ public class LemariPerkakas {
 
 		this.setScoreAnimation(this.checklist);
 		this.setScoreAnimation(this.wrong);
-		
 
 		this.setPlayerAnimation(this.checklist);
 		this.setPlayerAnimation(this.wrong);
-		
 	}
-
 
 	// getter button bounds
 	public Rectangle[] getImageBounds() {
 		return ImageBounds;
 	}
-	
-	
 
 	public Rectangle getImageSubstancePosition(String Image) {
 		if (Image.contentEquals("besi")) {
@@ -235,15 +236,15 @@ public class LemariPerkakas {
 		return new Texture(Gdx.files.internal("data/images/modul-1/alat/"
 				+ ImageSubstance + ".png"));
 	}
-	
+
 	public Texture[] getImageSubstances() {
 		return this.ImageSubstance;
 	}
-	
+
 	public Texture[] getImageTanda() {
 		return this.ImageTanda;
 	}
-	
+
 	public boolean[] imageIsActive() {
 		return this.ImageIsActive;
 	}
@@ -255,11 +256,11 @@ public class LemariPerkakas {
 	public void setPartIsSelected(boolean[] partIsSelected) {
 		this.partIsSelected = partIsSelected;
 	}
-	
+
 	public void setImageStatus(boolean status, int index) {
 		this.ImageIsActive[index] = status;
 	}
-	
+
 	public Texture getLemariPerkakasBackground() {
 		return this.background;
 	}
@@ -287,41 +288,46 @@ public class LemariPerkakas {
 	public void setCurrentScoreFrame(TextureRegion[] currentScoreFrame) {
 		this.currentScoreFrame = currentScoreFrame;
 	}
-	
+
 	private void setScoreAnimation(int state) {
-		if(state == this.wrong) {
+		if (state == this.wrong) {
 			ImageScore[state] = new Texture(
-					Gdx.files
-							.internal("data/images/general/min_20.png"));
+					Gdx.files.internal("data/images/general/min_20.png"));
 		} else {
 			ImageScore[state] = new Texture(
-					Gdx.files
-							.internal("data/images/general/plus100.png"));
+					Gdx.files.internal("data/images/general/plus100.png"));
 		}
-		TextureRegion[][] temp = TextureRegion.split(this.ImageScore[state], this.ImageScore[state].getWidth()/SCORE_FRAME_COLS, 
-				this.ImageScore[state].getHeight()/SCORE_FRAME_ROWS);
-		this.scoreFrames[state] = new TextureRegion[SCORE_FRAME_COLS*SCORE_FRAME_ROWS];
-		int index= 0;
-		for(int ii = 0; ii < SCORE_FRAME_ROWS; ii++) {
-			for(int jj = 0; jj < SCORE_FRAME_COLS; jj++) {
+		TextureRegion[][] temp = TextureRegion.split(this.ImageScore[state],
+				this.ImageScore[state].getWidth() / SCORE_FRAME_COLS,
+				this.ImageScore[state].getHeight() / SCORE_FRAME_ROWS);
+		this.scoreFrames[state] = new TextureRegion[SCORE_FRAME_COLS
+				* SCORE_FRAME_ROWS];
+		int index = 0;
+		for (int ii = 0; ii < SCORE_FRAME_ROWS; ii++) {
+			for (int jj = 0; jj < SCORE_FRAME_COLS; jj++) {
 				scoreFrames[state][index++] = temp[ii][jj];
 			}
 		}
 		scoreAnimation[state] = new Animation(0.05f, this.scoreFrames[state]);
 		this.resetScoreStateTime();
 	}
-	
+
 	private void setPlayerAnimation(int state) {
-		if(state == this.wrong) {
-			playerTexture[state] = this.app.getEdocatiaData().getPlayer().getKarakterLoseTexture();
+		if (state == this.wrong) {
+			playerTexture[state] = new Texture(
+					Gdx.files.internal(this.app.getEdocatiaData().getPlayer()
+							.getKarakterLoseTexturePath()));
 		} else {
-			playerTexture[state] = this.app.getEdocatiaData().getPlayer().getKarakterWinTexture();
+			playerTexture[state] = new Texture(Gdx.files.internal(this.app
+					.getEdocatiaData().getPlayer().getKarakterWinTexturePath()));
 		}
-		TextureRegion[][] temp = TextureRegion.split(playerTexture[state], playerTexture[state].getWidth()/FRAME_COLS, playerTexture[state].getHeight()/FRAME_ROWS);
-		this.playerFrames[state] = new TextureRegion[FRAME_COLS*FRAME_ROWS];
-		int index= 0;
-		for(int ii = 0; ii < FRAME_ROWS; ii++) {
-			for(int jj = 0; jj < FRAME_COLS; jj++) {
+		TextureRegion[][] temp = TextureRegion.split(playerTexture[state],
+				playerTexture[state].getWidth() / FRAME_COLS,
+				playerTexture[state].getHeight() / FRAME_ROWS);
+		this.playerFrames[state] = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+		int index = 0;
+		for (int ii = 0; ii < FRAME_ROWS; ii++) {
+			for (int jj = 0; jj < FRAME_COLS; jj++) {
 				playerFrames[state][index++] = temp[ii][jj];
 			}
 		}
@@ -331,7 +337,7 @@ public class LemariPerkakas {
 
 	public void resetScoreStateTime() {
 		this.setScoreStateTime(0f);
-		
+
 	}
 
 	public float getScoreStateTime() {
@@ -357,24 +363,32 @@ public class LemariPerkakas {
 	public void setPlayerAnimation(Animation[] playerAnimation) {
 		this.playerAnimation = playerAnimation;
 	}
-	
+
 	public void resetPlayerStateTime() {
 		playerStateTime = 0f;
 	}
-	
+
 	public void dispose() {
 		this.background.dispose();
-		for(int index = 0; index < this.ImageSubstance.length; index++) {
+		for (int index = 0; index < this.ImageSubstance.length; index++) {
 			this.ImageSubstance[index].dispose();
 		}
-		for(int index = 0; index < this.ImageTanda.length; index++) {
+		for (int index = 0; index < this.ImageTanda.length; index++) {
 			this.ImageTanda[index].dispose();
 		}
-		for(int index = 0; index < this.ImageScore.length; index++) {
+		for (int index = 0; index < this.ImageScore.length; index++) {
 			this.ImageScore[index].dispose();
 		}
-		for(int index = 0; index < this.playerTexture.length; index++) {
+		for (int index = 0; index < this.playerTexture.length; index++) {
 			this.playerTexture[index].dispose();
 		}
+	}
+
+	public String getMusicPath() {
+		return musicPath;
+	}
+
+	public void setMusicPath(String musicPath) {
+		this.musicPath = musicPath;
 	}
 }

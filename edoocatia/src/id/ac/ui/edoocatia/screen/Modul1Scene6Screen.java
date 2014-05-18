@@ -66,11 +66,17 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
+<<<<<<< HEAD
 		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
 				.getKarakterDialogTexture();
+=======
+		playerDefaultTexture = new Texture(Gdx.files.internal(this.getApp()
+				.getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
+>>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
+		this.setMusicBg(item.getMusicPath());
 	}
 
 	private void initiateScore() {
@@ -236,6 +242,10 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 			this.initiateScore();
 		} else {
 			if (item != null) {
+<<<<<<< HEAD
+=======
+				this.stopMusic();
+>>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
@@ -246,6 +256,7 @@ public class Modul1Scene6Screen extends ProfessorInstructionScreen {
 
 	@Override
 	public void dispose() {
+		this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 

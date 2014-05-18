@@ -152,7 +152,8 @@ public class DialogScreen extends AbstractScreen {
 				}
 				//if(!this.isDialogEnded())
 				currentDialog = this.dialogPerKarakter.get(currentTurn);
-				currentKarakterTexture = currentDialog.getKarakter().getKarakterDialogTexture();
+				currentKarakterTexture = new Texture(
+						Gdx.files.internal(currentDialog.getKarakter().getKarakterDialogTexturePath()));
 				if(currentDialog.isPositionOnTheLeft()) {
 					batcher.draw(currentKarakterTexture, 
 							this.karakterXLeftPosition, 

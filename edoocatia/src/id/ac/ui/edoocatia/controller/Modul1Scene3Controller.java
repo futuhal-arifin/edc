@@ -58,7 +58,6 @@ public class Modul1Scene3Controller {
 							}
 						}
 					}
-				
 				}
 
 			}
@@ -67,26 +66,26 @@ public class Modul1Scene3Controller {
 			if (screen.isJustAnsweredCorrectly()
 					&& screen.getPlayerStateTime() > screen.WIN_OR_LOSE_DELAY) {
 				app.getEdocatiaData().setModul1Scene3Done(true);
-				app.sfxPlayer.disposeModul1SoundFx();
 				screen.setState(screen.PROF_INFO);
 			}
 
 			if (screen.isJustAnsweredWrong()
 					&& screen.getPlayerStateTime() > screen.WIN_OR_LOSE_DELAY
 					&& screen.getMistakes() == 3) {
-				app.sfxPlayer.disposeModul1SoundFx();
+				app.sfxPlayer.playModul1LoseSoundFx();
 				screen.setState(screen.PROF_INFO_WRONG);
 			}
 
 		} else if (currentState == screen.PROF_INFO) {
 			if (!screen.getShowInstruction()) {
+				app.sfxPlayer.disposeModul1SoundFx();
 				app.changeScreen(ScreenEnum.MODUL1_SCENE3,
 						ScreenEnum.MODUL1_SCENE4);
 			}
 
 		} else if (currentState == screen.PROF_INFO_WRONG) {
-
 			if (!screen.getShowInstruction()) {
+				app.sfxPlayer.disposeModul1SoundFx();
 				app.changeScreen(ScreenEnum.MODUL1_SCENE3,
 						ScreenEnum.MODUL1_SCENE2);
 			}

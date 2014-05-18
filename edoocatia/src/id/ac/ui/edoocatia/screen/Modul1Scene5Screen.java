@@ -31,6 +31,11 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 	public final int ANIMATION_STATE_LIMIT = 1;
 	public final int WIN_DELAY = 3;
 
+<<<<<<< HEAD
+=======
+	// private boolean debug = true;
+
+>>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 	private short state;
 
 	public short PROF_INSTRUCTION = 0;
@@ -47,6 +52,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 	public boolean cekBesi(int index) {
 
+		// System.out.println("CEK SHOW BESI+PALU " +this.showBesiDanPalu());
 		// kl uda 3&4, dapetin indeks
 		return index != item.besi
 				|| (index == item.besi && this.showBesiDanPalu());
@@ -80,11 +86,12 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 	private void initiateLemariPerkakas() {
 		this.setLemariPerkakas();
-		playerDefaultTexture = this.getApp().getEdocatiaData().getPlayer()
-				.getKarakterDialogTexture();
+		playerDefaultTexture = new Texture(Gdx.files.internal(this.getApp()
+				.getEdocatiaData().getPlayer().getKarakterDialogTexturePath()));
 		this.setJustAnsweredCorrectly(false);
 		this.setJustAnsweredWrong(false);
 		this.resetJustSelectedItem();
+		this.setMusicBg(item.getMusicPath());
 	}
 
 	private void initiateScore() {
@@ -271,6 +278,10 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 		} else {
 			if (item != null) {
+<<<<<<< HEAD
+=======
+				this.stopMusic();
+>>>>>>> 913504c875b8bb970e21e38c3880e36009efd92d
 				item.dispose();
 			}
 			if (state == this.PROF_INFO) {
@@ -299,6 +310,7 @@ public class Modul1Scene5Screen extends ProfessorInstructionScreen {
 
 	@Override
 	public void dispose() {
+		// this.playerDefaultTexture.dispose();
 		super.dispose();
 	}
 }

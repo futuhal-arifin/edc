@@ -16,13 +16,13 @@ import id.ac.ui.edoocatia.util.AbstractScreen;
 public class Modul1Scene7Screen extends AbstractScreen {
 	private Modul1Scene7Controller controller;
 	private Texture background;
-	
+
 	private boolean debug = false;
-	
+
 	public final short READY_TO_ENTER = 0;
 	public final short READY_TO_FLY = 1;
 	public final short FLYING = 2;
-	
+
 	// buat adegan ready to enter
 	private Texture pesawatTexture;
 	private Texture playerTexture;
@@ -36,14 +36,14 @@ public class Modul1Scene7Screen extends AbstractScreen {
 	private Rectangle playerBounds;
 	private Rectangle playerCenterBounds;
 	private Rectangle pesawatCenterBounds;
-	
+
 	private float playerXPosition;
 	private float playerYPosition;
-	
+
 	private BitmapFont font;
 	private String command = "Silakan naik ke pesawat!";
 	private float commandXPosition;
-	
+
 	// buat adegan ready to fly
 	private Texture[] light = new Texture[2];
 	private boolean[] lightOn = new boolean[2];
@@ -55,60 +55,79 @@ public class Modul1Scene7Screen extends AbstractScreen {
 	public final int MONITOR_FLICKER_DELAY = 250;
 	public final int MONITOR_FLICKER_COUNT = 6;
 	private int currentMonitorFlickerCount;
-	
+
 	// buat adegan flying
-	
+
 	private Texture pesawatSideTexture;
 	private float pesawatSideXPosition;
 
 	public Modul1Scene7Screen(Edoocatia app) {
 		super(app);
 		this.setStates(this.READY_TO_ENTER);
+		
+		this.setMusicBg("data/sounds/music/modul1/scene7theme.ogg");
+		
 		this.controller = new Modul1Scene7Controller(this);
 	}
-	
+
 	private void initiateAdeganReadyToEnter() {
-		background = new Texture(Gdx.files.internal("data/images/modul-1/background/lab_pesawat.jpg"));
-		this.pesawatTexture = new Texture(Gdx.files.internal("data/images/modul-1/pesawat/pesawat.png"));
-		
+		background = new Texture(
+				Gdx.files
+						.internal("data/images/modul-1/background/lab_pesawat.jpg"));
+		this.pesawatTexture = new Texture(
+				Gdx.files.internal("data/images/modul-1/pesawat/pesawat.png"));
+
 		this.font = new BitmapFont(
-				Gdx.files.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
-				Gdx.files.internal("data/font/kg-corner-of-the-sky-44-white.png"),
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.fnt"),
+				Gdx.files
+						.internal("data/font/kg-corner-of-the-sky-44-white.png"),
 				false);
-		
+
 		this.commandXPosition = (VIRTUAL_WIDTH - this.font.getBounds(command).width) / 2;
-		
-		this.setPlayerAnimation();	
-		this.playerBounds = new Rectangle(this.playerXPosition, this.playerYPosition,
-				this.playerTexture.getWidth() / 2, playerTexture.getHeight());
-		this.playerCenterBounds = new Rectangle((playerBounds.getWidth()-50)/2, 
-				(this.playerBounds.getHeight()-50)/2,
-				75, 75);
+
+		this.setPlayerAnimation();
+		this.playerBounds = new Rectangle(this.playerXPosition,
+				this.playerYPosition, this.playerTexture.getWidth() / 2,
+				playerTexture.getHeight());
+		this.playerCenterBounds = new Rectangle(
+				(playerBounds.getWidth() - 50) / 2,
+				(this.playerBounds.getHeight() - 50) / 2, 75, 75);
 		this.setPlayerPosition(0, 0);
-		this.pesawatCenterBounds = new Rectangle((VIRTUAL_WIDTH-100)/2, 125,
-				100, 250);
+		this.pesawatCenterBounds = new Rectangle((VIRTUAL_WIDTH - 100) / 2,
+				125, 100, 250);
 	}
-	
+
 	private void initiateAdeganReadyToFly() {
-		background = new Texture(Gdx.files.internal("data/images/modul-1/pesawat/dalam-pesawat/dalam-pesawat.jpg"));
-		this.light[this.CENTRAL_LIGHT] = new Texture(Gdx.files.internal("data/images/modul-1/pesawat/dalam-pesawat/light.png"));
-		this.light[this.MONITOR_LIGHT] = new Texture(Gdx.files.internal("data/images/modul-1/pesawat/dalam-pesawat/monitor-light.png"));
-		
+		background = new Texture(
+				Gdx.files
+						.internal("data/images/modul-1/pesawat/dalam-pesawat/dalam-pesawat.jpg"));
+		this.light[this.CENTRAL_LIGHT] = new Texture(
+				Gdx.files
+						.internal("data/images/modul-1/pesawat/dalam-pesawat/light.png"));
+		this.light[this.MONITOR_LIGHT] = new Texture(
+				Gdx.files
+						.internal("data/images/modul-1/pesawat/dalam-pesawat/monitor-light.png"));
+
 		this.lightOn[this.CENTRAL_LIGHT] = false;
 		this.lightOn[this.MONITOR_LIGHT] = false;
-		
+
 		this.lightStartTime[this.CENTRAL_LIGHT] = TimeUtils.millis();
 		this.lightStartTime[this.MONITOR_LIGHT] = TimeUtils.millis();
-		
+
 		this.currentMonitorFlickerCount = 0;
 	}
-	
+
 	private void initiateAdeganFlying() {
-		background = new Texture(Gdx.files.internal("data/images/modul-1/background/background2.jpg"));
-		this.pesawatSideTexture = new Texture(Gdx.files.internal("data/images/modul-1/pesawat/pesawat_tampak_samping.png"));
+		background = new Texture(
+				Gdx.files
+						.internal("data/images/modul-1/background/background2.jpg"));
+		this.pesawatSideTexture = new Texture(
+				Gdx.files
+						.internal("data/images/modul-1/pesawat/pesawat_tampak_samping.png"));
 		this.setPesawatSideXPosition(-this.pesawatSideTexture.getWidth());
 	}
-	
+
 	public void render(float delta) {
 		cam.update();
 
@@ -120,74 +139,79 @@ public class Modul1Scene7Screen extends AbstractScreen {
 		batcher.setProjectionMatrix(cam.combined);
 		batcher.begin();
 		batcher.draw(this.background, 0, 0);
-		
-		if(this.states == this.READY_TO_ENTER) {
-			batcher.draw(this.pesawatTexture, 
-					(VIRTUAL_WIDTH-this.pesawatTexture.getWidth())/2, 
-					100);
+
+		if (this.states == this.READY_TO_ENTER) {
+			batcher.draw(this.pesawatTexture,
+					(VIRTUAL_WIDTH - this.pesawatTexture.getWidth()) / 2, 100);
 			stateTime += Gdx.graphics.getDeltaTime();
 			currentFrame = player.getKeyFrame(stateTime, true);
-			//System.out.println(this.playerXPosition + " | " + this.playerYPosition);
-			batcher.draw(currentFrame, this.playerXPosition, this.playerYPosition);
-			font.drawWrapped(batcher, this.command, 
-					this.commandXPosition, 700, 800);
-		} else if(this.states == this.READY_TO_FLY) {
-			if(this.lightOn[this.CENTRAL_LIGHT]) {
+			// System.out.println(this.playerXPosition + " | " +
+			// this.playerYPosition);
+			batcher.draw(currentFrame, this.playerXPosition,
+					this.playerYPosition);
+			font.drawWrapped(batcher, this.command, this.commandXPosition, 700,
+					800);
+		} else if (this.states == this.READY_TO_FLY) {
+			if (this.lightOn[this.CENTRAL_LIGHT]) {
 				batcher.draw(this.light[this.CENTRAL_LIGHT], 0, 70);
 			}
-			if(this.lightOn[this.MONITOR_LIGHT]) {
+			if (this.lightOn[this.MONITOR_LIGHT]) {
 				batcher.draw(this.light[this.MONITOR_LIGHT], 0, -40);
 			}
 		} else {
-			batcher.draw(this.pesawatSideTexture, this.pesawatSideXPosition, (VIRTUAL_HEIGHT-this.pesawatSideTexture.getHeight())/2);
+			batcher.draw(this.pesawatSideTexture, this.pesawatSideXPosition,
+					(VIRTUAL_HEIGHT - this.pesawatSideTexture.getHeight()) / 2);
 			this.pesawatSideXPosition += 10;
 		}
 
 		batcher.end();
-		
-		if(debug) {
+
+		if (debug) {
 			this.drawDebug(this.pesawatCenterBounds, false);
 			this.drawDebug(this.playerBounds, false);
 			this.drawDebug(this.playerCenterBounds, false);
 		}
-		
+
 		controller.processInput();
 	}
-	
+
 	private void setPlayerAnimation() {
-		playerTexture = this.getApp().getEdocatiaData().getPlayer().getKarakterWinTexture();
-		TextureRegion[][] temp = TextureRegion.split(playerTexture, playerTexture.getWidth()/FRAME_COLS, playerTexture.getHeight()/FRAME_ROWS);
-		this.playerFrames = new TextureRegion[FRAME_COLS*FRAME_ROWS];
-		int index= 0;
-		for(int ii = 0; ii < FRAME_ROWS; ii++) {
-			for(int jj = 0; jj < FRAME_COLS; jj++) {
+		playerTexture = new Texture(Gdx.files.internal(this.getApp()
+				.getEdocatiaData().getPlayer().getKarakterWinTexturePath()));
+		TextureRegion[][] temp = TextureRegion.split(playerTexture,
+				playerTexture.getWidth() / FRAME_COLS,
+				playerTexture.getHeight() / FRAME_ROWS);
+		this.playerFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+		int index = 0;
+		for (int ii = 0; ii < FRAME_ROWS; ii++) {
+			for (int jj = 0; jj < FRAME_COLS; jj++) {
 				playerFrames[index++] = temp[ii][jj];
 			}
 		}
 		player = new Animation(0.25f, playerFrames);
 		stateTime = 0f;
 	}
-	
+
 	public boolean isLightOn(int index) {
 		return this.lightOn[index];
 	}
-	
+
 	public void setLightOn(boolean status, int index) {
-		 this.lightOn[index] = status;
+		this.lightOn[index] = status;
 	}
-	
+
 	public void setLightStartTime(long time, int index) {
-		 this.lightStartTime[index] = time;
+		this.lightStartTime[index] = time;
 	}
-	
+
 	public long getLightStartTime(int index) {
 		return this.lightStartTime[index];
 	}
-	
+
 	public long[] getLightStartTime() {
 		return this.lightStartTime;
 	}
-	
+
 	public short getStates() {
 		return states;
 	}
@@ -196,22 +220,25 @@ public class Modul1Scene7Screen extends AbstractScreen {
 		this.states = states;
 		this.initiateAdegan(states);
 	}
-	
+
 	private void initiateAdegan(short states) {
-		switch(states) {
-		case 0: this.initiateAdeganReadyToEnter(); break;
-		case 1: this.initiateAdeganReadyToFly(); break;
-		case 2: this.initiateAdeganFlying(); break;
-		 
+		switch (states) {
+		case 0:
+			this.initiateAdeganReadyToEnter();
+			break;
+		case 1:
+			this.initiateAdeganReadyToFly();
+			break;
+		case 2:
+			this.initiateAdeganFlying();
+			break;
+
 		}
 	}
-	
 
 	public float getPlayerXPosition() {
 		return playerXPosition;
 	}
-
-	
 
 	public float getPlayerYPosition() {
 		return playerYPosition;
@@ -222,22 +249,31 @@ public class Modul1Scene7Screen extends AbstractScreen {
 		this.playerYPosition = playerYPosition;
 		this.updateBounds();
 	}
-	
+
 	private void updateBounds() {
-		this.playerBounds.setPosition(this.playerXPosition, this.playerYPosition);
-		this.playerCenterBounds.setPosition(this.playerXPosition+((this.playerBounds.getWidth()-this.playerCenterBounds.getWidth())/2), 
-				this.playerYPosition+((this.playerBounds.getHeight()-this.playerCenterBounds.getHeight())/2));
+		this.playerBounds.setPosition(this.playerXPosition,
+				this.playerYPosition);
+		this.playerCenterBounds
+				.setPosition(
+						this.playerXPosition
+								+ ((this.playerBounds.getWidth() - this.playerCenterBounds
+										.getWidth()) / 2),
+						this.playerYPosition
+								+ ((this.playerBounds.getHeight() - this.playerCenterBounds
+										.getHeight()) / 2));
 	}
-	
+
 	public void setPlayerXPosition(float playerXPosition) {
 		this.playerXPosition = playerXPosition;
-		this.playerBounds.setPosition(this.playerXPosition, this.playerYPosition);
+		this.playerBounds.setPosition(this.playerXPosition,
+				this.playerYPosition);
 		this.updateBounds();
 	}
-	
+
 	public void setPlayerYPosition(float playerYPosition) {
 		this.playerYPosition = playerYPosition;
-		this.playerBounds.setPosition(this.playerXPosition, this.playerYPosition);
+		this.playerBounds.setPosition(this.playerXPosition,
+				this.playerYPosition);
 		this.updateBounds();
 	}
 
@@ -287,7 +323,7 @@ public class Modul1Scene7Screen extends AbstractScreen {
 		this.pesawatTexture.dispose();
 		this.playerTexture.dispose();
 		this.font.dispose();
-		for(int index = 0; index < this.light.length; index++) {
+		for (int index = 0; index < this.light.length; index++) {
 			this.light[index].dispose();
 		}
 		this.pesawatSideTexture.dispose();

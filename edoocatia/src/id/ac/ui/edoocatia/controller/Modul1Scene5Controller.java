@@ -65,25 +65,25 @@ public class Modul1Scene5Controller {
 			if (screen.isJustAnsweredCorrectly()
 					&& screen.getPlayerStateTime() > screen.WIN_DELAY) {
 				app.getEdocatiaData().setModul1Scene5Done(true);
-				app.sfxPlayer.disposeModul1SoundFx();
 				screen.setState(screen.PROF_INFO);
 			}
 
 			if (screen.isJustAnsweredWrong()
 					&& screen.getPlayerStateTime() > screen.WIN_DELAY
 					&& screen.getMistakes() == 3) {
-				app.sfxPlayer.disposeModul1SoundFx();
+				app.sfxPlayer.playModul1LoseSoundFx();
 				screen.setState(screen.PROF_INFO_WRONG);
 			}
 
 		} else if (currentState == screen.PROF_INFO) {
 			if (!screen.getShowInstruction()) {
+				app.sfxPlayer.disposeModul1SoundFx();
 				app.changeScreen(ScreenEnum.MODUL1_SCENE5,
 						ScreenEnum.MODUL1_SCENE2);
 			}
 		} else if (currentState == screen.PROF_INFO_WRONG) {
-
-			if (!screen.getShowInstruction()) {
+				if (!screen.getShowInstruction()) {
+				app.sfxPlayer.disposeModul1SoundFx();
 				app.changeScreen(ScreenEnum.MODUL1_SCENE5,
 						ScreenEnum.MODUL1_SCENE2);
 			}
