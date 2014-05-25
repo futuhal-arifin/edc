@@ -64,8 +64,8 @@ public class SpaceBattleController {
 					}
 				}
 				else if(screen.buttonIsActive(screen.RIGHT)){
+					
 					if(OverlapTester.pointInRectangle( buttonBounds[screen.RIGHT], pos.x, pos.y)){
-							
 						float currentPosition = data.getPesawatXPosition();
 						if(currentPosition <= (data.getRightLimit()+5.0f)) {
 							data.setPesawatXPosition(currentPosition+5.0f);
@@ -73,6 +73,12 @@ public class SpaceBattleController {
 							data.setPesawatXPosition(data.getRightLimit());
 						}
 					}
+				}
+			} else {
+				if(screen.buttonIsActive(screen.LEFT)){ 
+					screen.setButtonStatus(false, screen.LEFT);
+				} else if(screen.buttonIsActive(screen.RIGHT)){
+					screen.setButtonStatus(false, screen.RIGHT);
 				}
 			}
 		}

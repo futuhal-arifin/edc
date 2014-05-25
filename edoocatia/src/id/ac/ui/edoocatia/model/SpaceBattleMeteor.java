@@ -18,7 +18,7 @@ public class SpaceBattleMeteor {
 		this.setIndex(index);
 		setYPosition(INIT_POS);
 		this.obstacle = new Texture(
-				Gdx.files.internal("data/images/modul-2/meteor_small.jpg"));
+				Gdx.files.internal("data/images/modul-2/meteor_small.png"));
 		hit = false;
 		
 		float xBounds = -100;

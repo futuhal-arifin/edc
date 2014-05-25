@@ -92,7 +92,7 @@ public class SpaceBattle {
 		Iterator<SpaceBattleMeteor> itr = meteors.iterator();
 		while(itr.hasNext()){
 			SpaceBattleMeteor obs = itr.next();
-			obs.setYPosition(obs.getYPosition() - this.VELOCITY);
+			obs.setYPosition(obs.getYPosition() - (this.VELOCITY * 3));
 			
 			if(obs.getYPosition()<-126){
 				obs.dispose();
