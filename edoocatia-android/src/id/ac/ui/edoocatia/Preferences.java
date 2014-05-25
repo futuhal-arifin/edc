@@ -1,13 +1,9 @@
 package id.ac.ui.edoocatia;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
-import id.ac.ui.edoocatia.R;
 
 public class Preferences extends PreferenceActivity implements OnPreferenceChangeListener {
 	   //private CheckBoxPreference pamareter;
