@@ -18,6 +18,8 @@ public class Modul2Scene1Screen extends AbstractScreen {
 	// bg texture
 	private Texture background;
 	private Texture andromeda;
+	private Texture elips;
+	
 	private Texture charTexture;
 	// buttons
 	/*
