@@ -18,21 +18,27 @@ public class Modul2Scene1Screen extends AbstractScreen {
 	// bg texture
 	private Texture background;
 	private Texture andromeda;
+	private Texture elips;
+	private Texture magelanBesar;
+	private Texture magelanKecil;
+	private Texture power;
+	private Texture timer;
+	private Texture speedometer;
+	private Texture senjata;
+	private Texture spesialShoot;
+			
 	private Texture charTexture;
 	// buttons
 	/*
-	 * [0] - play [1] - forum [2] - jelajah web [3] - sang juara
+	 * bima sakti
 	 */
-	private Texture buttonTexture[] = new Texture[4];
-	private Texture buttonActiveTexture[] = new Texture[4];
-	private Rectangle buttonBounds[] = new Rectangle[4];
-	private boolean buttonIsActive[] = new boolean[4];
+	private Texture buttonTexture[] = new Texture[1];
+	private Texture buttonActiveTexture[] = new Texture[1];
+	private Rectangle buttonBounds[] = new Rectangle[1];
+	private boolean buttonIsActive[] = new boolean[1];
 	// konstanta biar kita gausah ngafalin indeksnya
-	public final int PLAY = 0;
-	public final int FORUM = 1;
-	public final int JELAJAH_WEB = 2;
-	public final int SANG_JUARA = 3;
-
+	public final int bimasakti = 0;
+	
 	// music
 	//private Music mainMenuMusicBg;
 	private Sound clickSfx;
