@@ -30,15 +30,17 @@ public class Modul2Scene3Screen extends SpaceBattleScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batcher.setProjectionMatrix(cam.combined);
-		batcher.begin();
+		if(this.isBattleEnded()) {
+			this.setArrived(true);
+		}
 			
 		if(this.isArrived) {
 			
+			batcher.begin();
+			batcher.end();
+		} else {
+			super.render(delta);
 		}
-
-		batcher.end();
-		
-		super.render(delta);
 		controller.processInput();
 	}
 

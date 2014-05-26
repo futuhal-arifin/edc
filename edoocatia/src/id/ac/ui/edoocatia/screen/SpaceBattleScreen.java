@@ -27,13 +27,13 @@ public class SpaceBattleScreen extends AbstractScreen {
 	private Rectangle buttonBounds[] = new Rectangle[2];
 
 	private SpaceBattle data;
-	private boolean isGameOver;
+	private boolean isBattleEnded;
 	private boolean debug = false;
 
 	public SpaceBattleScreen(Edoocatia app, int distance) {
 		super(app);
 
-		this.setGameOver(false);
+		this.setBattleEnded(false);
 		data = new SpaceBattle(distance, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
 		background[0] = new Texture(
@@ -70,13 +70,12 @@ public class SpaceBattleScreen extends AbstractScreen {
 		// runningGame.updateTargets(delta);
 		// data.generateObstacles(delta);
 		// runningGame.updatePosition();
-		if (!this.isGameOver) {
+		if (!this.isBattleEnded) {
 			data.generateMeteors(delta);
 			batcher.begin();
 
-			batcher.draw(background[0], 0, data.getBackgroundYPosition());
-			batcher.draw(background[1], 0, data.getBackgroundYPosition()
-					+ background[1].getHeight());
+			batcher.draw(background[0], 0, data.getBackground1YPosition());
+			batcher.draw(background[1], 0, data.getBackground2YPosition());
 
 			if (buttonIsActive[LEFT]) {
 				batcher.draw(buttonActive[LEFT], 20,
@@ -148,12 +147,12 @@ public class SpaceBattleScreen extends AbstractScreen {
 		super.dispose();
 	}
 
-	public boolean isGameOver() {
-		return isGameOver;
+	public boolean isBattleEnded() {
+		return isBattleEnded;
 	}
 
-	public void setGameOver(boolean isGameOver) {
-		this.isGameOver = isGameOver;
+	public void setBattleEnded(boolean isGameOver) {
+		this.isBattleEnded = isGameOver;
 	}
 
 }

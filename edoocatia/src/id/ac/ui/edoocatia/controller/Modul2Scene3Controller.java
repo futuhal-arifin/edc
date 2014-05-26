@@ -22,7 +22,7 @@ public class Modul2Scene3Controller {
 
 	public void processInput() {
 		if(screen.isArrived()) {
-			screen.getApp().changeScreen(ScreenEnum.MAIN_MENU, ScreenEnum.MODUL2_SCENE3);
+			screen.getApp().changeScreen(ScreenEnum.MODUL2_SCENE3, ScreenEnum.MAIN_MENU);
 		}
 	}
 

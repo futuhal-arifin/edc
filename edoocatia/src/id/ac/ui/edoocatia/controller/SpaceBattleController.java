@@ -27,12 +27,12 @@ public class SpaceBattleController {
 	}
 
 	public void processInput() {
-		if (screen.isGameOver()) {
+		if (screen.isBattleEnded()) {
 			
 		}
 		else {
 			if (data.getCurrentDistance() >= data.getMaxDistance()) {
-				screen.setGameOver(true);
+				screen.setBattleEnded(true);
 			}
 			if(Gdx.input.justTouched()){
 				Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);

@@ -16,13 +16,14 @@ public class SpaceBattle {
 	private float currentDistance;
 	private final float leftLimit = 230f;
 	private final float rightLimit = 800f;
-	private float VELOCITY;
+	private final float VELOCITY = 8.4f;
 	private float time;
 	private Random rand;
 	private float lastObstacles;
 	private List<SpaceBattleMeteor> meteors;
 	private List<SpaceBattleAlien> aliens;
-	private float backgroundYPosition;
+	private float background1YPosition;
+	private float background2YPosition;
 	private Rectangle pesawatBounds;
 	private Texture pesawat;
 	
@@ -34,14 +35,14 @@ public class SpaceBattle {
 	}
 	
 	public void initSpaceBattle(int distance, float vIRTUAL_WIDTH, float vIRTUAL_HEIGHT) {
-		this.maxDistance = distance * 28;
+		this.maxDistance = distance * 14f;
 		this.screenHeight = vIRTUAL_HEIGHT;
 		this.screenWidth = vIRTUAL_WIDTH;
 		this.currentDistance = 0.0f;
 		pesawatXPosition = screenWidth / 2;
-		VELOCITY = 3.0f;
 		rand = new Random();
-		backgroundYPosition = 0.0f;
+		background1YPosition = 0.0f;
+		background2YPosition = screenHeight;
 		time =0;
 		lastObstacles = -1.5f;
 		meteors = new ArrayList<SpaceBattleMeteor>();
@@ -75,8 +76,12 @@ public class SpaceBattle {
 		}
 	}
 
-	public float getBackgroundYPosition() {
-		return this.backgroundYPosition;
+	public float getBackground1YPosition() {
+		return this.background1YPosition;
+	}
+	
+	public float getBackground2YPosition() {
+		return this.background2YPosition;
 	}
 
 	public List<SpaceBattleMeteor> getMeteors() {
@@ -92,7 +97,7 @@ public class SpaceBattle {
 		Iterator<SpaceBattleMeteor> itr = meteors.iterator();
 		while(itr.hasNext()){
 			SpaceBattleMeteor obs = itr.next();
-			obs.setYPosition(obs.getYPosition() - (this.VELOCITY * 3));
+			obs.setYPosition(obs.getYPosition() - (this.VELOCITY * 2));
 			
 			if(obs.getYPosition()<-126){
 				obs.dispose();
@@ -101,12 +106,21 @@ public class SpaceBattle {
 			
 		}
 		
-		if(backgroundYPosition > -(screenHeight + VELOCITY + 2)) {
-			this.backgroundYPosition -= VELOCITY;
-		} else  {
-			backgroundYPosition = 0.0f;
+		if(this.background1YPosition >= - this.screenHeight) {
+			this.background1YPosition -= VELOCITY;
 		}
 		
+		if(this.background2YPosition >= - this.screenHeight) {
+			this.background2YPosition -= VELOCITY;
+		}
+		
+		if(this.background1YPosition < 0) {
+			this.background2YPosition = this.background1YPosition + this.screenHeight;
+		} 
+		
+		if(this.background2YPosition < 0) {
+			this.background1YPosition = this.background2YPosition + this.screenHeight;
+		}
 		this.currentDistance +=VELOCITY;
 	}
 
