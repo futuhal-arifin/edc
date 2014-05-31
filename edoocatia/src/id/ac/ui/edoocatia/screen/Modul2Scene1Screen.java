@@ -9,12 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.MainMenuController;
+import id.ac.ui.edoocatia.controller.Modul2Scene1Controller;
 import id.ac.ui.edoocatia.util.AbstractScreen;
 
 public class Modul2Scene1Screen extends AbstractScreen {
 
 	Stage stage;
-	private MainMenuController controller;
+	private Modul2Scene1Controller controller;
 	// bg texture
 	private Texture background;
 	private Texture andromeda;
@@ -27,7 +28,7 @@ public class Modul2Scene1Screen extends AbstractScreen {
 	private Texture senjata;
 	private Texture spesialShoot;
 			
-	private Texture charTexture;
+	
 	// buttons
 	/*
 	 * bima sakti
@@ -54,68 +55,52 @@ public class Modul2Scene1Screen extends AbstractScreen {
 
 		// gambar2
 		background = new Texture(
-				Gdx.files.internal("data/images/modul-2/background/background_langit.jpg"));
+				Gdx.files.internal("data/images/modul-2/space.jpg"));
 		andromeda = new Texture(
-				Gdx.files.internal("data/images/menu/title.png"));
-		charTexture = new Texture(
-				Gdx.files.internal("data/images/menu/char.png"));
-
-		buttonTexture[PLAY] = new Texture(
-				Gdx.files.internal("data/images/icon/menu/play_button.png"));
-		buttonTexture[FORUM] = new Texture(
-				Gdx.files.internal("data/images/icon/menu/forum_button.png"));
-		buttonTexture[JELAJAH_WEB] = new Texture(
+				Gdx.files.internal("data/images/modul-2/andromeda.png"));
+		elips = new Texture(
+				Gdx.files.internal("data/images/modul-2/elips.png"));
+		magelanKecil = new Texture(
+				Gdx.files.internal("data/images/modul-2/little_magelan.png"));
+		magelanBesar = new Texture(
+				Gdx.files.internal("data/images/modul-2/big_magelan.png"));
+		power = new Texture(
+				Gdx.files.internal("data/images/modul-2/icon_efek/power/full.png"));
+		timer = new Texture(
+				Gdx.files.internal("data/images/modul-2/icon_efek/time/injury_time.png"));
+		speedometer = new Texture(
+				Gdx.files.internal("data/images/modul-2/icon_efek/speed_indicator/speedometer.png"));
+		spesialShoot = new Texture(
+				Gdx.files.internal("data/images/modul-2/icon_efek/bomb/bomb_button.png"));
+		senjata = new Texture(
+				Gdx.files.internal("data/images/modul-2/icon_efek/fire.png"));
+		
+		buttonTexture[bimasakti] = new Texture(
+				Gdx.files.internal("data/images/modul-2/bimasakti.png"));
+		
+		buttonActiveTexture[bimasakti] = new Texture(
 				Gdx.files
-						.internal("data/images/icon/menu/jelajah_web_button.png"));
-		buttonTexture[SANG_JUARA] = new Texture(
-				Gdx.files
-						.internal("data/images/icon/menu/sang_juara_button.png"));
-
-		buttonActiveTexture[PLAY] = new Texture(
-				Gdx.files
-						.internal("data/images/icon/menu/play_button_active.png"));
-		buttonActiveTexture[FORUM] = new Texture(
-				Gdx.files
-						.internal("data/images/icon/menu/forum_button_active.png"));
-		buttonActiveTexture[JELAJAH_WEB] = new Texture(
-				Gdx.files
-						.internal("data/images/icon/menu/jelajah_web_button_active.png"));
-		buttonActiveTexture[SANG_JUARA] = new Texture(
-				Gdx.files
-						.internal("data/images/icon/menu/sang_juara_button_active.png"));
-
+						.internal("data/images/modul-2/bimasakti.png"));
+		
 		// batas2 button
-		buttonBounds[PLAY] = new Rectangle(width * 14 / 20, height / 20
-				+ (this.buttonTexture[JELAJAH_WEB].getHeight() * 1.75f),
-				buttonTexture[PLAY].getWidth(), buttonTexture[PLAY].getHeight());
-		buttonBounds[FORUM] = new Rectangle((width * 14 / 20)
-				- (this.buttonTexture[FORUM].getWidth() * (0.875f)), height
-				/ 20 + (this.buttonTexture[JELAJAH_WEB].getHeight() * 0.875f),
-				buttonTexture[FORUM].getWidth(),
-				buttonTexture[FORUM].getHeight());
-		buttonBounds[SANG_JUARA] = new Rectangle((width * 14 / 20)
-				+ (this.buttonTexture[FORUM].getWidth() * (0.875f)), height
-				/ 20 + (this.buttonTexture[JELAJAH_WEB].getHeight() * 0.875f),
-				buttonTexture[SANG_JUARA].getWidth(),
-				buttonTexture[SANG_JUARA].getHeight());
-		buttonBounds[JELAJAH_WEB] = new Rectangle(width * 14 / 20, height / 20,
-				buttonTexture[JELAJAH_WEB].getWidth(),
-				buttonTexture[JELAJAH_WEB].getHeight());
-
+		buttonBounds[bimasakti] = new Rectangle(width * 7 / 20, height * 3 / 20
+				+ this.buttonTexture[bimasakti].getHeight(),
+				buttonTexture[bimasakti].getWidth(), buttonTexture[bimasakti].getHeight());
+	
 		// status button defaultnya inactive
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
 			buttonIsActive[idx] = false;
 		}
 		
 		// kalau dibuka langsung play bg music
-		this.setMusicBg("data/sounds/music/menu.ogg");
+		//this.setMusicBg("data/sounds/music/menu.ogg");
 
 		// sfx buat klik
 		clickSfx = Gdx.audio.newSound(Gdx.files
 				.internal("data/sounds/sfx/click.wav"));
 
 		// !! wajib daftarin controller
-		//controller = new MainMenuController(this);
+		controller = new Modul2Scene1Controller(this);
 	}
 
 	/**
@@ -149,7 +134,19 @@ public class Modul2Scene1Screen extends AbstractScreen {
 
 		//batcher.draw(titleTexture, (VIRTUAL_WIDTH-titleTexture.getWidth())/2,
 			//	VIRTUAL_HEIGHT - titleTexture.getHeight() - 80);
-		batcher.draw(charTexture, 0, 0);
+		batcher.draw(andromeda, (VIRTUAL_WIDTH-magelanKecil.getWidth())/9, VIRTUAL_HEIGHT - 450);
+		batcher.draw(elips, (VIRTUAL_WIDTH-magelanKecil.getWidth())/7, VIRTUAL_HEIGHT - 700);
+		batcher.draw(magelanKecil, VIRTUAL_WIDTH-700, VIRTUAL_HEIGHT - 750);
+		batcher.draw(magelanBesar, VIRTUAL_WIDTH-500, VIRTUAL_HEIGHT - 400);
+		
+		batcher.draw(power, VIRTUAL_WIDTH-1250, VIRTUAL_HEIGHT - 200);
+		batcher.draw(timer, VIRTUAL_WIDTH-1150, VIRTUAL_HEIGHT - 200);
+		batcher.draw(speedometer, VIRTUAL_WIDTH-1000, VIRTUAL_HEIGHT - 200);
+		
+		batcher.draw(spesialShoot, VIRTUAL_WIDTH-150, VIRTUAL_HEIGHT - 700);
+		batcher.draw(senjata, VIRTUAL_WIDTH-300, VIRTUAL_HEIGHT - 700);
+		
+		
 		// gambar button2
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
 			if (buttonIsActive[idx]) {
@@ -199,7 +196,7 @@ public class Modul2Scene1Screen extends AbstractScreen {
 	public void dispose() {
 		this.background.dispose();
 		//this.titleTexture.dispose();
-		this.charTexture.dispose();
+		this.andromeda.dispose();
 		for(int index = 0; index < this.buttonTexture.length; index++) {
 			this.buttonTexture[index].dispose();
 			this.buttonActiveTexture[index].dispose();
