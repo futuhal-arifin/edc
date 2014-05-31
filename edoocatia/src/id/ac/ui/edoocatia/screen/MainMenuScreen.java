@@ -106,7 +106,7 @@ public class MainMenuScreen extends AbstractScreen {
 
 		// sfx buat klik
 		clickSfx = Gdx.audio.newSound(Gdx.files
-				.internal("data/sounds/sfx/click.wav"));
+				.internal("data/sounds/sfx/click.mp3"));
 
 		// !! wajib daftarin controller
 		controller = new MainMenuController(this);

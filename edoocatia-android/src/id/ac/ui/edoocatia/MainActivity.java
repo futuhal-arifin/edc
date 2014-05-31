@@ -1,8 +1,6 @@
 package id.ac.ui.edoocatia;
 
-//import android.content.Intent;
 import android.os.Bundle;
-//import android.view.View;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
@@ -30,7 +28,7 @@ public class MainActivity extends AndroidApplication {
 	}
 	//
 	// public void ButtonPlay_OnClick(View v) {
-	// Intent i = new Intent(MainActivity.this, IntroScreen.class);
+	// Intent i = new Intent(MainActivity.this, Intro.class);
 	// startActivity(i);
 	// finish();
 	// }

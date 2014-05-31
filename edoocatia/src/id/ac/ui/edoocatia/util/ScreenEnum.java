@@ -11,7 +11,11 @@ import id.ac.ui.edoocatia.screen.Modul1Scene4Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene5Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene6Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene7Screen;
+<<<<<<< HEAD
 import id.ac.ui.edoocatia.screen.Modul2Scene1Screen;
+=======
+import id.ac.ui.edoocatia.screen.Modul2Scene3Screen;
+>>>>>>> 0699c47abc85d5d8dab5b71b32b3869725895cd4
 import id.ac.ui.edoocatia.screen.SplashScreen;
 
 import com.badlogic.gdx.Screen;
@@ -67,10 +71,17 @@ public enum ScreenEnum {
 		}
 	},
 	
+<<<<<<< HEAD
 	MODUL2_SCENE1 {
 		@Override
 		protected Screen getScreenInstance(Edoocatia app) {
 			return new Modul2Scene1Screen(app);
+=======
+	MODUL2_SCENE3 {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new Modul2Scene3Screen(app);
+>>>>>>> 0699c47abc85d5d8dab5b71b32b3869725895cd4
 		}
 	},
 
