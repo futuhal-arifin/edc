@@ -11,6 +11,7 @@ import id.ac.ui.edoocatia.screen.Modul1Scene4Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene5Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene6Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene7Screen;
+import id.ac.ui.edoocatia.screen.Modul2Scene3Screen;
 import id.ac.ui.edoocatia.screen.SplashScreen;
 
 import com.badlogic.gdx.Screen;
@@ -63,6 +64,13 @@ public enum ScreenEnum {
 		@Override
 		protected Screen getScreenInstance(Edoocatia app) {
 			return new Modul1Scene7Screen(app);
+		}
+	},
+	
+	MODUL2_SCENE3 {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new Modul2Scene3Screen(app);
 		}
 	},
 
