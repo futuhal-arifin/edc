@@ -96,8 +96,7 @@ public class Modul2Scene1Screen extends AbstractScreen {
 		//this.setMusicBg("data/sounds/music/menu.ogg");
 
 		// sfx buat klik
-		clickSfx = Gdx.audio.newSound(Gdx.files
-				.internal("data/sounds/sfx/click.wav"));
+		//clickSfx = Gdx.audio.newSound(Gdx.files.internal("data/sounds/sfx/click.wav"));
 
 		// !! wajib daftarin controller
 		controller = new Modul2Scene1Controller(this);
@@ -201,7 +200,7 @@ public class Modul2Scene1Screen extends AbstractScreen {
 			this.buttonTexture[index].dispose();
 			this.buttonActiveTexture[index].dispose();
 		}
-		this.clickSfx.dispose();
+		//this.clickSfx.dispose();
 		super.dispose();
 	}
 }

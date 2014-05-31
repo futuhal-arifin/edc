@@ -38,7 +38,7 @@ public class Modul2Scene1Controller {
 			if (OverlapTester.pointInRectangle(buttonBounds[screen.bimasakti],
 					pos.x, pos.y)) {
 				// screen.stopMusic();
-				screen.playSoundFx();
+				//screen.playSoundFx();
 				screen.setButtonStatus(true, screen.bimasakti);
 			}
 		}
