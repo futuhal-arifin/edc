@@ -29,6 +29,12 @@ public class Modul2Scene1Screen extends AbstractScreen {
 	private Texture buttonActiveTexture[] = new Texture[1];
 	private Rectangle buttonBounds[] = new Rectangle[1];
 	private boolean buttonIsActive[] = new boolean[1];
+	
+	private Texture andromeda;
+	private Texture elips;
+	private Texture magellanBesar;
+	private Texture magellanKecil;
+	
 	// konstanta biar kita gausah ngafalin indeksnya
 	public final int bimasakti = 0;
 
@@ -46,6 +52,12 @@ public class Modul2Scene1Screen extends AbstractScreen {
 		/* inisialisasi segalanya */
 
 		// gambar2
+		
+		andromeda = new Texture(
+				Gdx.files.internal("data/images/modul-2/andromeda.png"));
+		elips = new Texture(
+				Gdx.files.internal("data/images/modul-2/elips.png"));
+	
 		buttonTexture[bimasakti] = new Texture(
 				Gdx.files.internal("data/images/modul-2/bimasakti.png"));
 
@@ -73,6 +85,7 @@ public class Modul2Scene1Screen extends AbstractScreen {
 
 	private void initiateSpaceItem() {
 		this.setSpaceItem();
+		
 	}
 
 	private void setSpaceItem() {
