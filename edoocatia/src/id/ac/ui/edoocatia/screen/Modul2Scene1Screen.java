@@ -110,8 +110,8 @@ public class Modul2Scene1Screen extends AbstractScreen {
 
 			// ngegambar items
 			batcher.draw(item.getSpaceItem()[i],
-					item.getImageBounds()[i].getX(),
-					item.getImageBounds()[i].getY());
+					item.getImageItemX()[i],
+					item.getImageItemY()[i]);
 
 		}
 

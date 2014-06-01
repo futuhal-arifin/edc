@@ -10,9 +10,11 @@ import com.badlogic.gdx.math.Rectangle;
 public class SpaceItem {
 
 	private Texture background;
-	private Texture ImageItem[] = new Texture[6];
-	private Rectangle ImageBounds[] = new Rectangle[6];
-	private boolean ImageIsActive[] = new boolean[6];
+	private Texture ImageItem[] = new Texture[7];
+	private float ImageItemX[] = new float[7];
+	private float ImageItemY[] = new float[7];
+
+	private boolean ImageIsActive[] = new boolean[7];
 
 	// private Texture Texture;
 
@@ -76,29 +78,20 @@ public class SpaceItem {
 
 		// batas2 image
 
-		ImageBounds[power] = new Rectangle(VIRTUAL_WIDTH - 1250,
-				VIRTUAL_HEIGHT - 200, ImageItem[power].getWidth(),
-				ImageItem[power].getHeight());
+		ImageItemX[power] = VIRTUAL_WIDTH - 1250;
+		ImageItemY[power] = VIRTUAL_HEIGHT - 200;
 
-		ImageBounds[timer] = new Rectangle(VIRTUAL_WIDTH - 1150,
-				VIRTUAL_HEIGHT - 200, ImageItem[timer].getWidth(),
-				ImageItem[timer].getHeight());
+		ImageItemX[timer] = VIRTUAL_WIDTH - 1150;
+		ImageItemY[timer] = VIRTUAL_HEIGHT - 200;
 
-		ImageBounds[speedometer] = new Rectangle(VIRTUAL_WIDTH - 1000,
-				VIRTUAL_HEIGHT - 200, ImageItem[speedometer].getWidth(),
-				ImageItem[speedometer].getHeight());
+		ImageItemX[speedometer] = VIRTUAL_WIDTH - 1000;
+		ImageItemY[speedometer] = VIRTUAL_HEIGHT - 200;
 
-		ImageBounds[spesialShoot] = new Rectangle(VIRTUAL_WIDTH - 150,
-				VIRTUAL_HEIGHT - 700, ImageItem[spesialShoot].getWidth(),
-				ImageItem[spesialShoot].getHeight());
+		ImageItemX[spesialShoot] = VIRTUAL_WIDTH - 150;
+		ImageItemY[spesialShoot] = VIRTUAL_HEIGHT - 700;
 
-		ImageBounds[spesialShoot] = new Rectangle(VIRTUAL_WIDTH - 150,
-				VIRTUAL_HEIGHT - 700, ImageItem[spesialShoot].getWidth(),
-				ImageItem[spesialShoot].getHeight());
-
-		ImageBounds[weapon] = new Rectangle(VIRTUAL_WIDTH - 300,
-				VIRTUAL_HEIGHT - 700, ImageItem[weapon].getWidth(),
-				ImageItem[weapon].getHeight());
+		ImageItemX[weapon] = VIRTUAL_WIDTH - 300;
+		ImageItemY[weapon] = VIRTUAL_HEIGHT - 700;
 
 		// ImageBounds[zoom_in] = new Rectangle(,
 		// ImageItem[zoom_in].getWidth(),ImageItem[zoom_in].getHeight());
@@ -110,28 +103,14 @@ public class SpaceItem {
 		// this.setPlayerAnimation(this.wrong);
 	}
 
-	// getter button bounds
-	public Rectangle[] getImageBounds() {
-		return ImageBounds;
+	// getter image pos X
+	public float[] getImageItemX() {
+		return ImageItemX;
 	}
 
-	public Rectangle getImageSubstancePosition(String Image) {
-		if (Image.contentEquals("power")) {
-			return ImageBounds[power];
-		} else if (Image.contentEquals("timer")) {
-			return ImageBounds[timer];
-		} else if (Image.contentEquals("speedometer")) {
-			return ImageBounds[speedometer];
-		} else if (Image.contentEquals("cermin_cekung")) {
-			return ImageBounds[spesialShoot];
-		} else if (Image.contentEquals("spesialShoot")) {
-			return ImageBounds[spesialShoot];
-		} else if (Image.contentEquals("weapon")) {
-			return ImageBounds[weapon];
-		}
-
-		return null;
-
+	// getter image pos Y
+	public float[] getImageItemY() {
+		return ImageItemY;
 	}
 
 	public static BitmapFont getFont() {
