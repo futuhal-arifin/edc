@@ -16,7 +16,7 @@ public class SpaceBattle {
 	private float currentDistance;
 	private final float leftLimit = 230f;
 	private final float rightLimit = 800f;
-	private final float VELOCITY = 8.4f;
+	private final float VELOCITY = 4.4f;
 	private float time;
 	private Random rand;
 	private float lastObstacles;
