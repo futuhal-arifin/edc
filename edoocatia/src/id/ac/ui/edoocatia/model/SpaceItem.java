@@ -67,7 +67,8 @@ public class SpaceItem {
 				Gdx.files
 						.internal("data/images/modul-2/icon_efek/bomb/bomb_button.png"));
 		ImageItem[weapon] = new Texture(
-				Gdx.files.internal("data/images/modul-2/icon_efek/fire.png"));
+				Gdx.files.internal("data/images/modul-2/icon_efek/weapon/fire_button.png"));
+		
 		ImageItem[zoom_in] = new Texture(
 				Gdx.files
 						.internal("data/images/modul-2/icon_efek/zoom/zoom_in.png"));
