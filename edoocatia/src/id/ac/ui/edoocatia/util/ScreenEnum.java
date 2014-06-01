@@ -3,6 +3,7 @@ package id.ac.ui.edoocatia.util;
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.screen.ChooseCharacterScreen;
 import id.ac.ui.edoocatia.screen.IntroScreen;
+import id.ac.ui.edoocatia.screen.IntroScreen1Modul2;
 import id.ac.ui.edoocatia.screen.MainMenuScreen;
 import id.ac.ui.edoocatia.screen.Modul1Scene1Screen;
 import id.ac.ui.edoocatia.screen.Modul1Scene2Screen;
@@ -104,6 +105,13 @@ public enum ScreenEnum {
 		@Override
 		protected Screen getScreenInstance(Edoocatia app) {
 			return new IntroScreen(app);
+		}
+	},
+	
+	INTRO_TO_MODUL2_SCREEN1B {
+		@Override
+		protected Screen getScreenInstance(Edoocatia app) {
+			return new IntroScreen1Modul2(app);
 		}
 	},
 
