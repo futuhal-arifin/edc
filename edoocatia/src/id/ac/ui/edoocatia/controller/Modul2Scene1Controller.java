@@ -55,7 +55,7 @@ public class Modul2Scene1Controller {
 				if (OverlapTester.pointInRectangle(
 						buttonBounds[screen.bimasakti], pos.x, pos.y)) {
 					screen.stopMusic();
-					app.changeScreen(ScreenEnum.MODUL2_SCENE1, ScreenEnum.INTRO);
+					app.changeScreen(ScreenEnum.MODUL2_SCENE1, ScreenEnum.INTRO_TO_MODUL2_SCREEN1B);
 				}
 			}
 		}

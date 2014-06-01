@@ -7,32 +7,31 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.IntroController;
+import id.ac.ui.edoocatia.controller.IntroScreen1Modul2Controller;
 import id.ac.ui.edoocatia.util.AbstractScreen;
 
-public class IntroScreen extends AbstractScreen {
+public class IntroScreen1Modul2 extends AbstractScreen {
 
-	private final int SCENE_NUMBER = 20;
+	private final int SCENE_NUMBER = 1;
 	private Texture[] sceneIntro = new Texture[SCENE_NUMBER];
 
 	private long startTime;
 
 	private int rendCount;
 
-	private final int SCENE_TIME_DEFAULT = 2000;
-	private final int SCENE_TEXT_0 = 4000;
-	private final int SCENE_TEXT_4 = 4000;
-	private final int SCENE_TEXT_12 = 5000;
-	private final int SCENE_TEXT_19 = 3000;
-	private int current_scene_time = SCENE_TEXT_0;
+	private final int SCENE_TIME_DEFAULT = 1000;
+	private final int SCENE_TEXT_1 = 2000;
+	private int current_scene_time = SCENE_TEXT_1;
 
-	private IntroController introController;
+	private IntroScreen1Modul2Controller introController;
 
-	public IntroScreen(Edoocatia app) {
+	public IntroScreen1Modul2(Edoocatia app) {
 		super(app);
 
 		for (int idx = 0; idx < this.sceneIntro.length; idx++) {
 			sceneIntro[idx] = new Texture(
-					Gdx.files.internal("data/images/intro/" + (idx) + ".jpg"));
+					Gdx.files
+							.internal("data/images/modul-2/galaksi_bima_sakti.jpg"));
 		}
 
 		rendCount = 0;
@@ -41,7 +40,7 @@ public class IntroScreen extends AbstractScreen {
 		// kalau dibuka langsung play bg music
 		this.setMusicBg("data/sounds/music/intro.ogg");
 		// !! wajib daftarin controller
-		introController = new IntroController(this);
+		introController = new IntroScreen1Modul2Controller(this);
 	}
 
 	public void render(float delta) {
@@ -85,16 +84,7 @@ public class IntroScreen extends AbstractScreen {
 		this.rendCount++;
 		switch (this.rendCount) {
 		case 0:
-			current_scene_time = this.SCENE_TEXT_0;
-			break;
-		case 4:
-			current_scene_time = this.SCENE_TEXT_4;
-			break;
-		case 12:
-			current_scene_time = this.SCENE_TEXT_12;
-			break;
-		case 19:
-			current_scene_time = this.SCENE_TEXT_19;
+			current_scene_time = this.SCENE_TEXT_1;
 			break;
 		default:
 			current_scene_time = this.SCENE_TIME_DEFAULT;
