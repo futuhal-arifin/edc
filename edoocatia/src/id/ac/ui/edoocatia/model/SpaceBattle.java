@@ -15,27 +15,32 @@ public class SpaceBattle {
 	private float maxDistance;
 	private float currentDistance;
 	private final float leftLimit = 230f;
-	private final float rightLimit = 800f;
-	private final float VELOCITY = 8.4f;
+	private final float rightLimit = 1050f;
+	private final float VELOCITY = 5;
 	private float time;
 	private Random rand;
 	private float lastObstacles;
 	private List<SpaceBattleMeteor> meteors;
-	private List<SpaceBattleAlien> aliens;
+	private SpaceBattleAlien alienLeft;
+	private SpaceBattleAlien alienRight;
 	private float background1YPosition;
 	private float background2YPosition;
 	private Rectangle pesawatBounds;
 	private Texture pesawat;
-	
+	private boolean isAlienComing;
+	private int alienCounter;
 	private float screenWidth;
 	private float screenHeight;
+	private final int MULTIPLIER = 14;
 
 	public SpaceBattle(int distance, float vIRTUAL_WIDTH, float vIRTUAL_HEIGHT) {
 		this.initSpaceBattle(distance, vIRTUAL_WIDTH, vIRTUAL_HEIGHT);
 	}
 	
 	public void initSpaceBattle(int distance, float vIRTUAL_WIDTH, float vIRTUAL_HEIGHT) {
-		this.maxDistance = distance * 14f;
+		this.setAlienComing(false);
+		this.alienCounter = 1;
+		this.maxDistance = distance * this.MULTIPLIER;
 		this.screenHeight = vIRTUAL_HEIGHT;
 		this.screenWidth = vIRTUAL_WIDTH;
 		this.currentDistance = 0.0f;
@@ -46,7 +51,8 @@ public class SpaceBattle {
 		time =0;
 		lastObstacles = -1.5f;
 		meteors = new ArrayList<SpaceBattleMeteor>();
-		aliens = new ArrayList<SpaceBattleAlien>();
+		alienLeft = new SpaceBattleAlien((byte) 0);
+		alienRight = new SpaceBattleAlien((byte) 1);
 		this.pesawat = new Texture(
 				Gdx.files.internal("data/images/modul-2/pesawat.png"));
 		this.pesawatBounds = new Rectangle(pesawatXPosition+(pesawat.getWidth()/7), 20, pesawat.getWidth()/4, pesawat.getHeight());
@@ -59,6 +65,30 @@ public class SpaceBattle {
 		//System.out.println("time "+time);
 		if(temp > 0.7) {
 			int index = rand.nextInt(6);
+			if(index < 3)
+			if(time>(lastObstacles+2.5)){
+				lastObstacles = time;
+				/*
+				int obsType = 0;
+				if(rand.nextFloat()>0.7){
+					type +=3;
+				} else if(rand.nextFloat() > 0.4) {
+					obsType = 2;
+					//type +=2;
+				} 
+				*/
+				meteors.add(new SpaceBattleMeteor(index));
+			}
+		}
+	}
+	
+	public void generateMissiles(float delta){
+		//if(gameOver) return;
+		time += delta;
+		float temp = rand.nextFloat();
+		//System.out.println("time "+time);
+		if(temp > 0.7) {
+			int index = rand.nextInt(2);
 			if(index < 3)
 			if(time>(lastObstacles+2.5)){
 				lastObstacles = time;
@@ -93,7 +123,6 @@ public class SpaceBattle {
 	}
 
 	public void updatePosition (){
-		
 		Iterator<SpaceBattleMeteor> itr = meteors.iterator();
 		while(itr.hasNext()){
 			SpaceBattleMeteor obs = itr.next();
@@ -106,22 +135,56 @@ public class SpaceBattle {
 			
 		}
 		
-		if(this.background1YPosition >= - this.screenHeight) {
-			this.background1YPosition -= VELOCITY;
+		if(this.isAlienComing) {
+			Iterator<SpaceBattleMissileAlien> itrLeft = alienLeft.getMissiles().iterator();
+			while(itrLeft.hasNext()){
+				SpaceBattleMissileAlien obs = itrLeft.next();
+				obs.updateMissilePosition();
+				if(obs.getPosY() < -126){
+					obs.dispose();
+					itrLeft.remove();
+				}
+			}
+			
+			Iterator<SpaceBattleMissileAlien> itrRight = alienRight.getMissiles().iterator();
+			while(itrRight.hasNext()){
+				SpaceBattleMissileAlien obs = itrRight.next();
+				obs.updateMissilePosition();
+				if(obs.getPosY() < -126){
+					obs.dispose();
+					itrRight.remove();
+				}
+			}
+			
+			
+		} else {
+			
+			
+			if(this.background1YPosition >= - this.screenHeight) {
+				this.background1YPosition -= VELOCITY;
+			}
+			
+			if(this.background2YPosition >= - this.screenHeight) {
+				this.background2YPosition -= VELOCITY;
+			}
+			
+			if(this.background1YPosition < 0) {
+				this.background2YPosition = this.background1YPosition + this.screenHeight;
+			} 
+			
+			if(this.background2YPosition < 0) {
+				this.background1YPosition = this.background2YPosition + this.screenHeight;
+			}
+			
+			this.currentDistance +=VELOCITY;
+			if(this.currentDistance == this.alienCounter * 50 * this.MULTIPLIER) {
+				this.setAlienComing(true);
+				this.alienCounter++;
+			}
 		}
 		
-		if(this.background2YPosition >= - this.screenHeight) {
-			this.background2YPosition -= VELOCITY;
-		}
 		
-		if(this.background1YPosition < 0) {
-			this.background2YPosition = this.background1YPosition + this.screenHeight;
-		} 
 		
-		if(this.background2YPosition < 0) {
-			this.background1YPosition = this.background2YPosition + this.screenHeight;
-		}
-		this.currentDistance +=VELOCITY;
 	}
 
 	public float getLeftLimit() {
@@ -159,6 +222,22 @@ public class SpaceBattle {
 
 	public void dispose() {
 		this.pesawat.dispose();
+	}
+
+	public boolean isAlienComing() {
+		return isAlienComing;
+	}
+
+	public void setAlienComing(boolean isAlienComing) {
+		this.isAlienComing = isAlienComing;
+	}
+	
+	public SpaceBattleAlien getAlienLeft() {
+		return this.alienLeft;
+	}
+	
+	public SpaceBattleAlien getAlienRight() {
+		return this.alienRight;
 	}
 
 }

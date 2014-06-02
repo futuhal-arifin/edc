@@ -12,12 +12,12 @@ public class SpaceBattleMeteor {
 	private float posX;
 	private Rectangle bounds;
 	private boolean hit;
-	private Texture obstacle;
+	private Texture meteorTexture;
 	
 	public SpaceBattleMeteor(int index) {
 		this.setIndex(index);
 		setYPosition(INIT_POS);
-		this.obstacle = new Texture(
+		this.meteorTexture = new Texture(
 				Gdx.files.internal("data/images/modul-2/meteor_small.png"));
 		hit = false;
 		
@@ -32,7 +32,7 @@ public class SpaceBattleMeteor {
 			xBounds = 774;
 		}
 		this.setXPosition(xBounds);
-		setBounds(new Rectangle(xBounds, INIT_POS+31, obstacle.getWidth(), obstacle.getHeight()));
+		setBounds(new Rectangle(xBounds, INIT_POS+31, meteorTexture.getWidth(), meteorTexture.getHeight()));
 	}
 	
 	public float getYPosition() {
@@ -71,15 +71,12 @@ public class SpaceBattleMeteor {
 	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
 	}
-	public Texture getObstacleTexture() {
-		return obstacle;
-	}
-	public void setObstacle(Texture obstacle) {
-		this.obstacle = obstacle;
+	public Texture getMeteorTexture() {
+		return meteorTexture;
 	}
 	
 	public void dispose() {
-		this.obstacle.dispose();
+		this.meteorTexture.dispose();
 	}
 
 }
