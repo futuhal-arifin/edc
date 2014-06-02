@@ -10,14 +10,14 @@ import id.ac.ui.edoocatia.controller.IntroController;
 import id.ac.ui.edoocatia.util.AbstractScreen;
 
 public class IntroScreen extends AbstractScreen {
-	
+
 	private final int SCENE_NUMBER = 20;
 	private Texture[] sceneIntro = new Texture[SCENE_NUMBER];
-	
+
 	private long startTime;
-	
+
 	private int rendCount;
-	
+
 	private final int SCENE_TIME_DEFAULT = 2000;
 	private final int SCENE_TEXT_0 = 4000;
 	private final int SCENE_TEXT_4 = 4000;
@@ -25,30 +25,29 @@ public class IntroScreen extends AbstractScreen {
 	private final int SCENE_TEXT_19 = 3000;
 	private int current_scene_time = SCENE_TEXT_0;
 
-	
 	private IntroController introController;
 
 	public IntroScreen(Edoocatia app) {
 		super(app);
-		
+
 		for (int idx = 0; idx < this.sceneIntro.length; idx++) {
-			sceneIntro[idx] = new Texture(Gdx.files.internal("data/images/intro/"+(idx)+".jpg"));
+			sceneIntro[idx] = new Texture(
+					Gdx.files.internal("data/images/intro/" + (idx) + ".jpg"));
 		}
 
 		rendCount = 0;
 		startTime = TimeUtils.millis();
-		
+
 		// kalau dibuka langsung play bg music
-		this.setMusicBg("data/sounds/music/intro.ogg"); 
+		this.setMusicBg("data/sounds/music/intro.ogg");
 		// !! wajib daftarin controller
 		introController = new IntroController(this);
 	}
 
 	public void render(float delta) {
-		
-		
+
 		cam.update();
-		
+
 		// set viewport
 		Gdx.gl.glViewport((int) viewport.x, (int) viewport.y,
 				(int) viewport.width, (int) viewport.height);
@@ -68,7 +67,7 @@ public class IntroScreen extends AbstractScreen {
 		batcher.begin();
 
 		batcher.draw(sceneIntro[rendCount], 0, 0);
-		
+
 		batcher.end();
 
 		introController.processInput();
@@ -84,19 +83,29 @@ public class IntroScreen extends AbstractScreen {
 
 	public void incrementCounter() {
 		this.rendCount++;
-		switch(this.rendCount) {
-			case 0:  current_scene_time = this.SCENE_TEXT_0; break;
-			case 4:  current_scene_time = this.SCENE_TEXT_4; break;
-			case 12:  current_scene_time = this.SCENE_TEXT_12; break;
-			case 19:  current_scene_time = this.SCENE_TEXT_19; break;
-			default: current_scene_time = this.SCENE_TIME_DEFAULT; break;
+		switch (this.rendCount) {
+		case 0:
+			current_scene_time = this.SCENE_TEXT_0;
+			break;
+		case 4:
+			current_scene_time = this.SCENE_TEXT_4;
+			break;
+		case 12:
+			current_scene_time = this.SCENE_TEXT_12;
+			break;
+		case 19:
+			current_scene_time = this.SCENE_TEXT_19;
+			break;
+		default:
+			current_scene_time = this.SCENE_TIME_DEFAULT;
+			break;
 		}
 	}
 
 	public long getBgTime() {
 		return this.current_scene_time;
 	}
-	
+
 	public boolean isIntroEnded() {
 		if (rendCount == SCENE_NUMBER - 1)
 			return true;
@@ -106,7 +115,7 @@ public class IntroScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		for(int index = 0; index < this.sceneIntro.length; index++) {
+		for (int index = 0; index < this.sceneIntro.length; index++) {
 			this.sceneIntro[index].dispose();
 		}
 		super.dispose();

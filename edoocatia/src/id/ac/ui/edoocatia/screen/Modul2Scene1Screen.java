@@ -29,6 +29,12 @@ public class Modul2Scene1Screen extends AbstractScreen {
 	private Texture buttonActiveTexture[] = new Texture[1];
 	private Rectangle buttonBounds[] = new Rectangle[1];
 	private boolean buttonIsActive[] = new boolean[1];
+	
+	private Texture andromeda;
+	private Texture elips;
+	private Texture magellanBesar;
+	private Texture magellanKecil;
+	
 	// konstanta biar kita gausah ngafalin indeksnya
 	public final int bimasakti = 0;
 
@@ -46,6 +52,16 @@ public class Modul2Scene1Screen extends AbstractScreen {
 		/* inisialisasi segalanya */
 
 		// gambar2
+		
+		andromeda = new Texture(
+				Gdx.files.internal("data/images/modul-2/andromeda.png"));
+		elips = new Texture(
+				Gdx.files.internal("data/images/modul-2/elips.png"));
+		magellanBesar = new Texture(
+				Gdx.files.internal("data/images/modul-2/big_magelan.png"));
+		magellanKecil = new Texture(
+				Gdx.files.internal("data/images/modul-2/little_magelan.png"));
+	
 		buttonTexture[bimasakti] = new Texture(
 				Gdx.files.internal("data/images/modul-2/bimasakti.png"));
 
@@ -73,6 +89,7 @@ public class Modul2Scene1Screen extends AbstractScreen {
 
 	private void initiateSpaceItem() {
 		this.setSpaceItem();
+		
 	}
 
 	private void setSpaceItem() {
@@ -106,13 +123,21 @@ public class Modul2Scene1Screen extends AbstractScreen {
 
 		// gambar background
 		batcher.draw(item.getSpaceBackground(), 0, 0);
+		batcher.draw(andromeda,  VIRTUAL_WIDTH - 1250, VIRTUAL_HEIGHT - 400);
+		batcher.draw(elips,  VIRTUAL_WIDTH - 1150, VIRTUAL_HEIGHT - 750);
+		batcher.draw(magellanKecil,  VIRTUAL_WIDTH - 750, VIRTUAL_HEIGHT - 750);
+		batcher.draw(magellanBesar,  VIRTUAL_WIDTH - 450, VIRTUAL_HEIGHT - 400);
+		
 		for (int i = 0; i < item.getSpaceItem().length; i++) {
 
 			// ngegambar items
+			/*
 			batcher.draw(item.getSpaceItem()[i],
 					item.getImageItemX()[i],
 					item.getImageItemY()[i]);
-
+			*/
+			
+			
 		}
 
 		// gambar button2

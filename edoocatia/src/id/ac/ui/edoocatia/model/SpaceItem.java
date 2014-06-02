@@ -93,10 +93,14 @@ public class SpaceItem {
 
 		ImageItemX[weapon] = VIRTUAL_WIDTH - 300;
 		ImageItemY[weapon] = VIRTUAL_HEIGHT - 700;
-
-		// ImageBounds[zoom_in] = new Rectangle(,
-		// ImageItem[zoom_in].getWidth(),ImageItem[zoom_in].getHeight());
-
+		
+		ImageItemX[zoom_in] = VIRTUAL_WIDTH - 300;
+		ImageItemY[zoom_in] = VIRTUAL_HEIGHT - 200;
+		
+		ImageItemX[zoom_out] = VIRTUAL_WIDTH - 200;
+		ImageItemY[zoom_out] = VIRTUAL_HEIGHT - 200;
+		
+		
 		// this.setScoreAnimation(this.checklist);
 		// this.setScoreAnimation(this.wrong);
 
