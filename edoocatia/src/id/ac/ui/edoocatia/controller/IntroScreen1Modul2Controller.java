@@ -26,7 +26,7 @@ public class IntroScreen1Modul2Controller {
 		if (currentTime > (screen.getStartTime() + screen.getBgTime())) {
 			if (screen.isIntroEnded()) {
 				screen.stopMusic();
-				app.changeScreen(ScreenEnum.INTRO_TO_MODUL2_SCREEN1B, ScreenEnum.MAIN_MENU);
+				app.changeScreen(ScreenEnum.INTRO_TO_MODUL2_SCREEN1B, ScreenEnum.MODUL2_SCENE1B);
 			} else {
 				screen.setStartTime(currentTime);
 				screen.incrementCounter();

@@ -1,65 +1,31 @@
 package id.ac.ui.edoocatia.controller;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import id.ac.ui.edoocatia.Edoocatia;
+import id.ac.ui.edoocatia.screen.DialogScreen;
+import id.ac.ui.edoocatia.screen.Modul1Scene1Screen;
 import id.ac.ui.edoocatia.screen.Modul2Scene1bScreen;
-import id.ac.ui.edoocatia.util.OverlapTester;
 import id.ac.ui.edoocatia.util.ScreenEnum;
 
 public class Modul2Scene1bController {
-
-	Modul2Scene1bScreen screen;
-	Edoocatia app;
-	private Rectangle[] buttonBounds;
-
-	private OrthographicCamera cam;
-	private Rectangle viewport;
+	private Edoocatia app;
+	private DialogScreen screen;
 
 	public Modul2Scene1bController(Modul2Scene1bScreen screen) {
 		this.screen = screen;
 		app = screen.getApp();
-		cam = screen.getCam();
-		viewport = screen.getViewport();
-		this.buttonBounds = screen.getButtonBounds();
-		this.app.getEdocatiaData().setScore(0);
 	}
 
 	public void processInput() {
-		if (Gdx.input.justTouched()) {
-
-			Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			cam.unproject(pos, viewport.x, viewport.y, viewport.width,
-					viewport.height);
-
-			if (OverlapTester.pointInRectangle(buttonBounds[screen.bimasakti],
-					pos.x, pos.y)) {
-				// screen.stopMusic();
-				//screen.playSoundFx();
-				screen.setButtonStatus(true, screen.bimasakti);
+		if (screen.isDialogEnded()) {
+			long currentTime = TimeUtils.millis();
+			long startTime = screen.getStartTime();
+			if (screen.getStartTime() > 0
+					&& currentTime > (startTime + screen.getDialogTimeBreak())) {
+				//app.changeScreen(ScreenEnum.MODUL2_SCENE1B,ScreenEnum.MODUL2_SCENE1);
 			}
 		}
-
-		if (Gdx.input.isTouched()) {
-			// kosongin dulu deh~
-		} else {
-			Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-			cam.unproject(pos, viewport.x, viewport.y, viewport.width,
-					viewport.height);
-
-			if (screen.buttonIsActive(screen.bimasakti)) {
-				screen.setButtonStatus(false, screen.bimasakti);
-				if (OverlapTester.pointInRectangle(
-						buttonBounds[screen.bimasakti], pos.x, pos.y)) {
-					screen.stopMusic();
-					app.changeScreen(ScreenEnum.MODUL2_SCENE1, ScreenEnum.INTRO_TO_MODUL2_SCREEN1B);
-				}
-			}
-		}
-
 	}
 
 }

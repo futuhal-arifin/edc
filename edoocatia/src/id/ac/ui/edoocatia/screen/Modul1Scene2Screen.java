@@ -143,7 +143,7 @@ public class Modul1Scene2Screen extends DialogScreen {
 				};
 		}
 		
-		this.setMusicBg("data/sounds/music/modul1/scene2theme.ogg");
+		this.setMusicBg("data/sounds/music/modul1/scene2theme.mp3");
 		
 		this.controller = new Modul1Scene2Controller(this);
 	}

@@ -73,7 +73,6 @@ public class Modul2Scene1Screen extends AbstractScreen {
 				+ this.buttonTexture[bimasakti].getHeight(),
 				buttonTexture[bimasakti].getWidth(),
 				buttonTexture[bimasakti].getHeight());
-
 		// status button defaultnya inactive
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
 			buttonIsActive[idx] = false;

@@ -68,6 +68,7 @@ public class MainMenuScreen extends AbstractScreen {
 		buttonActiveTexture[PLAY] = new Texture(
 				Gdx.files
 						.internal("data/images/icon/menu/play_button_active.png"));
+		
 		buttonActiveTexture[FORUM] = new Texture(
 				Gdx.files
 						.internal("data/images/icon/menu/forum_button_active.png"));
