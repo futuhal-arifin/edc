@@ -20,6 +20,8 @@ public class SpaceBattle {
 	private float time;
 	private Random rand;
 	private float lastObstacles;
+	private float lastAlienMissile;
+	private float lastPlayerMissile;
 	private List<SpaceBattleMeteor> meteors;
 	private SpaceBattleAlien alienLeft;
 	private SpaceBattleAlien alienRight;
@@ -50,6 +52,8 @@ public class SpaceBattle {
 		background2YPosition = screenHeight;
 		time =0;
 		lastObstacles = -1.5f;
+		lastAlienMissile = -0.5f;
+		lastPlayerMissile = -0.2f;
 		meteors = new ArrayList<SpaceBattleMeteor>();
 		alienLeft = new SpaceBattleAlien((byte) 0);
 		alienRight = new SpaceBattleAlien((byte) 1);
@@ -65,43 +69,28 @@ public class SpaceBattle {
 		//System.out.println("time "+time);
 		if(temp > 0.7) {
 			int index = rand.nextInt(6);
-			if(index < 3)
-			if(time>(lastObstacles+2.5)){
-				lastObstacles = time;
-				/*
-				int obsType = 0;
-				if(rand.nextFloat()>0.7){
-					type +=3;
-				} else if(rand.nextFloat() > 0.4) {
-					obsType = 2;
-					//type +=2;
-				} 
-				*/
-				meteors.add(new SpaceBattleMeteor(index));
+			if(index < 3) {
+				if(time>(lastObstacles+2.5)){
+					lastObstacles = time;
+					meteors.add(new SpaceBattleMeteor(index));
+				}
 			}
 		}
 	}
 	
 	public void generateMissiles(float delta){
-		//if(gameOver) return;
 		time += delta;
 		float temp = rand.nextFloat();
-		//System.out.println("time "+time);
 		if(temp > 0.7) {
-			int index = rand.nextInt(2);
-			if(index < 3)
-			if(time>(lastObstacles+2.5)){
-				lastObstacles = time;
-				/*
-				int obsType = 0;
-				if(rand.nextFloat()>0.7){
-					type +=3;
-				} else if(rand.nextFloat() > 0.4) {
-					obsType = 2;
-					//type +=2;
-				} 
-				*/
-				meteors.add(new SpaceBattleMeteor(index));
+			int index = rand.nextInt(6);
+			if(index < 3) {
+				if(time>(lastAlienMissile+2.5)){
+					if(rand.nextFloat()>0.5){
+						this.alienLeft.addMissile(new SpaceBattleMissileAlien((byte) 0));
+					} else {
+						this.alienRight.addMissile(new SpaceBattleMissileAlien((byte) 1));
+					}
+				}
 			}
 		}
 	}
@@ -122,7 +111,7 @@ public class SpaceBattle {
 		return this.pesawatXPosition;
 	}
 
-	public void updatePosition (){
+	public void updatePosition (float delta){
 		Iterator<SpaceBattleMeteor> itr = meteors.iterator();
 		while(itr.hasNext()){
 			SpaceBattleMeteor obs = itr.next();
@@ -136,25 +125,33 @@ public class SpaceBattle {
 		}
 		
 		if(this.isAlienComing) {
-			Iterator<SpaceBattleMissileAlien> itrLeft = alienLeft.getMissiles().iterator();
-			while(itrLeft.hasNext()){
-				SpaceBattleMissileAlien obs = itrLeft.next();
-				obs.updateMissilePosition();
-				if(obs.getPosY() < -126){
-					obs.dispose();
-					itrLeft.remove();
+			this.alienLeft.updateAlien(this.pesawatXPosition, 0);
+			this.alienRight.updateAlien(this.pesawatXPosition, 0);
+			if(this.alienLeft.getStatus() == this.alienLeft.ALIEN_FLYING) {
+				
+			} else if(this.alienLeft.getStatus() == this.alienLeft.ALIEN_ATTACKING) {
+				this.generateMissiles(delta);
+				Iterator<SpaceBattleMissileAlien> itrLeft = alienLeft.getMissiles().iterator();
+				while(itrLeft.hasNext()){
+					SpaceBattleMissileAlien obs = itrLeft.next();
+					obs.updateMissilePosition();
+					if(obs.getPosY() < -126){
+						obs.dispose();
+						itrLeft.remove();
+					}
+				}
+				
+				Iterator<SpaceBattleMissileAlien> itrRight = alienRight.getMissiles().iterator();
+				while(itrRight.hasNext()){
+					SpaceBattleMissileAlien obs = itrRight.next();
+					obs.updateMissilePosition();
+					if(obs.getPosY() < -126){
+						obs.dispose();
+						itrRight.remove();
+					}
 				}
 			}
 			
-			Iterator<SpaceBattleMissileAlien> itrRight = alienRight.getMissiles().iterator();
-			while(itrRight.hasNext()){
-				SpaceBattleMissileAlien obs = itrRight.next();
-				obs.updateMissilePosition();
-				if(obs.getPosY() < -126){
-					obs.dispose();
-					itrRight.remove();
-				}
-			}
 			
 			
 		} else {

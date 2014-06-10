@@ -34,9 +34,9 @@ public class SpaceBattleController {
 			if (data.getCurrentDistance() >= data.getMaxDistance()) {
 				screen.setBattleEnded(true);
 			}
-			if(data.isAlienComing()) {
+			//if(data.isAlienComing()) {
 				
-			} else {
+			//} else {
 				if(Gdx.input.justTouched()){
 					Vector3 pos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
 					cam.unproject(pos, viewport.x, viewport.y, viewport.width, viewport.height);
@@ -82,7 +82,7 @@ public class SpaceBattleController {
 						screen.setButtonStatus(false, screen.RIGHT);
 					}
 				}
-			}
+			//}
 			
 		}
 	}
