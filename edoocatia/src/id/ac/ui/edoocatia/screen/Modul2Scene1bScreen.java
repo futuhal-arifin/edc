@@ -53,25 +53,29 @@ public class Modul2Scene1bScreen extends DialogScreen {
 				Gdx.files.internal("data/images/modul-2/uranus.png"));
 
 		// batas2 button
-		buttonBounds[SUN] = new Rectangle(width/ 20, height / 20,
+		buttonBounds[SUN] = new Rectangle(width/4, (height/4)+100,
 				buttonTexture[SUN].getWidth(), buttonTexture[SUN].getHeight());
 
+		buttonBounds[EARTH] = new Rectangle(width/2, (height/2),
+				buttonTexture[EARTH].getWidth(), buttonTexture[EARTH].getHeight());
+		
 		// status button defaultnya inactive
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
 			buttonIsActive[idx] = false;
 		}
 
+		/*
 		this.setDialogNaration("data/dialog/modul2/dialog1.txt");
 		this.setDialogBackground("data/images/general/dialog.png");
 		this.setDialogBackgroundPosition(
-				(VIRTUAL_WIDTH - this.dialogBackground.getWidth()) / 2, 40);
+				(VIRTUAL_WIDTH - this.dialogBackground.getWidth())/2,this.dialogBackground.getHeight()-350);
 		this.setKarakterLeftPosition(0, 40);
 		this.setKarakterRightPosition(VIRTUAL_WIDTH, 40);
 		this.setLineLength(750);
 		this.setTextPosition(300, this.dialogBackground.getHeight() - 50);
 		this.setFont("data/font/kg-corner-of-the-sky-44-black.fnt",
 				"data/font/kg-corner-of-the-sky-44-black.png");
-
+		*/
 		this.setMusicBg("data/sounds/music/modul1/scene1theme.mp3");
 
 		this.controller = new Modul2Scene1bController(this);
@@ -91,7 +95,7 @@ public class Modul2Scene1bScreen extends DialogScreen {
 		batcher.draw(background, 0, 0);
 
 		// gambar button2
-		for (int idx = 0; idx < 1; idx++) {
+		for (int idx = 0; idx < 2; idx++) {
 			if (buttonIsActive[idx]) {
 				batcher.draw(buttonActiveTexture[idx],
 						this.buttonBounds[idx].getX(),

@@ -18,6 +18,7 @@ public class Modul2Scene1bController {
 	}
 
 	public void processInput() {
+		/*
 		if (screen.isDialogEnded()) {
 			long currentTime = TimeUtils.millis();
 			long startTime = screen.getStartTime();
@@ -26,6 +27,7 @@ public class Modul2Scene1bController {
 				//app.changeScreen(ScreenEnum.MODUL2_SCENE1B,ScreenEnum.MODUL2_SCENE1);
 			}
 		}
+		*/
 	}
 
 }
