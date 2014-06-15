@@ -75,7 +75,6 @@ public class SpaceBattleScreen extends AbstractScreen {
 			batcher.draw(background[0], 0, data.getBackground1YPosition());
 			batcher.draw(background[1], 0, data.getBackground2YPosition());
 			if(data.isAlienComing()) {
-				data.generateMissiles(delta);
 				if(data.getAlienLeft().isActive()) {
 					Iterator<SpaceBattleMissileAlien> itr = data.getAlienLeft().getMissiles().iterator();
 					while(itr.hasNext()){
@@ -104,24 +103,7 @@ public class SpaceBattleScreen extends AbstractScreen {
 			} else {
 				data.generateMeteors(delta);
 
-				if (buttonIsActive[LEFT]) {
-					batcher.draw(buttonActive[LEFT], 20,
-							(VIRTUAL_HEIGHT - buttonActive[LEFT].getHeight()) / 2);
-				} else {
-					batcher.draw(button[LEFT], 20,
-							(VIRTUAL_HEIGHT - button[LEFT].getHeight()) / 2);
-				}
-
-				if (buttonIsActive[RIGHT]) {
-					batcher.draw(buttonActive[RIGHT], VIRTUAL_WIDTH - 20
-							- buttonActive[RIGHT].getWidth(),
-							(VIRTUAL_HEIGHT - buttonActive[RIGHT].getHeight()) / 2);
-				} else {
-					batcher.draw(button[RIGHT],
-							VIRTUAL_WIDTH - 20 - button[RIGHT].getWidth(),
-							(VIRTUAL_HEIGHT - button[RIGHT].getHeight()) / 2);
-				}
-
+				
 				Iterator<SpaceBattleMeteor> itr = data.getMeteors().iterator();
 				while(itr.hasNext()){
 					SpaceBattleMeteor obs = itr.next();
@@ -134,6 +116,25 @@ public class SpaceBattleScreen extends AbstractScreen {
 						- (data.getPesawatTexture().getWidth() / 2), 10);
 			}
 			
+			if (buttonIsActive[LEFT]) {
+				batcher.draw(buttonActive[LEFT], 20,
+						(VIRTUAL_HEIGHT - buttonActive[LEFT].getHeight()) / 2);
+			} else {
+				batcher.draw(button[LEFT], 20,
+						(VIRTUAL_HEIGHT - button[LEFT].getHeight()) / 2);
+			}
+
+			if (buttonIsActive[RIGHT]) {
+				batcher.draw(buttonActive[RIGHT], VIRTUAL_WIDTH - 20
+						- buttonActive[RIGHT].getWidth(),
+						(VIRTUAL_HEIGHT - buttonActive[RIGHT].getHeight()) / 2);
+			} else {
+				batcher.draw(button[RIGHT],
+						VIRTUAL_WIDTH - 20 - button[RIGHT].getWidth(),
+						(VIRTUAL_HEIGHT - button[RIGHT].getHeight()) / 2);
+			}
+
+			
 
 			batcher.end();
 		}
@@ -142,7 +143,7 @@ public class SpaceBattleScreen extends AbstractScreen {
 		if (debug) {
 			// drawDebug();
 		}
-		data.updatePosition();
+		data.updatePosition(delta);
 		controller.processInput();
 	}
 

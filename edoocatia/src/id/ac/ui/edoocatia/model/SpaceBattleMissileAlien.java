@@ -16,6 +16,7 @@ public class SpaceBattleMissileAlien implements SpaceBattleMissile {
 	private byte alienSource;
 	private final byte LEFT = 0;
 	private final byte RIGHT = 1;
+	private final float velocity = 2;
 	
 	public SpaceBattleMissileAlien(byte position) {
 		this.setAlienSource(position);
@@ -24,20 +25,28 @@ public class SpaceBattleMissileAlien implements SpaceBattleMissile {
 		if(this.alienSource == LEFT) {
 			this.setPosX(200);
 		} else {
-			this.setPosX(600);
+			this.setPosX(1000);
 		}
 		this.missileTexture = new Texture(
 				Gdx.files.internal("data/images/modul-2/icon_efek/fire_alien.png"));
-		setBounds(new Rectangle(posX, INIT_POS+31, missileTexture.getWidth(), missileTexture.getHeight()));
+		setBounds(new Rectangle(posX, posY, missileTexture.getWidth(), missileTexture.getHeight()));
 	}
 	
-	public void updateMissilePosition() {
-		this.setPosY(posY - 1);
-		if(this.alienSource == LEFT) {
-			this.setPosX(posX + 1);
+	
+	public void updateMissilePosition(float playerXPos, float playerYPos) {
+		float gradient = (playerYPos - this.posY) / (playerXPos - this.posX); // m = (y1-y2)/(x1-x2)
+		float constant = posY - (gradient * posX); // c = y - mx
+		//double b = Math.sqrt(Math.pow(this.velocity, 2) - Math.pow(a, 2));
+		float b;
+		if(gradient > 0) { // player di kirinya alien
+			b =  posX - playerXPos;
+			posX--;
 		} else {
-			this.setPosX(posX - 1);
+			b =  playerXPos - posX;
+			posX++;
 		}
+		
+		posY = gradient * posX + constant; // y = mx+c
 	}
 	
 	public Texture getMissileTexture() {
@@ -81,6 +90,13 @@ public class SpaceBattleMissileAlien implements SpaceBattleMissile {
 
 	public void setBounds(Rectangle bounds) {
 		this.bounds = bounds;
+	}
+
+
+	@Override
+	public void updateMissilePosition() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

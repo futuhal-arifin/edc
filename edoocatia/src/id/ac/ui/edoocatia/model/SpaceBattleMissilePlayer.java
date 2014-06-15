@@ -1,74 +1,82 @@
 package id.ac.ui.edoocatia.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 public class SpaceBattleMissilePlayer implements SpaceBattleMissile {
 
+	private float posY;
+	private float posX;
+	private Rectangle bounds;
+	private boolean hit;
+	private Texture missileTexture;
+	
+	public SpaceBattleMissilePlayer(float playerXPos, float playerYPos) {
+		this.setHit(false);
+		this.posY = playerYPos;
+		this.setPosX(playerXPos);
+		this.missileTexture = new Texture(
+				Gdx.files.internal("data/images/modul-2/icon_efek/fire_alien.png"));
+		setBounds(new Rectangle(posX, posY, missileTexture.getWidth(), missileTexture.getHeight()));
+	}
+	
 	@Override
 	public void updateMissilePosition() {
-		// TODO Auto-generated method stub
-		
+		this.posY = posY + 3;
+		if(posY > 800) {
+			this.dispose();
+		}
 	}
 
 	@Override
 	public Texture getMissileTexture() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.missileTexture;
 	}
 
 	@Override
 	public float getPosY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.posY;
 	}
 
 	@Override
 	public void setPosY(float posY) {
-		// TODO Auto-generated method stub
-		
+		this.posY = posY;
 	}
 
 	@Override
 	public float getPosX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.posX;
 	}
 
 	@Override
 	public void setPosX(float posX) {
-		// TODO Auto-generated method stub
-		
+		this.posX = posX;
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		this.missileTexture.dispose();
 	}
 
 	@Override
 	public boolean isHit() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.hit;
 	}
 
 	@Override
 	public void setHit(boolean hit) {
-		// TODO Auto-generated method stub
-		
+		this.hit = hit;
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bounds;
 	}
 
 	@Override
 	public void setBounds(Rectangle bounds) {
-		// TODO Auto-generated method stub
-		
+		this.bounds = bounds;
 	}
 
 }
