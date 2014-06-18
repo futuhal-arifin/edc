@@ -49,6 +49,9 @@ public class Modul2Scene1bScreen extends DialogScreen {
 		buttonTexture[NEPTUNUS] = new Texture(
 				Gdx.files.internal("data/images/modul-2/neptunus.png"));
 
+		buttonTexture[SATURNUS] = new Texture(
+				Gdx.files.internal("data/images/modul-2/saturnus.png"));
+		
 		buttonTexture[URANUS] = new Texture(
 				Gdx.files.internal("data/images/modul-2/uranus.png"));
 
@@ -56,8 +59,23 @@ public class Modul2Scene1bScreen extends DialogScreen {
 		buttonBounds[SUN] = new Rectangle(width/4, (height/4)+100,
 				buttonTexture[SUN].getWidth(), buttonTexture[SUN].getHeight());
 
-		buttonBounds[EARTH] = new Rectangle(width/2, (height/2),
+		buttonBounds[EARTH] = new Rectangle((width/2)-200, (height/2)-400,
 				buttonTexture[EARTH].getWidth(), buttonTexture[EARTH].getHeight());
+		
+		buttonBounds[JUPITER] = new Rectangle((width/2)-800, (height/2)-100,
+				buttonTexture[JUPITER].getWidth(), buttonTexture[JUPITER].getHeight());
+		
+		buttonBounds[MARS] = new Rectangle((width/2)+100, (height/2),
+				buttonTexture[MARS].getWidth(), buttonTexture[MARS].getHeight());
+		
+		buttonBounds[NEPTUNUS] = new Rectangle((width/2)+200, (height/2)-400,
+				buttonTexture[NEPTUNUS].getWidth(), buttonTexture[NEPTUNUS].getHeight());
+		
+		buttonBounds[SATURNUS] = new Rectangle((width/2)-700, (height/2)-400,
+				buttonTexture[SATURNUS].getWidth(), buttonTexture[SATURNUS].getHeight());
+		
+		buttonBounds[URANUS] = new Rectangle((width/2)-700, (height/2)-400,
+				buttonTexture[URANUS].getWidth(), buttonTexture[URANUS].getHeight());
 		
 		// status button defaultnya inactive
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
@@ -95,7 +113,7 @@ public class Modul2Scene1bScreen extends DialogScreen {
 		batcher.draw(background, 0, 0);
 
 		// gambar button2
-		for (int idx = 0; idx < 2; idx++) {
+		for (int idx = 0; idx < 6; idx++) {
 			if (buttonIsActive[idx]) {
 				batcher.draw(buttonActiveTexture[idx],
 						this.buttonBounds[idx].getX(),
@@ -109,7 +127,7 @@ public class Modul2Scene1bScreen extends DialogScreen {
 
 		batcher.end();
 
-		super.render(delta);
+		//super.render(delta);
 		controller.processInput();
 	}
 
