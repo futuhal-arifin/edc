@@ -16,7 +16,6 @@ public class SpaceBattleMeteor {
 	
 	public SpaceBattleMeteor(int index) {
 		this.setIndex(index);
-		setYPosition(INIT_POS);
 		this.meteorTexture = new Texture(
 				Gdx.files.internal("data/images/modul-2/meteor_small.png"));
 		hit = false;
@@ -32,7 +31,8 @@ public class SpaceBattleMeteor {
 			xBounds = 774;
 		}
 		this.setXPosition(xBounds);
-		setBounds(new Rectangle(xBounds, INIT_POS+31, meteorTexture.getWidth(), meteorTexture.getHeight()));
+		setBounds(new Rectangle(xBounds, INIT_POS, meteorTexture.getWidth(), meteorTexture.getHeight()));
+		setYPosition(INIT_POS);
 	}
 	
 	public float getYPosition() {
@@ -41,6 +41,7 @@ public class SpaceBattleMeteor {
 
 	public void setYPosition(float f) {
 		this.posY = f;
+		this.bounds.y = f;
 	}
 	
 	public float getXPosition() {

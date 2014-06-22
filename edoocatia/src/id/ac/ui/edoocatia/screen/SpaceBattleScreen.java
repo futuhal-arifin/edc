@@ -11,6 +11,7 @@ import id.ac.ui.edoocatia.controller.SpaceBattleController;
 import id.ac.ui.edoocatia.model.SpaceBattle;
 import id.ac.ui.edoocatia.model.SpaceBattleMissileAlien;
 import id.ac.ui.edoocatia.model.SpaceBattleMeteor;
+import id.ac.ui.edoocatia.model.SpaceBattleMissilePlayer;
 import id.ac.ui.edoocatia.util.AbstractScreen;
 
 public class SpaceBattleScreen extends AbstractScreen {
@@ -18,15 +19,16 @@ public class SpaceBattleScreen extends AbstractScreen {
 	private SpaceBattleController controller;
 	private Texture[] background = new Texture[2];
 
-	private Texture button[] = new Texture[2];
-	private Texture buttonActive[] = new Texture[2];
-	private boolean buttonIsActive[] = new boolean[2];
-
+	private Texture button[] = new Texture[3];
+	private Texture buttonActive[] = new Texture[3];
+	private boolean buttonIsActive[] = new boolean[3];
+	
 	public final int LEFT = 0;
 	public final int RIGHT = 1;
+	public final int WEAPON = 2;
 
-	private Rectangle buttonBounds[] = new Rectangle[2];
-
+	private Rectangle buttonBounds[] = new Rectangle[3];
+	
 	private SpaceBattle data;
 	private boolean isBattleEnded;
 	
@@ -42,7 +44,12 @@ public class SpaceBattleScreen extends AbstractScreen {
 				Gdx.files.internal("data/images/modul-2/space.jpg"));
 		background[1] = new Texture(
 				Gdx.files.internal("data/images/modul-2/space2.jpg"));
-
+		
+		button[WEAPON] = new Texture(
+				Gdx.files.internal("data/images/modul-2/icon_efek/weapon/fire_button.png"));
+		buttonActive[WEAPON] = new Texture(
+				Gdx.files.internal("data/images/modul-2/icon_efek/weapon/fire_button_active.png"));
+		
 		button[LEFT] = new Texture(
 				Gdx.files.internal("data/images/modul-2/left.png"));
 		button[RIGHT] = new Texture(
@@ -56,9 +63,9 @@ public class SpaceBattleScreen extends AbstractScreen {
 				button[LEFT].getWidth(), button[LEFT].getHeight());
 		buttonBounds[RIGHT] = new Rectangle(VIRTUAL_WIDTH-20-button[RIGHT].getWidth(), (VIRTUAL_HEIGHT-button[RIGHT].getHeight())/2,
 				button[RIGHT].getWidth(), button[RIGHT].getHeight());
+		buttonBounds[WEAPON] = new Rectangle(VIRTUAL_WIDTH-20-button[WEAPON].getWidth(), 10,
+				button[WEAPON].getWidth(), button[WEAPON].getHeight());
 		
-		
-
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
 			this.buttonIsActive[idx] = false;
 		}
@@ -75,6 +82,22 @@ public class SpaceBattleScreen extends AbstractScreen {
 			batcher.draw(background[0], 0, data.getBackground1YPosition());
 			batcher.draw(background[1], 0, data.getBackground2YPosition());
 			if(data.isAlienComing()) {
+				if (buttonIsActive[WEAPON]) {
+					batcher.draw(buttonActive[WEAPON], this.buttonBounds[WEAPON].getX(),
+							this.buttonBounds[WEAPON].getY());
+				} else {
+					batcher.draw(button[WEAPON], this.buttonBounds[WEAPON].getX(),
+							this.buttonBounds[WEAPON].getY());
+				}
+				
+				Iterator<SpaceBattleMissilePlayer> itrPlayer = data.getSpaceBattlePlayer().getMissiles().iterator();
+				while(itrPlayer.hasNext()){
+					SpaceBattleMissilePlayer obs = itrPlayer.next();
+						batcher.draw(obs.getMissileTexture(), 
+								obs.getPosX(),
+								obs.getPosY());
+				}
+
 				if(data.getAlienLeft().isActive()) {
 					Iterator<SpaceBattleMissileAlien> itr = data.getAlienLeft().getMissiles().iterator();
 					while(itr.hasNext()){
@@ -95,6 +118,34 @@ public class SpaceBattleScreen extends AbstractScreen {
 									obs.getPosY());
 					}
 					data.getAlienRight().getAlienSprite().draw(batcher);
+					/*
+					batcher.draw(data.getAlienRight().getAlienTextureRegion(), 
+							data.getAlienRight().getAlienXPosition(), 
+							data.getAlienRight().getAlienYPosition(), 
+							data.getAlienRight().getAlienXPosition() + data.getAlienRight().getAlienTexture().getWidth() / 2, 
+							data.getAlienRight().getAlienYPosition() + data.getAlienRight().getAlienTexture().getHeight() / 2, 
+							data.getAlienRight().getAlienTexture().getWidth(), 
+							data.getAlienRight().getAlienTexture().getHeight(), 
+							1, 1, data.getAlienRight().getAlienRotation());
+					System.out.println("x " + data.getAlienRight().getAlienXPosition()+" y "+data.getAlienRight().getAlienYPosition());
+					System.out.println("xOr " + (data.getAlienRight().getAlienXPosition()+data.getAlienRight().getAlienTexture().getWidth() / 2)+" yOr "+(data.getAlienRight().getAlienYPosition()+ data.getAlienRight().getAlienTexture().getHeight() / 2));
+					System.out.println("rotation " + data.getAlienRight().getAlienRotation());
+					
+					batcher.draw(data.getAlienRight().getAlienTexture(), 
+							data.getAlienRight().getAlienXPosition(), 
+							data.getAlienRight().getAlienYPosition(), 
+							data.getAlienRight().getAlienXPosition() + data.getAlienRight().getAlienTexture().getWidth() / 2, 
+							data.getAlienRight().getAlienYPosition() + data.getAlienRight().getAlienTexture().getHeight() / 2, 
+							data.getAlienRight().getAlienTexture().getWidth(), 
+							data.getAlienRight().getAlienTexture().getHeight(), 
+							1, 
+							1, 
+							data.getAlienRight().getAlienRotation(), 
+							0, 
+							0, 
+							data.getAlienRight().getAlienTexture().getWidth(), 
+							data.getAlienRight().getAlienTexture().getHeight(), 
+							false, false); */
 				}
 				
 				batcher.draw(data.getPesawatTexture(), data.getPesawatXPosition()
@@ -169,9 +220,11 @@ public class SpaceBattleScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
-			this.background[idx].dispose();
 			this.button[idx].dispose();
 			this.buttonActive[idx].dispose();
+		}
+		for (int idx = 0; idx < this.background.length; idx++) {
+			this.background[idx].dispose();
 		}
 		data.dispose();
 		super.dispose();
@@ -184,5 +237,4 @@ public class SpaceBattleScreen extends AbstractScreen {
 	public void setBattleEnded(boolean isGameOver) {
 		this.isBattleEnded = isGameOver;
 	}
-
 }

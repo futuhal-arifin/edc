@@ -11,6 +11,7 @@ public class SpaceBattleMissilePlayer implements SpaceBattleMissile {
 	private Rectangle bounds;
 	private boolean hit;
 	private Texture missileTexture;
+	private final int VELOCITY = 10;
 	
 	public SpaceBattleMissilePlayer(float playerXPos, float playerYPos) {
 		this.setHit(false);
@@ -23,7 +24,8 @@ public class SpaceBattleMissilePlayer implements SpaceBattleMissile {
 	
 	@Override
 	public void updateMissilePosition() {
-		this.posY = posY + 3;
+		this.posY = posY + this.VELOCITY;
+		this.bounds.y = this.posY;
 		if(posY > 800) {
 			this.dispose();
 		}
