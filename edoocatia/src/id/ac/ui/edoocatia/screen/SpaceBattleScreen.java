@@ -22,16 +22,16 @@ public class SpaceBattleScreen extends AbstractScreen {
 	private Texture button[] = new Texture[3];
 	private Texture buttonActive[] = new Texture[3];
 	private boolean buttonIsActive[] = new boolean[3];
-	
+
 	public final int LEFT = 0;
 	public final int RIGHT = 1;
 	public final int WEAPON = 2;
 
 	private Rectangle buttonBounds[] = new Rectangle[3];
-	
+
 	private SpaceBattle data;
 	private boolean isBattleEnded;
-	
+
 	private boolean debug = false;
 
 	public SpaceBattleScreen(Edoocatia app, int distance) {
@@ -44,12 +44,14 @@ public class SpaceBattleScreen extends AbstractScreen {
 				Gdx.files.internal("data/images/modul-2/space.jpg"));
 		background[1] = new Texture(
 				Gdx.files.internal("data/images/modul-2/space2.jpg"));
-		
+
 		button[WEAPON] = new Texture(
-				Gdx.files.internal("data/images/modul-2/icon_efek/weapon/fire_button.png"));
+				Gdx.files
+						.internal("data/images/modul-2/icon_efek/weapon/fire_button.png"));
 		buttonActive[WEAPON] = new Texture(
-				Gdx.files.internal("data/images/modul-2/icon_efek/weapon/fire_button_active.png"));
-		
+				Gdx.files
+						.internal("data/images/modul-2/icon_efek/weapon/fire_button_active.png"));
+
 		button[LEFT] = new Texture(
 				Gdx.files.internal("data/images/modul-2/left.png"));
 		button[RIGHT] = new Texture(
@@ -58,14 +60,18 @@ public class SpaceBattleScreen extends AbstractScreen {
 				Gdx.files.internal("data/images/modul-2/left_pressed.png"));
 		buttonActive[RIGHT] = new Texture(
 				Gdx.files.internal("data/images/modul-2/right_pressed.png"));
-		
-		buttonBounds[LEFT] = new Rectangle(20, (VIRTUAL_HEIGHT-button[LEFT].getHeight())/2,
+
+		buttonBounds[LEFT] = new Rectangle(20,
+				(VIRTUAL_HEIGHT - button[LEFT].getHeight()) / 2,
 				button[LEFT].getWidth(), button[LEFT].getHeight());
-		buttonBounds[RIGHT] = new Rectangle(VIRTUAL_WIDTH-20-button[RIGHT].getWidth(), (VIRTUAL_HEIGHT-button[RIGHT].getHeight())/2,
+		buttonBounds[RIGHT] = new Rectangle(VIRTUAL_WIDTH - 20
+				- button[RIGHT].getWidth(),
+				(VIRTUAL_HEIGHT - button[RIGHT].getHeight()) / 2,
 				button[RIGHT].getWidth(), button[RIGHT].getHeight());
-		buttonBounds[WEAPON] = new Rectangle(VIRTUAL_WIDTH-20-button[WEAPON].getWidth(), 10,
-				button[WEAPON].getWidth(), button[WEAPON].getHeight());
-		
+		buttonBounds[WEAPON] = new Rectangle(VIRTUAL_WIDTH - 20
+				- button[WEAPON].getWidth(), 10, button[WEAPON].getWidth(),
+				button[WEAPON].getHeight());
+
 		for (int idx = 0; idx < this.buttonIsActive.length; idx++) {
 			this.buttonIsActive[idx] = false;
 		}
@@ -75,98 +81,107 @@ public class SpaceBattleScreen extends AbstractScreen {
 
 	public void render(float delta) {
 
-
 		if (!this.isBattleEnded) {
-			
+
 			batcher.begin();
 			batcher.draw(background[0], 0, data.getBackground1YPosition());
 			batcher.draw(background[1], 0, data.getBackground2YPosition());
-			if(data.isAlienComing()) {
+			if (data.isAlienComing()) {
 				if (buttonIsActive[WEAPON]) {
-					batcher.draw(buttonActive[WEAPON], this.buttonBounds[WEAPON].getX(),
+					batcher.draw(buttonActive[WEAPON],
+							this.buttonBounds[WEAPON].getX(),
 							this.buttonBounds[WEAPON].getY());
 				} else {
-					batcher.draw(button[WEAPON], this.buttonBounds[WEAPON].getX(),
+					batcher.draw(button[WEAPON],
+							this.buttonBounds[WEAPON].getX(),
 							this.buttonBounds[WEAPON].getY());
 				}
-				
-				Iterator<SpaceBattleMissilePlayer> itrPlayer = data.getSpaceBattlePlayer().getMissiles().iterator();
-				while(itrPlayer.hasNext()){
+
+				Iterator<SpaceBattleMissilePlayer> itrPlayer = data
+						.getSpaceBattlePlayer().getMissiles().iterator();
+				while (itrPlayer.hasNext()) {
 					SpaceBattleMissilePlayer obs = itrPlayer.next();
-						batcher.draw(obs.getMissileTexture(), 
-								obs.getPosX(),
-								obs.getPosY());
+					batcher.draw(obs.getMissileTexture(), obs.getPosX(),
+							obs.getPosY());
 				}
 
-				if(data.getAlienLeft().isActive()) {
-					Iterator<SpaceBattleMissileAlien> itr = data.getAlienLeft().getMissiles().iterator();
-					while(itr.hasNext()){
+				if (data.getAlienLeft().isActive()) {
+					Iterator<SpaceBattleMissileAlien> itr = data.getAlienLeft()
+							.getMissiles().iterator();
+					while (itr.hasNext()) {
 						SpaceBattleMissileAlien obs = itr.next();
-							batcher.draw(obs.getMissileTexture(), 
-									obs.getPosX(),
-									obs.getPosY());
+						batcher.draw(obs.getMissileTexture(), obs.getPosX(),
+								obs.getPosY());
 					}
 					data.getAlienLeft().getAlienSprite().draw(batcher);
 				}
-				
-				if(data.getAlienRight().isActive()) {
-					Iterator<SpaceBattleMissileAlien> itr = data.getAlienRight().getMissiles().iterator();
-					while(itr.hasNext()){
+
+				if (data.getAlienRight().isActive()) {
+					Iterator<SpaceBattleMissileAlien> itr = data
+							.getAlienRight().getMissiles().iterator();
+					while (itr.hasNext()) {
 						SpaceBattleMissileAlien obs = itr.next();
-							batcher.draw(obs.getMissileTexture(), 
-									obs.getPosX(),
-									obs.getPosY());
+						batcher.draw(obs.getMissileTexture(), obs.getPosX(),
+								obs.getPosY());
 					}
 					data.getAlienRight().getAlienSprite().draw(batcher);
 					/*
-					batcher.draw(data.getAlienRight().getAlienTextureRegion(), 
-							data.getAlienRight().getAlienXPosition(), 
-							data.getAlienRight().getAlienYPosition(), 
-							data.getAlienRight().getAlienXPosition() + data.getAlienRight().getAlienTexture().getWidth() / 2, 
-							data.getAlienRight().getAlienYPosition() + data.getAlienRight().getAlienTexture().getHeight() / 2, 
-							data.getAlienRight().getAlienTexture().getWidth(), 
-							data.getAlienRight().getAlienTexture().getHeight(), 
-							1, 1, data.getAlienRight().getAlienRotation());
-					System.out.println("x " + data.getAlienRight().getAlienXPosition()+" y "+data.getAlienRight().getAlienYPosition());
-					System.out.println("xOr " + (data.getAlienRight().getAlienXPosition()+data.getAlienRight().getAlienTexture().getWidth() / 2)+" yOr "+(data.getAlienRight().getAlienYPosition()+ data.getAlienRight().getAlienTexture().getHeight() / 2));
-					System.out.println("rotation " + data.getAlienRight().getAlienRotation());
-					
-					batcher.draw(data.getAlienRight().getAlienTexture(), 
-							data.getAlienRight().getAlienXPosition(), 
-							data.getAlienRight().getAlienYPosition(), 
-							data.getAlienRight().getAlienXPosition() + data.getAlienRight().getAlienTexture().getWidth() / 2, 
-							data.getAlienRight().getAlienYPosition() + data.getAlienRight().getAlienTexture().getHeight() / 2, 
-							data.getAlienRight().getAlienTexture().getWidth(), 
-							data.getAlienRight().getAlienTexture().getHeight(), 
-							1, 
-							1, 
-							data.getAlienRight().getAlienRotation(), 
-							0, 
-							0, 
-							data.getAlienRight().getAlienTexture().getWidth(), 
-							data.getAlienRight().getAlienTexture().getHeight(), 
-							false, false); */
+					 * batcher.draw(data.getAlienRight().getAlienTextureRegion(),
+					 * data.getAlienRight().getAlienXPosition(),
+					 * data.getAlienRight().getAlienYPosition(),
+					 * data.getAlienRight().getAlienXPosition() +
+					 * data.getAlienRight().getAlienTexture().getWidth() / 2,
+					 * data.getAlienRight().getAlienYPosition() +
+					 * data.getAlienRight().getAlienTexture().getHeight() / 2,
+					 * data.getAlienRight().getAlienTexture().getWidth(),
+					 * data.getAlienRight().getAlienTexture().getHeight(), 1, 1,
+					 * data.getAlienRight().getAlienRotation());
+					 * System.out.println("x " +
+					 * data.getAlienRight().getAlienXPosition
+					 * ()+" y "+data.getAlienRight().getAlienYPosition());
+					 * System.out.println("xOr " +
+					 * (data.getAlienRight().getAlienXPosition
+					 * ()+data.getAlienRight().getAlienTexture().getWidth() /
+					 * 2)+" yOr "+(data.getAlienRight().getAlienYPosition()+
+					 * data.getAlienRight().getAlienTexture().getHeight() / 2));
+					 * System.out.println("rotation " +
+					 * data.getAlienRight().getAlienRotation());
+					 * 
+					 * batcher.draw(data.getAlienRight().getAlienTexture(),
+					 * data.getAlienRight().getAlienXPosition(),
+					 * data.getAlienRight().getAlienYPosition(),
+					 * data.getAlienRight().getAlienXPosition() +
+					 * data.getAlienRight().getAlienTexture().getWidth() / 2,
+					 * data.getAlienRight().getAlienYPosition() +
+					 * data.getAlienRight().getAlienTexture().getHeight() / 2,
+					 * data.getAlienRight().getAlienTexture().getWidth(),
+					 * data.getAlienRight().getAlienTexture().getHeight(), 1, 1,
+					 * data.getAlienRight().getAlienRotation(), 0, 0,
+					 * data.getAlienRight().getAlienTexture().getWidth(),
+					 * data.getAlienRight().getAlienTexture().getHeight(),
+					 * false, false);
+					 */
 				}
-				
-				batcher.draw(data.getPesawatTexture(), data.getPesawatXPosition()
-						- (data.getPesawatTexture().getWidth() / 2), 10);
-				
+
+				batcher.draw(data.getPesawatTexture(),
+						data.getPesawatXPosition()
+								- (data.getPesawatTexture().getWidth() / 2), 10);
+
 			} else {
 				data.generateMeteors(delta);
 
-				
 				Iterator<SpaceBattleMeteor> itr = data.getMeteors().iterator();
-				while(itr.hasNext()){
+				while (itr.hasNext()) {
 					SpaceBattleMeteor obs = itr.next();
-						batcher.draw(obs.getMeteorTexture(), 
-								obs.getXPosition(),
-								obs.getYPosition());
+					batcher.draw(obs.getMeteorTexture(), obs.getXPosition(),
+							obs.getYPosition());
 				}
-				
-				batcher.draw(data.getPesawatTexture(), data.getPesawatXPosition()
-						- (data.getPesawatTexture().getWidth() / 2), 10);
+
+				batcher.draw(data.getPesawatTexture(),
+						data.getPesawatXPosition()
+								- (data.getPesawatTexture().getWidth() / 2), 10);
 			}
-			
+
 			if (buttonIsActive[LEFT]) {
 				batcher.draw(buttonActive[LEFT], 20,
 						(VIRTUAL_HEIGHT - buttonActive[LEFT].getHeight()) / 2);
@@ -184,8 +199,6 @@ public class SpaceBattleScreen extends AbstractScreen {
 						VIRTUAL_WIDTH - 20 - button[RIGHT].getWidth(),
 						(VIRTUAL_HEIGHT - button[RIGHT].getHeight()) / 2);
 			}
-
-			
 
 			batcher.end();
 		}
