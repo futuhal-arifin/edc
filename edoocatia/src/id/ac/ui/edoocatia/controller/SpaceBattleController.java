@@ -21,6 +21,8 @@ public class SpaceBattleController {
 	private OrthographicCamera cam;
 	private Rectangle viewport;
 	private Rectangle[] buttonBounds;
+	private int missileCount;
+	private final int MAX_ALIEN_MISSILE = 20;
 
 	public SpaceBattleController(SpaceBattleScreen screen) {
 		this.screen = screen;
@@ -28,12 +30,108 @@ public class SpaceBattleController {
 		this.viewport = screen.getViewport();
 		this.data = screen.getSpaceBattleData();
 		this.buttonBounds = screen.getButtonBounds();
+		this.missileCount = 0;
 	}
+	
+	public void updatePosition (float delta){
+		Iterator<SpaceBattleMeteor> itr = data.getMeteors().iterator();
+		while(itr.hasNext()){
+			SpaceBattleMeteor obs = itr.next();
+			obs.setYPosition(obs.getYPosition() - (data.VELOCITY * 2));
+			
+			if(obs.getYPosition()<-126){
+				obs.dispose();
+				itr.remove();
+			}
+			
+		}
+		
+		if(data.isAlienComing()) {
+			data.getAlienLeft().updateAlien(data.getPesawatXPosition()+ data.getPlayer().getPesawat().getWidth()/2, 10);
+			data.getAlienRight().updateAlien(data.getPesawatXPosition() + data.getPlayer().getPesawat().getWidth()/2, 10);
+			Iterator<SpaceBattleMissileAlien> itrLeft = data.getAlienLeft().getMissiles().iterator();
+			while(itrLeft.hasNext()){
+				SpaceBattleMissileAlien obs = itrLeft.next();
+				obs.updateMissilePosition(data.getPesawatXPosition(), data.getPlayer().getPesawatYPosition());
+				if(obs.getPosY() < -126){
+					obs.dispose();
+					itrLeft.remove();
+					this.missileCount++;
+				}
+			}
+			
+			Iterator<SpaceBattleMissileAlien> itrRight = data.getAlienRight().getMissiles().iterator();
+			while(itrRight.hasNext()){
+				SpaceBattleMissileAlien obs = itrRight.next();
+				obs.updateMissilePosition(data.getPesawatXPosition(), data.getPlayer().getPesawatYPosition());
+				if(obs.getPosY() < -126){
+					obs.dispose();
+					itrRight.remove();
+					this.missileCount++;
+				}
+			}
+			Iterator<SpaceBattleMissilePlayer> itrPlayer = data.getPlayer().getMissiles().iterator();
+			while(itrPlayer.hasNext()){
+				SpaceBattleMissilePlayer obs = itrPlayer.next();
+				obs.updateMissilePosition();
+				if(obs.getPosY() < -126){
+					obs.dispose();
+					itrPlayer.remove();
+				}
+			}
+			
+			if(data.getAlienLeft().getStatus() == data.getAlienLeft().ALIEN_FLYING) {
+				
+			} else if(data.getAlienLeft().getStatus() == data.getAlienLeft().ALIEN_ATTACKING) {
 
-	public void processInput() {
+				//System.out.println("s" + this.pesawatXPosition);
+				data.generateMissiles(delta);
+				
+				if(this.missileCount >= this.MAX_ALIEN_MISSILE) {
+					this.missileCount = 0;
+					data.generateAlienPosition();
+					data.getAlienLeft().setStatus(data.getAlienLeft().ALIEN_MOVING);
+					data.getAlienRight().setStatus(data.getAlienRight().ALIEN_MOVING);
+				}
+			} else if(data.getAlienLeft().getStatus() == data.getAlienLeft().ALIEN_MOVING) {
+				
+			}	
+		} else {
+			if(data.getBackground1YPosition() >= - data.getScreenHeight()) {
+				data.setBackground1YPosition(data
+						.getBackground1YPosition() - data.VELOCITY);
+			}
+			
+			if(data.getBackground2YPosition() >= - data.getScreenHeight()) {
+				data.setBackground2YPosition(data
+						.getBackground2YPosition() - data.VELOCITY);
+			}
+			
+			if(data.getBackground1YPosition() < 0) {
+				data.setBackground2YPosition(data.getBackground1YPosition() + data.getScreenHeight());
+			} 
+			
+			if(data.getBackground2YPosition() < 0) {
+				data.setBackground1YPosition(data.getBackground2YPosition() + data.getScreenHeight());
+			}
+			
+			data.setCurrentDistance(data.getCurrentDistance()
+					+ data.VELOCITY);
+			if(data.getCurrentDistance() >= data.getAlienCounter() * 250 * data.MULTIPLIER) {
+				data.setAlienCounter(data.getAlienCounter() + 1);
+				System.out.println(data.getAlienCounter());
+				data.setAlienComing(true);
+			}
+		}
+		
+	}
+	
+
+	public void processInput(float delta) {
 		if (screen.isBattleEnded()) {
 
 		} else {
+			this.updatePosition(delta);
 			if (data.getCurrentDistance() >= data.getMaxDistance()) {
 				screen.setBattleEnded(true);
 			}
@@ -43,7 +141,7 @@ public class SpaceBattleController {
 						.getSpaceBattlePlayer().getMissiles().iterator();
 				while (itr.hasNext()) {
 					SpaceBattleMissilePlayer obs = itr.next();
-					if (data.getAlienLeft().isActive()
+					if (data.getAlienLeft() != null && data.getAlienLeft().isActive()
 							&& OverlapTester.overlapRectangles(obs.getBounds(),
 									this.data.getAlienLeft().getBounds())
 							&& !obs.isHit()) {
@@ -59,7 +157,7 @@ public class SpaceBattleController {
 											screen.getApp().getEdocatiaData()
 													.getScore() + 50);
 						}
-					} else if (data.getAlienRight().isActive()
+					} else if (data.getAlienRight() != null && data.getAlienRight().isActive()
 							&& OverlapTester.overlapRectangles(obs.getBounds(),
 									this.data.getAlienRight().getBounds())
 							&& !obs.isHit()) {

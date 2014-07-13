@@ -2,19 +2,25 @@ package id.ac.ui.edoocatia.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class SpaceBattleAlien {
-	private int alienXPosition;
-	private int alienYPosition;
+	private float alienXPosition;
+	private float alienYPosition;
+	private int targetXPosition;
+	private int targetYPosition;
+
 	private byte position;
+
 	private final byte LEFT = 0;
+
 	private final byte RIGHT = 1;
+
 	private float alienRotation;
 	private List<SpaceBattleMissileAlien> missiles;
 	private int alienHealth;
@@ -29,8 +35,9 @@ public class SpaceBattleAlien {
 	public final int ALIEN_MOVING = 2;
 	private float playerPrevPosition;
 	private float alienPrevRotation;
-	private final int velocity = 3;
-	
+	private final int VELOCITY = 3;
+	private boolean isMoving;
+	private boolean isArrived;
 	public SpaceBattleAlien(byte position) {
 		this.position = position;
 		this.setAlienYPosition(1000);
@@ -46,6 +53,8 @@ public class SpaceBattleAlien {
 		this.alienPrevRotation = -1.0f;
 		this.setAlienHealth(5);
 		this.setActive(true);
+		this.isMoving = false;
+		this.isArrived = false;
 		this.alienTexture = new Texture(
 				Gdx.files.internal("data/images/modul-2/musuh.png"));
 		//this.alienTextureRegion = new TextureRegion(this.alienTexture, this.alienTexture.getWidth(), this.alienTexture.getHeight());
@@ -55,20 +64,127 @@ public class SpaceBattleAlien {
 		this.alienSprite.setPosition(alienXPosition, alienYPosition);
 		setBounds(new Rectangle(this.alienXPosition, this.alienYPosition, alienTexture.getWidth(), alienTexture.getHeight()));
 	}
+	public void addMissile (SpaceBattleMissileAlien newMissile) {
+		this.missiles.add(newMissile);
+	}
+	public void checkHealth() {
+		if(this.alienHealth == 0) {
+			this.setActive(false);
+		}
+	}
+	public void decrementAlienHealth() {
+		this.setAlienHealth(this.alienHealth - 1);
+	}
+	
+	public void decrementAlienHealthBy(int i) {
+		this.alienHealth = this.alienHealth  - i;
+		this.checkHealth();
+	}
+	
+	public void dispose() {
+		this.alienTexture.dispose();
+	}
+	
+	public int getAlienHealth() {
+		return alienHealth;
+	}
+	
+	public float getAlienRotation() {
+		return alienRotation;
+	}
+	
+	public Sprite getAlienSprite() {
+		return alienSprite;
+	}
 	
 	public Texture getAlienTexture(){
 		return this.alienTexture;
 	}
 	
-	public void addMissile (SpaceBattleMissileAlien newMissile) {
-		this.missiles.add(newMissile);
+	public float getAlienXPosition() {
+		return alienXPosition;
 	}
-	
+	public float getAlienYPosition() {
+		return alienYPosition;
+	}
+	public Rectangle getBounds() {
+		return bounds;
+	}
+	public List<SpaceBattleMissileAlien> getMissiles() {
+		return this.missiles;
+	}
+	public byte getPosition() {
+		return position;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public int getTargetXPosition() {
+		return targetXPosition;
+	}
+	public int getTargetYPosition() {
+		return targetYPosition;
+	}
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public void setAlienHealth(int alienHealth) {
+		this.alienHealth = alienHealth;
+	}
+
+	public void setAlienRotation(float alienRotation) {
+		this.alienRotation = alienRotation;
+	}
+
+	public void setAlienSprite(Sprite alienSprite) {
+		this.alienSprite = alienSprite;
+	}
+
+	public void setAlienXPosition(float alienXPosition2) {
+		this.alienXPosition = alienXPosition2;
+	}
+
+	public void setAlienYPosition(float f) {
+		this.alienYPosition = f;
+	}
+	public void setBounds(Rectangle bounds) {
+		this.bounds = bounds;
+	}
+
+	public void setPosition(byte position) {
+		this.position = position;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+/*
+	public TextureRegion getAlienTextureRegion() {
+		return alienTextureRegion;
+	}
+
+	public void setAlienTextureRegion(TextureRegion alienTextureRegion) {
+		this.alienTextureRegion = alienTextureRegion;
+	}*/
+
+	public void setTargetXPosition(int targetXPosition) {
+		this.targetXPosition = targetXPosition;
+	}
+
+	public void setTargetYPosition(int targetYPosition) {
+		this.targetYPosition = targetYPosition;
+	}
+
 	public void updateAlien(float playerXPosition, float playerYPosition) {
 		this.checkHealth();
 		if (this.status == this.ALIEN_FLYING) {
 			// posisinya turun ke bawah
-			this.setAlienYPosition(alienYPosition - velocity);
+			this.setAlienYPosition(alienYPosition - VELOCITY);
 			this.alienSprite.setPosition(alienXPosition, alienYPosition);
 			if(this.alienYPosition < 600) {
 				this.setStatus(this.ALIEN_ATTACKING);
@@ -128,104 +244,54 @@ public class SpaceBattleAlien {
 				}	
 			}
 			*/
-		} else {
+		} else if (this.status == this.ALIEN_MOVING) {
+			// random posisi
+			//this.generateAlienPosition();
 			// ganti posisi
+			this.moveAlienPosition();
 		}
 		
 		
 	}
 	
-	public void checkHealth() {
-		if(this.alienHealth == 0) {
-			this.setActive(false);
+
+	double directionX = 0.0;
+	double directionY = 0.0;
+	private void resetMoving() {
+		directionX = 0.0;
+		directionY = 0.0;
+		this.isMoving = false;
+	}
+	private void moveAlienPosition() {
+		if(!isMoving) {
+			double distance = Math.sqrt(Math.pow(targetXPosition-alienXPosition,2)+Math.pow(targetYPosition-alienYPosition,2));
+			directionX = (alienXPosition-targetXPosition) / distance;
+			directionY = (alienYPosition-targetYPosition) / distance;
+			this.isMoving = true;
+			//System.out.println(directionX + " " + directionY);
+		} else {
+			if(Math.abs(this.targetXPosition - this.alienXPosition) <= 2 
+				&& Math.abs(this.targetYPosition - this.alienYPosition) <= 2) {
+				this.resetMoving();
+				this.setStatus(this.ALIEN_ATTACKING);
+				//System.out.println("arrived " + this.status);
+			} else {
+				//System.out.println("before "+ alienXPosition + " " + alienYPosition);
+				this.setAlienXPosition((float) (alienXPosition - (directionX * this.VELOCITY)));
+				this.setAlienYPosition((float) (alienYPosition - (directionY * this.VELOCITY)));
+				this.bounds.x = this.alienXPosition;
+				this.bounds.y = this.alienYPosition;
+				this.alienSprite.setPosition(this.alienXPosition, this.alienYPosition);
+				//System.out.println(alienXPosition + " " + alienYPosition +" "+ this.status);
+			}
+			 
+			 //if()
+			    //if(Math.sqrt(Math.pow(object.X-startX,2)+Math.pow(object.Y-startY,2)) >= distance)
+			    //{
+			      //  object.X = endX;
+			        //object.Y = endY;
+			        //moving = false;
+			    //}
 		}
-	}
-	
-	public int getAlienHealth() {
-		return alienHealth;
-	}
-	public void setAlienHealth(int alienHealth) {
-		this.alienHealth = alienHealth;
-	}
-	public void decrementAlienHealth() {
-		this.setAlienHealth(this.alienHealth - 1);
-	}
-	public byte getPosition() {
-		return position;
-	}
-	public void setPosition(byte position) {
-		this.position = position;
-	}
-	public int getAlienXPosition() {
-		return alienXPosition;
-	}
-	public void setAlienXPosition(int alienXPosition) {
-		this.alienXPosition = alienXPosition;
-	}
-	public int getAlienYPosition() {
-		return alienYPosition;
-	}
-	public void setAlienYPosition(int alienYPosition) {
-		this.alienYPosition = alienYPosition;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	public Rectangle getBounds() {
-		return bounds;
-	}
-
-	public void setBounds(Rectangle bounds) {
-		this.bounds = bounds;
-	}
-
-	public Sprite getAlienSprite() {
-		return alienSprite;
-	}
-
-	public void setAlienSprite(Sprite alienSprite) {
-		this.alienSprite = alienSprite;
-	}
-	public void dispose() {
-		this.alienTexture.dispose();
-	}
-
-	public float getAlienRotation() {
-		return alienRotation;
-	}
-
-	public void setAlienRotation(float alienRotation) {
-		this.alienRotation = alienRotation;
-	}
-
-	public List<SpaceBattleMissileAlien> getMissiles() {
-		return this.missiles;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-/*
-	public TextureRegion getAlienTextureRegion() {
-		return alienTextureRegion;
-	}
-
-	public void setAlienTextureRegion(TextureRegion alienTextureRegion) {
-		this.alienTextureRegion = alienTextureRegion;
-	}*/
-
-	public void decrementAlienHealthBy(int i) {
-		this.alienHealth = this.alienHealth  - i;
-		this.checkHealth();
 	}
 }
