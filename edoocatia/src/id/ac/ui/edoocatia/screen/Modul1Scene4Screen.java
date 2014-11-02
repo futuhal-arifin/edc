@@ -38,8 +38,8 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 	private Animation playerMemaluAnimation;
 	private TextureRegion[] playerMemaluFrames;
 	private TextureRegion currentMemaluFrame;
-	private final int MEMALU_FRAME_COLS = 1;
-	private final int MEMALU_FRAME_ROWS = 6;
+	private final int MEMALU_FRAME_COLS = 2;
+	private final int MEMALU_FRAME_ROWS = 3;
 	private float memaluStateTime;
 
 	// private boolean debug = true;
@@ -261,9 +261,11 @@ public class Modul1Scene4Screen extends ProfessorInstructionScreen {
 
 		playerMemaluTexture = new Texture(Gdx.files.internal(this.getApp()
 				.getEdocatiaData().getPlayer().getKarakterMemaluTexturePath()));
+		
 		TextureRegion[][] temp = TextureRegion.split(playerMemaluTexture,
 				playerMemaluTexture.getWidth() / MEMALU_FRAME_COLS,
 				playerMemaluTexture.getHeight() / MEMALU_FRAME_ROWS);
+		
 		this.playerMemaluFrames = new TextureRegion[MEMALU_FRAME_COLS
 				* MEMALU_FRAME_ROWS];
 		int index = 0;

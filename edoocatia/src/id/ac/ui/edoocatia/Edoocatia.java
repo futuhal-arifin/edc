@@ -20,10 +20,9 @@ public class Edoocatia extends Game {
 		edoocatia = new EdoocatiaModel();
 		screenMgr = ScreenManager.getInstance();
 		screenMgr.initialize(this);
-		//screenMgr.show(ScreenEnum.SPLASH);
-		screenMgr.show(ScreenEnum.MODUL2_SCENE1);
+		screenMgr.show(ScreenEnum.SPLASH);
+		//screenMgr.show(ScreenEnum.MODUL2_SCENE1);
 		//screenMgr.show(ScreenEnum.MODUL2_SCENE9);
-
 	}
 
 	public EdoocatiaModel getEdocatiaData() {
