@@ -52,7 +52,6 @@ public class Modul1Scene2Screen extends DialogScreen {
 
 	public Modul1Scene2Screen(Edoocatia app) {
 		super(app);
-		
 		this.startDelay = TimeUtils.millis();
 		background = new Texture(Gdx.files.internal("data/images/modul-1/background/background.jpg"));
 		

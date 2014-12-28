@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 import id.ac.ui.edoocatia.Edoocatia;
-import id.ac.ui.edoocatia.controller.Modul1Scene1Controller;
 import id.ac.ui.edoocatia.controller.Modul2Scene1bController;
 
 public class Modul2Scene1bScreen extends DialogScreen {

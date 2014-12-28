@@ -8,9 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import id.ac.ui.edoocatia.Edoocatia;
-import id.ac.ui.edoocatia.controller.MainMenuController;
 import id.ac.ui.edoocatia.controller.Modul2Scene1Controller;
-import id.ac.ui.edoocatia.model.LemariPerkakas;
 import id.ac.ui.edoocatia.model.SpaceItem;
 import id.ac.ui.edoocatia.util.AbstractScreen;
 

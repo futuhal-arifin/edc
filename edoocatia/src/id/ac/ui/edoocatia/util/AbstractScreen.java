@@ -1,7 +1,7 @@
 package id.ac.ui.edoocatia.util;
 
 import id.ac.ui.edoocatia.Edoocatia;
-import id.ac.ui.edoocatia.model.EdoocatiaModel;
+import id.ac.ui.edoocatia.asset.Assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -17,14 +17,19 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class AbstractScreen implements Screen {
 	private Edoocatia edoocatiaApp;
 
+	// Our Asset Manager Loader!!!
+	protected static Assets assets = new Assets("data/asset-groups/Assets.xml");
+
+	protected static SpriteBatch batcher;
+
 	public final float VIRTUAL_WIDTH = 1280.0f;
 	public final float VIRTUAL_HEIGHT = 800.0f;
 	public final float ASPECT_RATIO = VIRTUAL_WIDTH / VIRTUAL_HEIGHT;
+
 	protected int width, height;
 	protected Rectangle viewport;
 
 	protected OrthographicCamera cam;
-	protected SpriteBatch batcher;
 	private int screenType;
 
 	protected Music musicBg;
@@ -34,20 +39,27 @@ public abstract class AbstractScreen implements Screen {
 
 	public AbstractScreen(Edoocatia app) {
 		this.edoocatiaApp = app;
-
+		
+		batcher = new SpriteBatch();
+		
 		width = (int) VIRTUAL_WIDTH;
 		height = (int) VIRTUAL_HEIGHT;
 
 		cam = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		cam.position.set(VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2, 0);
 
-		batcher = new SpriteBatch();
-
 		viewport = new Rectangle(0f, 0f, (float) width, (float) height);
 	}
 
+	protected void setMusicBg(Music file) {
+		musicBg = file;
+		if (this.musicBg != null) {
+			musicBg.setLooping(true);
+			musicBg.play();
+		}
+	}
+
 	protected void setMusicBg(String path) {
-		// kalau dibuka langsung play bg music
 		musicBg = Gdx.audio.newMusic(Gdx.files.internal(path));
 		if (this.musicBg != null) {
 			musicBg.setLooping(true);

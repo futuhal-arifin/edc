@@ -5,11 +5,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 
 import id.ac.ui.edoocatia.Edoocatia;
 import id.ac.ui.edoocatia.controller.Modul1Scene3Controller;
-import id.ac.ui.edoocatia.model.EdoocatiaModel;
 import id.ac.ui.edoocatia.model.LemariPerkakas;
 
 public class Modul1Scene3Screen extends ProfessorInstructionScreen {

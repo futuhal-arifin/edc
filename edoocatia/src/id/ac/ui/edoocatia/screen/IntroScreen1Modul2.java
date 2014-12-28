@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import id.ac.ui.edoocatia.Edoocatia;
-import id.ac.ui.edoocatia.controller.IntroController;
 import id.ac.ui.edoocatia.controller.IntroScreen1Modul2Controller;
 import id.ac.ui.edoocatia.util.AbstractScreen;
 

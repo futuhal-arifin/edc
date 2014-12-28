@@ -198,6 +198,10 @@ public class DialogScreen extends AbstractScreen {
 		this.dialogBackground = new Texture(Gdx.files.internal(path));
 	}
 	
+	public void setDialogBackground(Texture file) {
+		this.dialogBackground = file;
+	}
+	
 	public void setDialogBackgroundPosition(float x, float y) {
 		this.dialogBackgroundXPosition = x;
 		this.dialogBackgroundYPosition = y;

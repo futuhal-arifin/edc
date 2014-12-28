@@ -1,0 +1,17 @@
+<assets >
+        <group name="menu">
+                <asset name="background" type="com.badlogic.gdx.graphics.Texture" path="data/images/menu/bck_menu.jpg" />
+                <asset name="titleTexture" type="com.badlogic.gdx.graphics.Texture" path="data/images/menu/title.png" />
+                <asset name="charTexture" type="com.badlogic.gdx.graphics.Texture" path="data/images/menu/char.png" />
+                <asset name="buttonTexturePlay" type="com.badlogic.gdx.graphics.Texture" path="data/images/icon/menu/play_button.png" />
+                <asset name="buttonTextureForum" type="com.badlogic.gdx.graphics.Texture" path="data/images/icon/menu/forum_button.png" />
+                <asset name="buttonTextureJelajahWeb" type="com.badlogic.gdx.graphics.Texture" path="data/images/icon/menu/jelajah_web_button.png" />
+                <asset name="buttonTextureSangJuara" type="com.badlogic.gdx.graphics.Texture" path="data/images/icon/menu/sang_juara_button.png" />
+                <asset name="buttonActiveTexturePlay" type="com.badlogic.gdx.graphics.Texture" path="data/images/icon/menu/play_button_active.png" />
+                <asset name="buttonActiveTextureForum" type="com.badlogic.gdx.graphics.Texture" path="data/images/icon/menu/forum_button_active.png" />
+                <asset name="buttonActiveTextureJelajahWeb" type="com.badlogic.gdx.graphics.Texture" path="data/images/icon/menu/jelajah_web_button_active.png" />
+                <asset name="buttonActiveTexturePlay" type="com.badlogic.gdx.graphics.Texture" path="data/images/icon/menu/sang_juara_button_active.png" />
+                <asset name="musicBg" type="com.badlogic.gdx.audio.Music" path="data/sounds/music/menu.mp3" />
+                <asset name="clickSfx" type="com.badlogic.gdx.audio.Sound" path="data/sounds/sfx/click.mp3" />
+        </group>
+</assets>

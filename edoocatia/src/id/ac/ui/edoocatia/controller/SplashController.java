@@ -20,7 +20,7 @@ public class SplashController {
 		if (Gdx.input.isTouched()
 				|| TimeUtils.millis() > screen.getStartTime()
 						+ screen.getSplashTime()) {
-			app.changeScreen(ScreenEnum.SPLASH, ScreenEnum.MAIN_MENU);
+			app.changeScreen(ScreenEnum.SPLASH, ScreenEnum.LOADING_MENU_ASSETS);
 		}
 	}
 }
